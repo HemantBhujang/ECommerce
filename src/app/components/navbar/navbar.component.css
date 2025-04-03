@@ -1,0 +1,15 @@
+.search-form {
+    flex-grow: 10   ; /* Allows search bar to expand */
+    margin-right: 10px;
+  }
+
+  .input-group {
+    width: 500px; /* Increase input width */
+    border-radius: 20%;
+  }
+
+  .input-group-text {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
