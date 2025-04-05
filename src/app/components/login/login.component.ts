@@ -25,9 +25,11 @@ export class LoginComponent {
           localStorage.setItem('authToken', res.token);
   
           // ✅ Store user info
-          localStorage.setItem('authUser', JSON.stringify(res.user));
+          let authUser =localStorage.setItem('authUser', JSON.stringify(res.user));
+          console.log(authUser);
+
   
-          this.router.navigate(['user-home']);
+          this.router.navigate(['/']);
         } else {
           alert("Invalid email or password");
         }

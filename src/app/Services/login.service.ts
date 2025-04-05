@@ -1,6 +1,7 @@
 // login.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,14 +37,17 @@ export class LoginService {
     localStorage.removeItem('authToken');
   }
 
-  setUser(user: any) {
-    localStorage.setItem('authUser', JSON.stringify(user));
-  }
+  // setUser(user: any) {
+  //   localStorage.setItem('authUser', JSON.stringify(user));
   
-  getUser() {
-    const userJson = localStorage.getItem('authUser');
-    return userJson ? JSON.parse(userJson) : null;
-  }
+
+  // }
+  
+  // getUser() {
+  //   const userJson = localStorage.getItem('authUser');
+  //   return userJson ? JSON.parse(userJson) : null;
+  //   return userJson
+  // }
   
   
 }

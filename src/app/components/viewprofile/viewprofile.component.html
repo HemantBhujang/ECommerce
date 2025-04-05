@@ -1,1 +1,14 @@
-<p>viewprofile works!</p>
+<div class="profile-container" *ngIf="user">
+  <h2>👤 User Profile</h2>
+  <div class="profile-card">
+    <p><strong>Name:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Phone:</strong> {{ user.phone_number }}</p>
+    <p><strong>Nationality:</strong> {{ user.nationality }}</p>
+    <p><strong>Address:</strong> {{ user.address }}</p>
+  </div>
+</div>
+
+<div *ngIf="error" class="error">
+  {{ error }}
+</div>

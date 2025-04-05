@@ -12,12 +12,16 @@ export class NavbarComponent implements OnInit {
   user: any = null;
 
   constructor(public loginService: LoginService, private router: Router) {}
-
   ngOnInit(): void {
     if (this.loginService.isLoggedIn()) {
-      this.user = this.loginService.getUser(); // ✅ Now will return correct object
+      const storedUser = localStorage.getItem('authUser');
+      if (storedUser) {
+        this.user = JSON.parse(storedUser);
+        console.log("Navbar User:", this.user); // ✅ Debug info
+      }
     }
   }
+  
 
   onProfileClick() {
     if (this.loginService.isLoggedIn()) {
@@ -33,12 +37,20 @@ export class NavbarComponent implements OnInit {
   }
 
   goToProfile() {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/userProfile']);
   }
 
   editProfile() {
-    this.router.navigate(['/edit-profile']);
+    if (this.user && this.user.id) {
+      this.router.navigate([`/edit-profile/${this.user.id}`]);
+      console.log("userId",this.user.id);
+      
+    } else {
+      console.warn("User not logged in or ID not available");
+      this.router.navigate(['/login']);
+    }
   }
+  
   goToLogin() {
     this.router.navigate(['/login']);
   }
