@@ -2,13 +2,12 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img
-        src="/docs/5.3/assets/brand/bootstrap-logo.svg"
+        src="../../../assets/account_circle_24dp_000000.svg"
         alt="Logo"
         width="30"
         height="24"
         class="d-inline-block align-text-top"
       />
-      Bootstrap
     </a>
     <button
       class="navbar-toggler"
@@ -22,25 +21,28 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="d-flex search-form" role="search">
-        <div class="input-group">
+      <form class="d-flex mx-lg-auto my-2 my-lg-0 w-100" role="search">
+        <div class="input-group w-100">
           <input
-            class="form-control"
             type="search"
+            class="form-control border-0"
             placeholder="Search for product, brand, and more"
             aria-label="Search"
           />
-          <span class="input-group-text">
+          <span class="input-group-text bg-transparent border-0">
             <img
               src="../../../assets/search_24dp_000000.svg"
               alt="Search Icon"
               width="20"
               height="20"
+              class="ml-5"
             />
           </span>
         </div>
       </form>
+
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Common nav items -->
         <li class="nav-item">
           <a class="nav-link active" href="#">
             <img
@@ -65,16 +67,57 @@
             />
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="/login">
+
+        <!-- If user is logged in, show dropdown -->
+        <li
+          class="nav-item dropdown"
+          *ngIf="loginService.isLoggedIn(); else guestNav"
+        >
+          <a
+            class="nav-link dropdown-toggle d-flex align-items-center"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             <img
               src="../../../assets/account_circle_24dp_000000.svg"
               alt="Profile"
+              width="24"
+              height="24"
+              class="me-2"
             />
+            {{ user?.name || "User" }}
           </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item" (click)="goToProfile()">View Profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="editProfile()">Edit Profile</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item text-danger" (click)="logout()">Logout</a>
+            </li>
+          </ul>
         </li>
+
+        <!-- Else block: show Sign In -->
+        <ng-template #guestNav>
+          <li class="nav-item">
+            <a class="nav-link" (click)="goToLogin()" style="cursor: pointer">
+              <img
+                src="../../../assets/account_circle_24dp_000000.svg"
+                alt="Sign In"
+                width="24"
+                height="24"
+              />
+              Sign In
+            </a>
+          </li>
+        </ng-template>
       </ul>
     </div>
   </div>
 </nav>
-<router-outlet></router-outlet>

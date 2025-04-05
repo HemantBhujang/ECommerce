@@ -1,0 +1,126 @@
+<div class="tabs">
+  <button (click)="activeTab = 'men'" [class.active]="activeTab === 'men'">
+    MEN
+  </button>
+  <button (click)="activeTab = 'women'" [class.active]="activeTab === 'women'">
+    WOMEN
+  </button>
+  <button (click)="activeTab = 'kids'" [class.active]="activeTab === 'kids'">
+    KIDS
+  </button>
+</div>
+
+<div class="content">
+  <!-- Men's Fashion -->
+  <div *ngIf="activeTab === 'men'">
+    <div class="card Addcard text-white bg-danger mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Men's Fashion</h3>
+        <p class="card-text">Flat 50-80% OFF</p>
+      </div>
+    </div>
+
+    <!-- Product Card -->
+    <div class="card product-card" style="width: 18rem">
+      <div class="card-body text-center">
+        <div class="wishlist-icon">
+          <i class="far fa-heart"></i>
+        </div>
+        <img
+          src="https://via.placeholder.com/120x180"
+          alt="Men's Product"
+          class="img-fluid product-image"
+        />
+        <h5 class="product-title mt-3">Roadster Shirt</h5>
+        <p class="product-price">
+          <span class="old-price">₹1499</span>
+          <span class="new-price">₹799</span>
+        </p>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <button class="btn btn-outline-success mt-3 add-to-cart">
+          ADD TO CART
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Women's Fashion -->
+  <div *ngIf="activeTab === 'women'">
+    <div class="card Addcard text-white bg-danger mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Women's Fashion</h3>
+        <p class="card-text">Flat 50-80% OFF</p>
+      </div>
+    </div>
+    <div class="card product-card" style="width: 18rem">
+      <div class="card-body text-center">
+        <div class="wishlist-icon">
+          <i class="far fa-heart"></i>
+        </div>
+        <img
+          src="https://via.placeholder.com/120x180"
+          alt="Women's Product"
+          class="img-fluid product-image"
+        />
+        <h5 class="product-title mt-3">Trendy Dress</h5>
+        <p class="product-price">
+          <span class="old-price">₹1999</span>
+          <span class="new-price">₹999</span>
+        </p>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <button class="btn btn-outline-success mt-3 add-to-cart">
+          ADD TO CART
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kids' Fashion -->
+  <div *ngIf="activeTab === 'kids'">
+    <div class="card Addcard text-white bg-danger mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Kids' Fashion</h3>
+        <p class="card-text">Flat 50-80% OFF</p>
+      </div>
+    </div>
+    <div class="card product-card" style="width: 18rem">
+      <div class="card-body text-center">
+        <div class="wishlist-icon">
+          <i class="far fa-heart"></i>
+        </div>
+        <img
+          src="https://via.placeholder.com/120x180"
+          alt="Kids' Product"
+          class="img-fluid product-image"
+        />
+        <h5 class="product-title mt-3">Cute Outfit</h5>
+        <p class="product-price">
+          <span class="old-price">₹1299</span>
+          <span class="new-price">₹699</span>
+        </p>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <button class="btn btn-outline-success mt-3 add-to-cart">
+          ADD TO CART
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

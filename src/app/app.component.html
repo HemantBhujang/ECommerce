@@ -1,1 +1,5 @@
 <app-navbar></app-navbar>
+<div *ngIf="isSignup()">
+  <app-home></app-home>
+</div>
+<router-outlet></router-outlet>
