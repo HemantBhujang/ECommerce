@@ -1,29 +1,49 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/Services/login.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'] // Make sure this is added!
 })
 export class RegisterComponent {
-  close=false;
-  constructor( private registerService : LoginService){}
-  addSeller=new FormGroup({
-    name:new FormControl('',Validators.required),
-    email:new FormControl('',Validators.required),
-    password:new FormControl('',Validators.required)
+  constructor(private registerService: LoginService) {}
 
-  })
+  showPopup: boolean = false;
+  popupMessage: string = '';
 
-  signUp(){
-    console.log(this.addSeller.value);
-    this.registerService.userSignUp(this.addSeller.value).subscribe((res)=>{
-      console.log(res);
-      this.close=true;
-      this.addSeller.reset()
-   
-  })
-}
+  registerForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[a-zA-Z0-9._%+-]+@gmail\.com$/)
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/)
+    ])
+  });
+
+  registerUser() {
+    if (this.registerForm.valid) {
+      this.registerService.userSignUp(this.registerForm.value).subscribe({
+        next: (res: any) => {
+          this.popupMessage = res.message || 'Registration successful! Please login.';
+          this.showPopup = true;
+          this.registerForm.reset();
+        },
+        error: (err) => {
+          this.popupMessage = err.error?.message || 'Registration failed. Please try again.';
+          this.showPopup = true;
+        }
+      });
+    } else {
+      this.registerForm.markAllAsTouched();
+    }
+  }
+
+  closePopup() {
+    this.showPopup = false;
+  }
 }

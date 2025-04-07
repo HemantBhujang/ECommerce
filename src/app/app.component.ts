@@ -12,4 +12,9 @@ export class AppComponent {
   isSignup():boolean {
     return this.router.url === '/'
   }
+  signInpage():boolean{
+    let url = this.router.url === '/login' || this.router.url==='/register'
+    return url
+  }
+  
 }

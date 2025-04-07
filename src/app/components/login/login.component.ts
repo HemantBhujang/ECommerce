@@ -21,7 +21,7 @@ export class LoginComponent {
     this.registerService.login(this.loginForm.value).subscribe(
       (res: any) => {
         if (res.token) {
-          alert("Login successful");
+         // alert("Login successful");
           localStorage.setItem('authToken', res.token);
   
           // ✅ Store user info

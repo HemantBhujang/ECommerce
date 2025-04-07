@@ -1,7 +1,7 @@
 // login.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { retry } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ import { retry } from 'rxjs';
 export class LoginService {
   private url = "http://localhost:5000/api/auth/register";
   private loginurl = "http://localhost:5000/api/auth/login";
+  private logoutUrl = "http://localhost:5000/api/auth/logout";
 
   constructor(private http: HttpClient) { }
 
@@ -33,21 +34,14 @@ export class LoginService {
     return !!localStorage.getItem('authToken');
   }
 
-  logout(): void {
+  logout(): Observable<any> {
+    // Invalidate cookie on backend
     localStorage.removeItem('authToken');
+    localStorage.removeItem('authUser')
+    return this.http.get(this.logoutUrl, { withCredentials: true });
   }
 
-  // setUser(user: any) {
-  //   localStorage.setItem('authUser', JSON.stringify(user));
-  
 
-  // }
-  
-  // getUser() {
-  //   const userJson = localStorage.getItem('authUser');
-  //   return userJson ? JSON.parse(userJson) : null;
-  //   return userJson
-  // }
   
   
 }

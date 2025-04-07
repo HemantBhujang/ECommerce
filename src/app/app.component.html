@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="!signInpage()"></app-navbar>
 <div *ngIf="isSignup()">
   <app-home></app-home>
 </div>

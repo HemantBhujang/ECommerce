@@ -1,112 +1,106 @@
-<section class="vh-100" style="background-color: #eee">
-  <div class="container h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style="border-radius: 25px">
-          <div class="card-body p-md-5">
-            <div class="row justify-content-center">
-              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                  Sign up
-                </p>
-                <div *ngIf="close" class="alert alert-success" role="alert">
-                  registration Successfull!!
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <form
-                  class="mx-1 mx-md-4"
-                  [formGroup]="addSeller"
-                  (ngSubmit)="signUp()"
-                >
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div
-                      data-mdb-input-init
-                      class="form-outline flex-fill mb-0"
-                    >
-                      <input
-                        type="text"
-                        id="form3Example1c"
-                        class="form-control"
-                        formControlName="name"
-                      />
-                      <label class="form-label" for="form3Example1c"
-                        >Your Name</label
-                      >
-                    </div>
-                  </div>
+<section class="vh-100" style="background-color: #f3f3f3">
+  <div
+    class="container h-100 d-flex flex-column justify-content-center align-items-center"
+  >
+    <!-- Logo -->
+    <div class="mb-4 mt-5">
+      <img
+        src="../../../assets/logo.png"
+        alt="Amazon Logo"
+        style="width: 120px"
+      />
+    </div>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div
-                      data-mdb-input-init
-                      class="form-outline flex-fill mb-0"
-                    >
-                      <input
-                        type="email"
-                        id="form3Example3c"
-                        class="form-control"
-                        formControlName="email"
-                      />
-                      <label class="form-label" for="form3Example3c"
-                        >Your Email</label
-                      >
-                    </div>
-                  </div>
+    <!-- Card -->
+    <!-- Message Popup -->
+    <div *ngIf="showPopup" class="popup-overlay">
+      <div class="popup-content">
+        <p>{{ popupMessage }}</p>
+        <button (click)="closePopup()">OK</button>
+      </div>
+    </div>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div
-                      data-mdb-input-init
-                      class="form-outline flex-fill mb-0"
-                    >
-                      <input
-                        type="password"
-                        id="form3Example4c"
-                        class="form-control"
-                        formControlName="password"
-                      />
-                      <label class="form-label" for="form3Example4c"
-                        >Password</label
-                      >
-                    </div>
-                  </div>
+    <div
+      class="card p-4 w-100"
+      style="max-width: 400px; border: 1px solid #ddd"
+    >
+      <h4 class="mb-3">Create account</h4>
 
-                  <div
-                    class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 grid"
-                  >
-                    <div class="row">
-                      <button
-                        type="submit"
-                        data-mdb-button-init
-                        data-mdb-ripple-init
-                        class="btn btn-primary btn-lg"
-                      >
-                        Register
-                      </button>
-                      <a routerLink="/login" class="my-3 mx-5">Login</a>
-                    </div>
-                    <div></div>
-                  </div>
-                </form>
-              </div>
-              <div
-                class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
-              >
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                  class="img-fluid"
-                  alt="Sample image"
-                />
-              </div>
-            </div>
+      <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <!-- Name -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Your Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+          />
+          <div
+            *ngIf="
+              registerForm.get('name')?.touched &&
+              registerForm.get('name')?.invalid
+            "
+            class="text-danger mt-1"
+          >
+            Name is required
           </div>
         </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+          />
+          <div
+            *ngIf="
+              registerForm.get('email')?.touched &&
+              registerForm.get('email')?.invalid
+            "
+            class="text-danger mt-1"
+          >
+            Must be a valid Gmail address
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+          />
+          <div
+            *ngIf="
+              registerForm.get('password')?.touched &&
+              registerForm.get('password')?.invalid
+            "
+            class="text-danger mt-1"
+          >
+            Must contain at least 1 uppercase, 1 lowercase, 1 number, and 1
+            special character
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="d-grid mb-3">
+          <button type="submit" class="amazon-btn btn btn-warning">
+            Create your ecomm account
+          </button>
+        </div>
+      </form>
+
+      <!-- Login Link -->
+      <hr />
+      <p class="text-center">Already have an account?</p>
+      <div class="d-grid">
+        <a routerLink="/login" class="btn btn-light border">Sign in</a>
       </div>
     </div>
   </div>
