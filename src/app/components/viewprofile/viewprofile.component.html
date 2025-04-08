@@ -1,4 +1,4 @@
-<div class="profile-container" *ngIf="user">
+<!-- <div class="profile-container" *ngIf="user">
   <h2>👤 User Profile</h2>
   <div class="profile-card">
     <p><strong>Name:</strong> {{ user.name }}</p>
@@ -11,4 +11,157 @@
 
 <div *ngIf="error" class="error">
   {{ error }}
+</div> -->
+<div class="container-fluid" *ngIf="user">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar">
+      <div class="text-center">
+        <img
+          src="../../../assets/account_circle_24dp_000000.svg"
+          alt="avatar"
+          class="rounded-circle"
+          width="80"
+        />
+        <h6 class="mt-2">Hello,{{ user.name }}</h6>
+      </div>
+      <h5
+        class="d-flex justify-content-between align-items-center"
+        (click)="goToProfile()"
+        style="cursor: pointer"
+      >
+        <span><i class="bi bi-person active"></i> PROFILE INFORMATION</span>
+        <i class="bi bi-chevron-right"></i>
+      </h5>
+      <h5
+        class="d-flex justify-content-between align-items-center"
+        (click)="goToOrders()"
+        style="cursor: pointer"
+      >
+        <span><i class="bi bi-bag"></i> MY ORDERS</span>
+        <i class="bi bi-chevron-right"></i>
+      </h5>
+
+      <h5
+        class="d-flex justify-content-between align-items-center"
+        (click)="goToCart()"
+        style="cursor: pointer"
+      >
+        <span><i class="bi bi-cart"></i> MY CART</span>
+        <i class="bi bi-chevron-right"></i>
+      </h5>
+      <!-- <a href="#" class="active">Profile Information</a>
+      <a href="#">Manage Addresses</a>
+      <a href="#">PAN Card Information</a> -->
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <div class="profile-box">
+        <!-- Name -->
+        <div class="section-title">
+          Name
+          <span class="edit-link" (click)="toggleEdit('personal')">
+            {{ isEditingPersonal ? "Cancel" : "Edit" }}
+          </span>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="name"
+              [readonly]="!isEditingPersonal"
+            />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="section-title">
+          Email Address
+          <span class="edit-link" (click)="toggleEdit('email')">
+            {{ isEditingEmail ? "Cancel" : "Edit" }}
+          </span>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-9">
+            <input
+              type="email"
+              class="form-control"
+              [(ngModel)]="email"
+              [readonly]="!isEditingEmail"
+            />
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="section-title">
+          Address
+          <span class="edit-link" (click)="toggleEdit('address')">
+            {{ isEditingAddress ? "Cancel" : "Edit" }}
+          </span>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="address"
+              [readonly]="!isEditingAddress"
+            />
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="section-title">
+          Phone
+          <span class="edit-link" (click)="toggleEdit('mobile')">
+            {{ isEditingMobile ? "Cancel" : "Edit" }}
+          </span>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="phone_number"
+              [readonly]="!isEditingMobile"
+            />
+          </div>
+        </div>
+
+        <!-- Nationality -->
+        <div class="section-title">
+          Nationality
+          <span class="edit-link" (click)="toggleEdit('nationality')">
+            {{ isEditingNationality ? "Cancel" : "Edit" }}
+          </span>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="nationality"
+              [readonly]="!isEditingNationality"
+            />
+          </div>
+        </div>
+
+        <!-- Save Button -->
+        <div
+          class="mt-3"
+          *ngIf="
+            isEditingPersonal ||
+            isEditingEmail ||
+            isEditingMobile ||
+            isEditingNationality ||
+            isEditingAddress
+          "
+        >
+          <button class="save-btn" (click)="saveProfile()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

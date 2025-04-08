@@ -91,14 +91,34 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-              <a class="dropdown-item" (click)="goToProfile()">View Profile</a>
+              <a
+                class="dropdown-item d-flex align-items-center profile"
+                (click)="goToProfile()"
+              >
+                <img
+                  src="../../../assets/account_circle_24dp_000000.svg"
+                  alt="My Profile"
+                  width="20"
+                  height="20"
+                  class="me-2"
+                />
+                My Profile
+              </a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="editProfile()">Edit Profile</a>
-            </li>
-            <li><hr class="dropdown-divider" /></li>
-            <li>
-              <a class="dropdown-item text-danger" (click)="logout()">Logout</a>
+              <a
+                class="dropdown-item d-flex align-items-center text-danger profile"
+                (click)="logout()"
+              >
+                <img
+                  src="../../../assets/logout.svg"
+                  alt="Logout"
+                  width="20"
+                  height="20"
+                  class="me-2"
+                />
+                Logout
+              </a>
             </li>
           </ul>
         </li>
