@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 
 import { ViewprofileComponent } from './components/viewprofile/viewprofile.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { OrdersComponent } from './components/orders/orders.component';
     HomeComponent,
     ViewprofileComponent,
     OrdersComponent,
+    FooterComponent,
    
   ],
   imports: [

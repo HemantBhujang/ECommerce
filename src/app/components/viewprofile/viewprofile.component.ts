@@ -11,11 +11,15 @@ export class ViewprofileComponent {
   user: any = null;
   error: string = '';
 
+
   name ='';
   email = '';
   phone_number='';
   nationality='';
   address='';
+
+  popupMessage: string = '';
+  showPopup: boolean = false;
 
   constructor(private profileService: ProfileService, private router: Router) {}
 
@@ -87,7 +91,9 @@ export class ViewprofileComponent {
         this.isEditingMobile = false;
         this.isEditingAddress = false;
         this.isEditingNationality = false;
-        alert('Profile updated successfully!');
+        //alert('Profile updated successfully!');
+        this.popupMessage ='Profile Updated successful!';
+        this.showPopup = true;
       },
       error: (err) => {
         console.error('Error updating profile:', err);
@@ -107,5 +113,8 @@ export class ViewprofileComponent {
 
   goToProfile(){
     this.router.navigate(['/userProfile'])
+  }
+  closePopup() {
+    this.showPopup = false;
   }
 }
