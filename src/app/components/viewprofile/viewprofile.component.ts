@@ -47,10 +47,7 @@ export class ViewprofileComponent {
 
 
   isEditingPersonal = false;
-  isEditingEmail = false;
-  isEditingMobile = false;
-  isEditingAddress =false;
-  isEditingNationality =false
+  
 
   
   
@@ -60,18 +57,7 @@ export class ViewprofileComponent {
       case 'personal':
         this.isEditingPersonal = !this.isEditingPersonal;
         break;
-      case 'email':
-        this.isEditingEmail = !this.isEditingEmail;
-        break;
-      case 'mobile':
-        this.isEditingMobile = !this.isEditingMobile;
-        break;
-      case 'address':
-        this.isEditingAddress = !this.isEditingAddress;
-        break;
-      case 'nationality':
-        this.isEditingNationality = !this.isEditingNationality;
-        break;
+     
     }
   }
 
@@ -87,10 +73,7 @@ export class ViewprofileComponent {
     this.profileService.updateProfile(updatedData).subscribe({
       next: (res) => {
         this.isEditingPersonal = false;
-        this.isEditingEmail = false;
-        this.isEditingMobile = false;
-        this.isEditingAddress = false;
-        this.isEditingNationality = false;
+       
         //alert('Profile updated successfully!');
         this.popupMessage ='Profile Updated successful!';
         this.showPopup = true;

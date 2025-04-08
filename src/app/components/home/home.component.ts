@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   activeTab: string = 'men';
+  menCategoriesActiveTab : string ='all'
 
   menProducts = [
     {
