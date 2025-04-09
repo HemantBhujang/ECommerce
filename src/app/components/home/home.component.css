@@ -33,9 +33,11 @@
   }
   
   .product-card {
+    position: relative;
     background: #fff;
     padding: 15px;
     border-radius: 5px;
+    left: 5%;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
  .category-btn{
@@ -45,6 +47,14 @@
   border-radius: 20px;
   padding: 8px;
  }
+
+.cart-btn{
+  color: #ff758c;
+  border: 1px solid #ff758c;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 8px  40px;
+ }
  /* .category-btn:active{
   background: linear-gradient(to right, #ff7eb3, #ff758c);
   color: white;
@@ -53,4 +63,33 @@
   background: linear-gradient(to right, #ff7eb3, #ff758c);
   color: white;
  }
+
+ .offer-badge {
+  position: absolute;
+  top: 55%;
+  left: 30px;
+  background: #ff4f81;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+.wishlist-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #ff758c;
+  background: white;
+  border-radius: 50%;
+  padding: 5px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+
+ 
   

@@ -14,6 +14,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ViewprofileComponent } from './components/viewprofile/viewprofile.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AdminLoginComponent } from './components/Admin/admin-login/admin-login.component';
+import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { FooterComponent } from './components/footer/footer.component';
     ViewprofileComponent,
     OrdersComponent,
     FooterComponent,
+    AdminLoginComponent,
+    AdminDashboardComponent,
    
   ],
   imports: [

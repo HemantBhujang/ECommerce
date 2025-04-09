@@ -6,6 +6,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './auth.guard';
 import { ViewprofileComponent } from './components/viewprofile/viewprofile.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { AdminLoginComponent } from './components/Admin/admin-login/admin-login.component';
+import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admin-dashboard.component';
 
 
 const routes: Routes = [
@@ -18,7 +20,12 @@ const routes: Routes = [
     component:RegisterComponent
   },
   { path: 'userProfile', component: ViewprofileComponent, canActivate: [AuthGuard] },
-{path:"orders",component: OrdersComponent,canActivate:[AuthGuard]}
+{path:"orders",component: OrdersComponent,canActivate:[AuthGuard]},
+{path : "adminLogin" , component:AdminLoginComponent
+},
+{
+  path:"adminDashboard" , component: AdminDashboardComponent
+}
 
 ];
 

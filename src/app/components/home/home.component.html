@@ -45,19 +45,25 @@
     <!-- Product Card -->
     <div *ngIf="menCategoriesActiveTab === 'all'">
       <div class="card product-card" style="width: 18rem">
+        <!-- Offer Badge -->
+        <div class="offer-badge">47% OFF</div>
+
+        <!-- Wishlist Icon -->
+        <div class="wishlist-icon">
+          <img src="../../../assets/favorite_border_24dp_000000.svg" alt="" />
+        </div>
+
         <div class="card-body text-center">
-          <div class="wishlist-icon">
-            <i class="far fa-heart"></i>
-          </div>
           <img
-            src="https://via.placeholder.com/120x180"
+            src="https://rukminim1.flixcart.com/image/612/612/ktd9mkw0/shirt/m/q/x/xxl-frml-st2-vebnor-original-imag6qduuh3efv3w.jpeg?q=70"
             alt="Men's Product"
             class="img-fluid product-image"
           />
           <h5 class="product-title mt-3">Roadster Shirt</h5>
+          <p>Slim fit Casual shirt</p>
           <p class="product-price">
-            <span class="old-price">₹1499</span>
-            <span class="new-price">₹799</span>
+            <span class="old-price ml-3"><s>₹1499</s></span>
+            <span class="new-price mx-3">₹799</span>
           </p>
           <div class="rating">
             <i class="fas fa-star"></i>
@@ -66,9 +72,7 @@
             <i class="fas fa-star"></i>
             <i class="far fa-star"></i>
           </div>
-          <button class="btn btn-outline-success mt-3 add-to-cart">
-            ADD TO CART
-          </button>
+          <button class="btn mt-3 cart-btn">ADD TO CART</button>
         </div>
       </div>
     </div>
