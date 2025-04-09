@@ -8,6 +8,8 @@ import { ViewprofileComponent } from './components/viewprofile/viewprofile.compo
 import { OrdersComponent } from './components/orders/orders.component';
 import { AdminLoginComponent } from './components/Admin/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admin-dashboard.component';
+import { adminAuthGuard } from './admin-auth.guard';
+
 
 
 const routes: Routes = [
@@ -24,7 +26,9 @@ const routes: Routes = [
 {path : "adminLogin" , component:AdminLoginComponent
 },
 {
-  path:"adminDashboard" , component: AdminDashboardComponent
+  path:"adminDashboard" , component: AdminDashboardComponent,
+    canActivate: [adminAuthGuard]
+  
 }
 
 ];

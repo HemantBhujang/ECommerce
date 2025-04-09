@@ -13,7 +13,10 @@ export class AppComponent {
     return this.router.url === '/'
   }
   signInpage():boolean{
-    let url = this.router.url === '/login' || this.router.url==='/register' || this.router.url==='/adminLogin'
+    let url = this.router.url === '/login' ||
+     this.router.url==='/register' || 
+     this.router.url==='/adminLogin' || 
+     this.router.url==='/adminDashboard'
     return url
   }
   

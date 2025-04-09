@@ -1,1 +1,39 @@
-<p>admin-dashboard works!</p>
+<div class="d-flex">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header text-white">
+      <h4>Admin Menu</h4>
+    </div>
+
+    <ul class="nav flex-column menu">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dashboard">
+          <i class="bi bi-grid-fill"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/products">
+          <i class="bi bi-box-seam"></i> Manage Products
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/orders">
+          <i class="bi bi-card-checklist"></i> Orders
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/users">
+          <i class="bi bi-people-fill"></i> Users
+        </a>
+      </li>
+    </ul>
+
+    <div class="logout-section mt-auto">
+      <a class="nav-link text-dark" routerLink="/logout">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+</div>
