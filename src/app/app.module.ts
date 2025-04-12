@@ -16,6 +16,9 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AdminLoginComponent } from './components/Admin/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admin-dashboard.component';
+import { MenCategoryComponent } from './men-category/men-category.component';
+import { WomenCategoryComponent } from './women-category/women-category.component';
+import { KidsCategoryComponent } from './kids-category/kids-category.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admi
     FooterComponent,
     AdminLoginComponent,
     AdminDashboardComponent,
+    MenCategoryComponent,
+    WomenCategoryComponent,
+    KidsCategoryComponent,
    
   ],
   imports: [

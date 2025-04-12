@@ -1,178 +1,52 @@
-<div class="tabs">
-  <button (click)="activeTab = 'men'" [class.active]="activeTab === 'men'">
-    MEN
-  </button>
-  <button (click)="activeTab = 'women'" [class.active]="activeTab === 'women'">
-    WOMEN
-  </button>
-  <button (click)="activeTab = 'kids'" [class.active]="activeTab === 'kids'">
-    KIDS
-  </button>
+<div class="container-fluid bg-white py-3 shadow-sm">
+  <div class="row text-center justify-content-center">
+    <div
+      class="col-4 col-sm-3 col-md-2 mb-3"
+      *ngFor="let category of categories"
+      (click)="navigateCategory(category.path)"
+      style="cursor: pointer"
+    >
+      <img
+        [src]="category.img"
+        alt="{{ category.name }}"
+        class="img-fluid mb-2 category-img categoryImage"
+      />
+      <div class="fw-semibold">{{ category.name }}</div>
+    </div>
+  </div>
 </div>
 
-<div class="content">
-  <!-- Men's Fashion -->
-  <div *ngIf="activeTab === 'men'">
-    <div class="card Addcard text-white bg-danger mb-3">
-      <div class="card-body">
-        <h3 class="card-title">Men's Fashion</h3>
-        <p class="card-text">Flat 50-80% OFF</p>
-      </div>
-    </div>
-    <div class="container text-center">
-      <div class="row mb-5 categoryTabs">
-        <button
-          class="col mx-2 category-btn"
-          (click)="menCategoriesActiveTab = 'all'"
-          [class.active]="menCategoriesActiveTab === 'all'"
-        >
-          All
-        </button>
-        <button
-          class="col mx-2 category-btn"
-          (click)="menCategoriesActiveTab = 't-shirt'"
-          [class.active]="menCategoriesActiveTab === 't-shirt'"
-        >
-          T-shirt
-        </button>
-        <button class="col mx-2 category-btn">Shirts</button>
-        <button class="col mx-2 category-btn">Jeans</button>
-        <button class="col mx-2 category-btn"></button>
-        <button class="col mx-2 category-btn">All</button>
-      </div>
-    </div>
-
-    <!-- Product Card -->
-    <div *ngIf="menCategoriesActiveTab === 'all'">
-      <div class="card product-card" style="width: 18rem">
-        <!-- Offer Badge -->
-        <div class="offer-badge">47% OFF</div>
-
-        <!-- Wishlist Icon -->
-        <div class="wishlist-icon">
-          <img src="../../../assets/favorite_border_24dp_000000.svg" alt="" />
-        </div>
-
-        <div class="card-body text-center">
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
+      <div class="product-card">
+        <div class="card h-100 shadow-sm">
           <img
-            src="https://rukminim1.flixcart.com/image/612/612/ktd9mkw0/shirt/m/q/x/xxl-frml-st2-vebnor-original-imag6qduuh3efv3w.jpeg?q=70"
-            alt="Men's Product"
-            class="img-fluid product-image"
+            [src]="product.image"
+            class="card-img-top"
+            alt="{{ product.name }}"
+            style="height: 250px; object-fit: cover"
           />
-          <h5 class="product-title mt-3">Roadster Shirt</h5>
-          <p>Slim fit Casual shirt</p>
-          <p class="product-price">
-            <span class="old-price ml-3"><s>₹1499</s></span>
-            <span class="new-price mx-3">₹799</span>
-          </p>
-          <div class="rating">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="far fa-star"></i>
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text text-muted small">{{ product.description }}</p>
+            <p class="mb-1">
+              <span class="text-decoration-line-through text-muted"
+                >₹{{ product.old_price }}</span
+              >
+              <span class="text-danger fw-bold ms-2"
+                >₹{{ product.discount_price }}</span
+              >
+            </p>
+            <p class="mb-2">
+              <span class="badge bg-success">{{ product.discount }}% OFF</span>
+            </p>
+            <button class="btn btn-primary w-100">Add to Cart</button>
           </div>
-          <button class="btn mt-3 cart-btn">ADD TO CART</button>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Women's Fashion -->
-  <div *ngIf="activeTab === 'women'">
-    <div class="card Addcard text-white bg-danger mb-3">
-      <div class="card-body">
-        <h3 class="card-title">Women's Fashion</h3>
-        <p class="card-text">Flat 50-80% OFF</p>
-      </div>
-    </div>
-
-    <div class="container text-center">
-      <div class="row mb-5">
-        <button class="col mx-2 category-btn">All</button>
-        <button class="col mx-2 category-btn">T-shirt</button>
-        <button class="col mx-2 category-btn">Shirts</button>
-        <button class="col mx-2 category-btn">Jeans</button>
-        <button class="col mx-2 category-btn"></button>
-        <button class="col mx-2 category-btn">All</button>
-      </div>
-    </div>
-    <div class="card product-card" style="width: 18rem">
-      <div class="card-body text-center">
-        <div class="wishlist-icon">
-          <i class="far fa-heart"></i>
-        </div>
-        <img
-          src="https://via.placeholder.com/120x180"
-          alt="Women's Product"
-          class="img-fluid product-image"
-        />
-        <h5 class="product-title mt-3">Trendy Dress</h5>
-        <p class="product-price">
-          <span class="old-price">₹1999</span>
-          <span class="new-price">₹999</span>
-        </p>
-        <div class="rating">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="far fa-star"></i>
-        </div>
-        <button class="btn btn-outline-success mt-3 add-to-cart">
-          ADD TO CART
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Kids' Fashion -->
-  <div *ngIf="activeTab === 'kids'">
-    <div class="card Addcard text-white bg-danger mb-3">
-      <div class="card-body">
-        <h3 class="card-title">Kids' Fashion</h3>
-        <p class="card-text">Flat 50-80% OFF</p>
-      </div>
-    </div>
-
-    <div class="container text-center">
-      <div class="row mb-5">
-        <button class="col mx-2 category-btn">All</button>
-        <button class="col mx-2 category-btn">T-shirt</button>
-        <button class="col mx-2 category-btn">Shirts</button>
-        <button class="col mx-2 category-btn">Jeans</button>
-        <button class="col mx-2 category-btn"></button>
-        <button class="col mx-2 category-btn">All</button>
-      </div>
-    </div>
-
-    <div class="card product-card" style="width: 18rem">
-      <div class="card-body text-center">
-        <div class="wishlist-icon">
-          <i class="far fa-heart"></i>
-        </div>
-        <img
-          src="https://via.placeholder.com/120x180"
-          alt="Kids' Product"
-          class="img-fluid product-image"
-        />
-        <h5 class="product-title mt-3">Cute Outfit</h5>
-        <p class="product-price">
-          <span class="old-price">₹1299</span>
-          <span class="new-price">₹699</span>
-        </p>
-        <div class="rating">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="far fa-star"></i>
-        </div>
-        <button class="btn btn-outline-success mt-3 add-to-cart">
-          ADD TO CART
-        </button>
       </div>
     </div>
   </div>
 </div>
+
 <app-footer></app-footer>

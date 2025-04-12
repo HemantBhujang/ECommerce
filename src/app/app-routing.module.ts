@@ -9,6 +9,9 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { AdminLoginComponent } from './components/Admin/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admin-dashboard.component';
 import { adminAuthGuard } from './admin-auth.guard';
+import { MenCategoryComponent } from './men-category/men-category.component';
+import { WomenCategoryComponent } from './women-category/women-category.component';
+import { KidsCategoryComponent } from './kids-category/kids-category.component';
 
 
 
@@ -29,7 +32,10 @@ const routes: Routes = [
   path:"adminDashboard" , component: AdminDashboardComponent,
     canActivate: [adminAuthGuard]
   
-}
+},
+{ path: 'menCategory', component: MenCategoryComponent },
+{ path: 'womenCategory', component: WomenCategoryComponent },
+{ path: 'kidsCategory', component: KidsCategoryComponent }
 
 ];
 

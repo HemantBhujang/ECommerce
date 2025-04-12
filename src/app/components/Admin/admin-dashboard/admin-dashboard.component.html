@@ -1,39 +1,50 @@
-<div class="d-flex">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="sidebar-header text-white">
-      <h4>Admin Menu</h4>
-    </div>
-
-    <ul class="nav flex-column menu">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard">
-          <i class="bi bi-grid-fill"></i> Dashboard
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/products">
-          <i class="bi bi-box-seam"></i> Manage Products
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/orders">
-          <i class="bi bi-card-checklist"></i> Orders
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/users">
-          <i class="bi bi-people-fill"></i> Users
-        </a>
-      </li>
-    </ul>
-
-    <div class="logout-section mt-auto">
-      <a class="nav-link text-dark" routerLink="/logout">
-        <i class="bi bi-box-arrow-right"></i> Logout
-      </a>
-    </div>
+<!-- Sidebar -->
+<div class="sidebar" [ngClass]="{ collapsed: isSidebarCollapsed }">
+  <div
+    class="sidebar-header text-white d-flex align-items-center justify-content-between"
+  >
+    <h4 [ngClass]="{ 'd-none': isSidebarCollapsed }">Admin Menu</h4>
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <i
+        class="bi"
+        [ngClass]="isSidebarCollapsed ? 'bi-chevron-right' : 'bi-chevron-left'"
+      ></i>
+    </button>
   </div>
 
-  <!-- Page Content -->
+  <ul class="nav flex-column menu">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/dashboard">
+        <i class="bi bi-grid-fill"></i>
+        <span [ngClass]="{ 'd-none': isSidebarCollapsed }">Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/products">
+        <i class="bi bi-box-seam"></i>
+        <span [ngClass]="{ 'd-none': isSidebarCollapsed }"
+          >Manage Products</span
+        >
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/orders">
+        <i class="bi bi-card-checklist"></i>
+        <span [ngClass]="{ 'd-none': isSidebarCollapsed }">Orders</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/users">
+        <i class="bi bi-people-fill"></i>
+        <span [ngClass]="{ 'd-none': isSidebarCollapsed }">Users</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="logout-section mt-auto">
+    <a class="nav-link text-dark" (click)="logout()">
+      <i class="bi bi-box-arrow-right"></i>
+      <span [ngClass]="{ 'd-none': isSidebarCollapsed }">Logout</span>
+    </a>
+  </div>
 </div>
