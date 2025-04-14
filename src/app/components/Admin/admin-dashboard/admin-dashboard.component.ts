@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+// admin-dashboard.component.ts
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminServiceService } from 'src/app/Services/admin-service.service';
 
@@ -7,7 +8,7 @@ import { AdminServiceService } from 'src/app/Services/admin-service.service';
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
-export class AdminDashboardComponent {
+export class AdminDashboardComponent  {
   isSidebarCollapsed: boolean = false;
 
   constructor(private adminService: AdminServiceService, private router: Router) {}

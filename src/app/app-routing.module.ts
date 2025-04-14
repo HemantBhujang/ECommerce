@@ -8,10 +8,13 @@ import { ViewprofileComponent } from './components/viewprofile/viewprofile.compo
 import { OrdersComponent } from './components/orders/orders.component';
 import { AdminLoginComponent } from './components/Admin/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admin-dashboard.component';
-import { adminAuthGuard } from './admin-auth.guard';
-import { MenCategoryComponent } from './men-category/men-category.component';
-import { WomenCategoryComponent } from './women-category/women-category.component';
-import { KidsCategoryComponent } from './kids-category/kids-category.component';
+
+import { MenCategoryComponent } from './components/men-category/men-category.component';
+import { WomenCategoryComponent } from './components/women-category/women-category.component';
+import { KidsCategoryComponent } from './components/kids-category/kids-category.component';
+import { DashboardContentComponent } from './components/Admin/dashboard-content/dashboard-content.component';
+import { AdminProductsComponent } from './components/Admin/admin-products/admin-products.component';
+import { adminAuthGuard } from '../admin-auth.guard';
 
 
 
@@ -30,7 +33,12 @@ const routes: Routes = [
 },
 {
   path:"adminDashboard" , component: AdminDashboardComponent,
-    canActivate: [adminAuthGuard]
+    canActivate: [adminAuthGuard],
+    children:[
+      {path:'',redirectTo:'dashboard',pathMatch:'full'},
+      {path:'dashboard',component:DashboardContentComponent},
+      {path:'products', component:AdminProductsComponent}
+    ]
   
 },
 { path: 'menCategory', component: MenCategoryComponent },

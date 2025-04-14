@@ -16,9 +16,11 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AdminLoginComponent } from './components/Admin/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admin-dashboard.component';
-import { MenCategoryComponent } from './men-category/men-category.component';
-import { WomenCategoryComponent } from './women-category/women-category.component';
-import { KidsCategoryComponent } from './kids-category/kids-category.component';
+import { MenCategoryComponent } from './components/men-category/men-category.component';
+import { WomenCategoryComponent } from './components/women-category/women-category.component';
+import { KidsCategoryComponent } from './components/kids-category/kids-category.component';
+import { AdminProductsComponent } from './components/Admin/admin-products/admin-products.component';
+import { DashboardContentComponent } from './components/Admin/dashboard-content/dashboard-content.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { KidsCategoryComponent } from './kids-category/kids-category.component';
     MenCategoryComponent,
     WomenCategoryComponent,
     KidsCategoryComponent,
+    AdminProductsComponent,
+    DashboardContentComponent,
    
   ],
   imports: [

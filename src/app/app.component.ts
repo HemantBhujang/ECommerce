@@ -16,8 +16,10 @@ export class AppComponent {
     let url = this.router.url === '/login' ||
      this.router.url==='/register' || 
      this.router.url==='/adminLogin' || 
-     this.router.url==='/adminDashboard'
-    return url
+     this.router.url==='/adminDashboard'||
+     this.router.url === '/adminDashboard/dashboard'||
+     this.router.url==='/adminDashboard/products'
+         return url
   }
   
 }
