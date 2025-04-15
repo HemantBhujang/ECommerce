@@ -1,0 +1,88 @@
+<div class="wrapper">
+  <div class="logo">
+    <img src="../../../assets/logo.png" alt="Logo" />
+  </div>
+  <div class="text-center mt-4 name">Add Product</div>
+
+  <form class="p-3 mt-3" [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <input type="text" placeholder="Name" formControlName="name" />
+    </div>
+
+    <div class="form-field">
+      <input
+        type="text"
+        placeholder="Description"
+        formControlName="description"
+      />
+    </div>
+
+    <div class="form-field">
+      <input
+        type="number"
+        placeholder="Old Price"
+        formControlName="old_price"
+      />
+    </div>
+
+    <div class="form-field">
+      <input
+        type="number"
+        placeholder="Discount Price"
+        formControlName="discount_price"
+      />
+    </div>
+
+    <div class="form-field">
+      <input
+        type="number"
+        placeholder="Discount (%)"
+        formControlName="discount"
+      />
+    </div>
+
+    <div class="form-field">
+      <input type="text" placeholder="Category" formControlName="category" />
+    </div>
+
+    <div class="form-field">
+      <input
+        type="text"
+        placeholder="Parent Category"
+        formControlName="parent_category"
+      />
+    </div>
+
+    <div class="form-field">
+      <input
+        type="text"
+        placeholder="Sub Category"
+        formControlName="sub_category"
+      />
+    </div>
+
+    <div class="form-field">
+      <input type="number" placeholder="Stock" formControlName="stock" />
+    </div>
+
+    <div class="form-field">
+      <input type="text" placeholder="Image URL" formControlName="image" />
+    </div>
+
+    <div class="form-field">
+      <input type="text" placeholder="Size" formControlName="size" />
+    </div>
+
+    <div class="form-field">
+      <input type="text" placeholder="Color" formControlName="color" />
+    </div>
+
+    <div class="form-field">
+      <input type="number" placeholder="Quantity" formControlName="quantity" />
+    </div>
+
+    <button class="btn mt-3" type="submit" [disabled]="addProductForm.invalid">
+      Add Product
+    </button>
+  </form>
+</div>

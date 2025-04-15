@@ -23,11 +23,9 @@
     <div class="filter-controls">
       <select class="form-select">
         <option selected>All Categories</option>
-        <option>Widgets</option>
-        <option>Packages</option>
-        <option>Services</option>
-        <option>Kits</option>
-        <option>Tools</option>
+        <option>Men</option>
+        <option>Women</option>
+        <option>Kids</option>
       </select>
       <select class="form-select">
         <option selected>All Status</option>
@@ -46,7 +44,7 @@
           alt="{{ product.name }}"
           onError="this.src='assets/images/placeholder.jpg'"
         />
-        <span
+        <!-- <span
           class="stock-badge"
           [ngClass]="{
             'in-stock': product.stock > 0,
@@ -54,15 +52,12 @@
           }"
         >
           {{ product.stock > 0 ? "In Stock" : "Out of Stock" }}
-        </span>
+        </span> -->
       </div>
       <div class="product-content">
         <h3 class="product-title">{{ product.name }}</h3>
         <p class="product-category">{{ product.category }}</p>
         <p class="product-description">{{ product.description }}</p>
-        <div class="product-price">
-          ${{ formatPrice(product.discount_price) }}
-        </div>
       </div>
       <div class="product-actions">
         <button
@@ -79,7 +74,7 @@
         </button>
         <button
           class="btn btn-sm btn-outline-danger"
-          (click)="deleteProduct(product.id)"
+          (click)="deleteProduct(product.id!)"
         >
           <i class="bi bi-trash"></i> Delete
         </button>
@@ -88,7 +83,7 @@
   </div>
 
   <!-- Pagination -->
-  <nav class="pagination-container">
+  <!-- <nav class="pagination-container">
     <ul class="pagination">
       <li class="page-item disabled">
         <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
@@ -102,5 +97,5 @@
         <a class="page-link" href="#">Next</a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
 </div>

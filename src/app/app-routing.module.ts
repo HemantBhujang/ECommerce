@@ -15,6 +15,7 @@ import { KidsCategoryComponent } from './components/kids-category/kids-category.
 import { DashboardContentComponent } from './components/Admin/dashboard-content/dashboard-content.component';
 import { AdminProductsComponent } from './components/Admin/admin-products/admin-products.component';
 import { adminAuthGuard } from '../admin-auth.guard';
+import { AdminAddProductsComponent } from './components/admin-add-products/admin-add-products.component';
 
 
 
@@ -37,7 +38,8 @@ const routes: Routes = [
     children:[
       {path:'',redirectTo:'dashboard',pathMatch:'full'},
       {path:'dashboard',component:DashboardContentComponent},
-      {path:'products', component:AdminProductsComponent}
+      {path:'products', component:AdminProductsComponent},
+      {path :'addproducts' , component:AdminAddProductsComponent}
     ]
   
 },
