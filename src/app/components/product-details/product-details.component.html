@@ -1,0 +1,133 @@
+<div class="container mx-auto py-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <img [src]="product?.image" alt="Product Image" class="product-image" />
+      <!-- This tells Angular: “only try to access .image if product is not null.” -->
+    </div>
+    <div class="product-details">
+      <h1 class="text-3xl font-bold text-gray-800">{{ product.name }}</h1>
+      <p class="text-gray-600 mt-2">{{ product.description }}</p>
+      <!-- <div class="product-reviews">
+        <span>4.2</span>
+        <i class="fa-solid fa-star"></i>
+        <span>1203 reviews</span>
+      </div> -->
+      <div class="product-price">
+        <span class="original-price">₹{{ product.old_price }}</span>
+        <span class="sale-price">₹{{ product.discount_price }}</span>
+        <span style="color: green; margin-left: 1rem"
+          >{{ product.discount }}% OFF</span
+        >
+      </div>
+      <div class="product size">
+        <h6>Size</h6>
+        <span>{{ product.size }}</span>
+      </div>
+      <div class="product-color mt-4">
+        <h6 class="font-semibold">Color</h6>
+        <span
+          class="inline-block w-6 h-6 rounded-full border"
+          [style.backgroundColor]="product.color"
+          title="{{ product.color }}"
+        ></span>
+      </div>
+      <div class="product-quantity">
+        <h6>Select Quantity</h6>
+        <button>-</button>
+        <p>1</p>
+        <button>+</button>
+      </div>
+      <div class="delivery-options">
+        <h6 class="font-bold mb-2">DELIVERY OPTIONS</h6>
+        <div class="delivery-info">
+          <div class="delivery-item">
+            <i class="fas fa-map-marker-alt text-gray-500 mr-2"></i>
+            <p>Deliver to: <span style="font-weight: bold">11011</span></p>
+          </div>
+
+          <div class="delivery-item">
+            <i class="fas fa-undo text-gray-500 mr-2"></i>
+            <p style="font-weight: bold">7 Days Easy Return</p>
+            <p style="color: rgb(125, 122, 122); font-size: small">
+              Change of mind not applicable
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-detail my-4">
+        <div class="detail-row">
+          <span class="detail-label">Material &amp; Care</span>
+          <span class="detail-value">100% Cotton, Machine Wash</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Fit</span>
+          <span class="detail-value">Regular</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Pattern</span>
+          <span class="detail-value">Solid</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Country</span>
+          <span class="detail-value">India</span>
+        </div>
+      </div>
+      <!-- <div class="product-reviews">
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="review-author">Vijay C.</span>
+            <span class="review-date">22 Mar, 2025</span>
+          </div>
+          <div class="review-content">
+            Great product! Fits perfectly and looks exactly like the pictures.
+            The fabric quality is excellent for the price point.
+          </div>
+        </div>
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="review-author">Raghav J.</span>
+            <span class="review-date">15 Mar, 2025</span>
+          </div>
+          <div class="review-content">
+            Absolutely loved it! The color is vibrant and material is soft. Will
+            definitely buy more from this brand.
+          </div>
+        </div>
+      </div> -->
+
+      <!-- <div class="similar-product">
+        <h6>SIMILAR PRODUCT</h6>
+      </div>
+
+      <div class="product-rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p class="product-description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor,
+        magna vel aliquam ultricies, nisl nisl aliquam nisl, eget aliquam nisl
+        nisl sit amet nisl.
+      </p> -->
+      <button class="add-to-cart-button">Add to Cart</button>
+      <button class="add-to-cart-button mx-5">Buy Now</button>
+    </div>
+  </div>
+</div>

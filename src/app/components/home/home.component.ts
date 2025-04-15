@@ -42,4 +42,9 @@ export class HomeComponent {
     });
     
   }
+
+  productDetailsPage(id: number) {
+    this.router.navigate(['/product-details', id]);
+  }
+  
 }

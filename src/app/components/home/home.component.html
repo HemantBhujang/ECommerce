@@ -20,7 +20,10 @@
   <div class="row">
     <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
       <div class="product-card">
-        <div class="card h-100 shadow-sm">
+        <div
+          class="card h-100 shadow-sm"
+          (click)="productDetailsPage(product.id)"
+        >
           <img
             [src]="product.image"
             class="card-img-top"
@@ -41,7 +44,7 @@
             <p class="mb-2">
               <span class="badge bg-success">{{ product.discount }}% OFF</span>
             </p>
-            <button class="btn btn-primary w-100">Add to Cart</button>
+            <button class="btn amazon-btn w-100">Add to Cart</button>
           </div>
         </div>
       </div>

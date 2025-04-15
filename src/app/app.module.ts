@@ -24,6 +24,7 @@ import { DashboardContentComponent } from './components/Admin/dashboard-content/
 import { AdminAddProductsComponent } from './components/Admin/admin-add-products/admin-add-products.component';
 import { AdminViewProductComponent } from './components/Admin/admin-view-product/admin-view-product.component';
 import { AdminEditProductComponent } from './components/Admin/admin-edit-product/admin-edit-product.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AdminEditProductComponent } from './components/Admin/admin-edit-product
     AdminAddProductsComponent,
     AdminViewProductComponent,
     AdminEditProductComponent,
+    ProductDetailsComponent,
    
   ],
   imports: [

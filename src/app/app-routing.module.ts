@@ -18,6 +18,7 @@ import { adminAuthGuard } from '../admin-auth.guard';
 import { AdminAddProductsComponent } from './components/Admin/admin-add-products/admin-add-products.component';
 import { AdminViewProductComponent } from './components/Admin/admin-view-product/admin-view-product.component';
 import { AdminEditProductComponent } from './components/Admin/admin-edit-product/admin-edit-product.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 
 
@@ -49,7 +50,8 @@ const routes: Routes = [
 },
 { path: 'menCategory', component: MenCategoryComponent },
 { path: 'womenCategory', component: WomenCategoryComponent },
-{ path: 'kidsCategory', component: KidsCategoryComponent }
+{ path: 'kidsCategory', component: KidsCategoryComponent },
+{path :"product-details/:id", component:ProductDetailsComponent}
 
 ];
 

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../../interface/product.model';
 import { ProductService } from 'src/app/Services/product.service';
 import { AdminServiceService } from 'src/app/Services/admin-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-add-products',
@@ -12,7 +13,7 @@ import { AdminServiceService } from 'src/app/Services/admin-service.service';
 export class AdminAddProductsComponent {
   addProductForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private productService: ProductService, private authService : AdminServiceService) {}
+  constructor(private fb: FormBuilder, private productService: ProductService, private authService : AdminServiceService,private router: Router ) {}
 
   ngOnInit(): void {
 
@@ -67,6 +68,7 @@ export class AdminAddProductsComponent {
       next: () => {
         alert(' Product added successfully!');
         this.addProductForm.reset();
+        this.router.navigate(['/adminDashboard/products']);
       },
       error: (error:any) => {
         console.error('Error creating product:', error);

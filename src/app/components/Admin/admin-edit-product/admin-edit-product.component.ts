@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute ,Router} from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/Services/product.service';
 })
 export class AdminEditProductComponent {
 editProductForm!: FormGroup;
- constructor(private fb: FormBuilder, private productService: ProductService,private router: ActivatedRoute) {}
+ constructor(private fb: FormBuilder, private productService: ProductService,private router: ActivatedRoute, private route : Router) {}
 
   ngOnInit(): void {
 
@@ -60,8 +60,9 @@ this.productService.updateProduct(this.router.snapshot.params['id'],this.editPro
   alert("product updated successfull!!")
   setTimeout(() => {
     this.editProductForm.reset({})
-  }, 1000);
+  }, 500);
   
+  this.route.navigate(['/adminDashboard/products'])
 })
 }
 }
