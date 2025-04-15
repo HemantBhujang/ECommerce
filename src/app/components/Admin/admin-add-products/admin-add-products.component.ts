@@ -16,7 +16,7 @@ export class AdminAddProductsComponent {
 
   ngOnInit(): void {
 
-    console.log("Token being used:", this.authService.getToken());
+   // console.log("Token being used:", this.authService.getToken());
 
     this.addProductForm = this.fb.group({
       name: ['', Validators.required],
@@ -40,7 +40,7 @@ export class AdminAddProductsComponent {
       alert('Please fill all required fields correctly.');
       return;
     }
-    console.log('Token from AdminServiceService:', this.authService.getToken());
+   // console.log('Token from AdminServiceService:', this.authService.getToken());
 
     
     const formValue = this.addProductForm.value;
@@ -61,16 +61,16 @@ export class AdminAddProductsComponent {
       quantity: formValue.quantity,
       created_at: new Date().toISOString()
     };
-    console.log("Token being used:", this.authService.getToken());
+   // console.log("Token being used:", this.authService.getToken());
 
     this.productService.createProduct(newProduct).subscribe({
       next: () => {
-        alert('✅ Product added successfully!');
+        alert(' Product added successfully!');
         this.addProductForm.reset();
       },
       error: (error:any) => {
         console.error('Error creating product:', error);
-        alert('❌ Something went wrong. Please try again.');
+        alert(' Something went wrong. Please try again.');
       }
     });
   }

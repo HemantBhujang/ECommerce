@@ -39,11 +39,7 @@
   <div class="products-grid">
     <div class="product-card" *ngFor="let product of products">
       <div class="product-image">
-        <img
-          [src]="product.image"
-          alt="{{ product.name }}"
-          onError="this.src='assets/images/jpg'"
-        />
+        <img [src]="product.image" alt="{{ product.name }}" />
         <!-- <span
           class="stock-badge"
           [ngClass]="{
@@ -68,7 +64,7 @@
         </button>
         <button
           class="btn btn-sm btn-outline-success"
-          routerLink="/adminDashboard/viewproducts/{{ product.id }}"
+          routerLink="/adminDashboard/editproducts/{{ product.id }}"
         >
           <i class="bi bi-pencil"></i> Edit
         </button>

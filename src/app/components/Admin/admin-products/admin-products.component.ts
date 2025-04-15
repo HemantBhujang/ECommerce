@@ -30,22 +30,22 @@ export class AdminProductsComponent implements OnInit {
     });
   }
 
-  formatPrice(price: string): string {
-    return parseFloat(price).toFixed(2);
-  }
-
-  viewProduct(product: Product): void {
-    console.log('Viewing product:', product);
-  }
-
-
-
   deleteProduct(productId: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
-      this.products = this.products.filter(p => p.id !== productId);
+      this.productService.deleteProduct(productId).subscribe({
+        next: (res) => {
+          console.log('Deleted:', res);
+          // Instantly update UI
+          this.products = this.products.filter(p => p.id !== productId);
+        },
+        error: (err) => {
+          console.error('Failed to delete product:', err);
+          alert('Error deleting product');
+        }
+      });
     }
   }
-
+  
   addNewProduct(): void {
     this.router.navigate(['/adminDashboard/addproducts'])
   }

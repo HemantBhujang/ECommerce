@@ -1,10 +1,14 @@
 <div class="wrapper">
   <!-- <div class="logo">
-    <img src="../../../assets/logo.png" alt="Logo" />
-  </div> -->
-  <div class="text-center mt-4 name">Add Product</div>
+      <img src="../../../assets/logo.png" alt="Logo" />
+    </div> -->
+  <div class="text-center mt-4 name">Update Product</div>
 
-  <form class="p-3 mt-3" [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+  <form
+    class="p-3 mt-3"
+    [formGroup]="editProductForm"
+    (ngSubmit)="editProduct()"
+  >
     <div class="form-field">
       <input type="text" placeholder="Name" formControlName="name" />
     </div>
@@ -81,8 +85,8 @@
       <input type="number" placeholder="Quantity" formControlName="quantity" />
     </div>
 
-    <button class="btn mt-3" type="submit" [disabled]="addProductForm.invalid">
-      Add Product
+    <button class="btn mt-3" type="submit" [disabled]="editProductForm.invalid">
+      Update Product
     </button>
   </form>
 </div>

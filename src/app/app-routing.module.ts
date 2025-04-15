@@ -17,6 +17,7 @@ import { AdminProductsComponent } from './components/Admin/admin-products/admin-
 import { adminAuthGuard } from '../admin-auth.guard';
 import { AdminAddProductsComponent } from './components/Admin/admin-add-products/admin-add-products.component';
 import { AdminViewProductComponent } from './components/Admin/admin-view-product/admin-view-product.component';
+import { AdminEditProductComponent } from './components/Admin/admin-edit-product/admin-edit-product.component';
 
 
 
@@ -41,7 +42,8 @@ const routes: Routes = [
       {path:'dashboard',component:DashboardContentComponent},
       {path:'products', component:AdminProductsComponent},
       {path :'addproducts' , component:AdminAddProductsComponent},
-      {path:'viewproducts/:id' , component:AdminViewProductComponent}
+      {path:'viewproducts/:id' , component:AdminViewProductComponent},
+      {path :'editproducts/:id',component:AdminEditProductComponent}
     ]
   
 },
