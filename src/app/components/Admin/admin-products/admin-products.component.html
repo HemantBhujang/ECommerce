@@ -42,7 +42,7 @@
         <img
           [src]="product.image"
           alt="{{ product.name }}"
-          onError="this.src='assets/images/placeholder.jpg'"
+          onError="this.src='assets/images/jpg'"
         />
         <!-- <span
           class="stock-badge"
@@ -62,13 +62,13 @@
       <div class="product-actions">
         <button
           class="btn btn-sm btn-outline-primary"
-          (click)="viewProduct(product)"
+          routerLink="/adminDashboard/viewproducts/{{ product.id }}"
         >
           <i class="bi bi-eye"></i> View
         </button>
         <button
           class="btn btn-sm btn-outline-success"
-          (click)="editProduct(product)"
+          routerLink="/adminDashboard/viewproducts/{{ product.id }}"
         >
           <i class="bi bi-pencil"></i> Edit
         </button>

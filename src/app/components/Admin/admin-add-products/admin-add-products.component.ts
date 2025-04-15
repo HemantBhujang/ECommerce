@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Product } from '../interface/product.model';
+import { Product } from '../../interface/product.model';
 import { ProductService } from 'src/app/Services/product.service';
 import { AdminServiceService } from 'src/app/Services/admin-service.service';
 

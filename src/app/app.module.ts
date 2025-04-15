@@ -21,7 +21,8 @@ import { WomenCategoryComponent } from './components/women-category/women-catego
 import { KidsCategoryComponent } from './components/kids-category/kids-category.component';
 import { AdminProductsComponent } from './components/Admin/admin-products/admin-products.component';
 import { DashboardContentComponent } from './components/Admin/dashboard-content/dashboard-content.component';
-import { AdminAddProductsComponent } from './components/admin-add-products/admin-add-products.component';
+import { AdminAddProductsComponent } from './components/Admin/admin-add-products/admin-add-products.component';
+import { AdminViewProductComponent } from './components/Admin/admin-view-product/admin-view-product.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AdminAddProductsComponent } from './components/admin-add-products/admin
     AdminProductsComponent,
     DashboardContentComponent,
     AdminAddProductsComponent,
+    AdminViewProductComponent,
    
   ],
   imports: [

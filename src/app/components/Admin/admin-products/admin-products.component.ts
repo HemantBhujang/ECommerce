@@ -38,9 +38,7 @@ export class AdminProductsComponent implements OnInit {
     console.log('Viewing product:', product);
   }
 
-  editProduct(product: Product): void {
-    console.log('Editing product:', product);
-  }
+
 
   deleteProduct(productId: number): void {
     if (confirm('Are you sure you want to delete this product?')) {

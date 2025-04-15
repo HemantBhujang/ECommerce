@@ -1,0 +1,68 @@
+<div class="container mx-auto py-8" *ngIf="product">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <img [src]="product.image" alt="Product Image" class="product-image" />
+    </div>
+    <div class="product-details">
+      <h1 class="text-3xl font-bold text-gray-800">{{ product.name }}</h1>
+      <p class="text-gray-600 mt-2">
+        {{ product.description }}
+      </p>
+
+      <!-- <div class="product-reviews mt-2">
+        <span>{{ product.rating || "4.2" }}★</span>
+        <span>{{ product.reviewCount || 1203 }} reviews</span>
+      </div> -->
+
+      <div class="product-price mt-2">
+        <span class="original-price">₹{{ product.old_price }}</span>
+        <span class="sale-price">₹{{ product.discount_price }}</span>
+        <span>{{ product.discount }}% OFF</span>
+      </div>
+
+      <div class="product-size mt-4">
+        <h6 class="font-semibold">Size :</h6>
+        <span class="inline-block w-6 h-6">{{ product.size }}</span>
+      </div>
+
+      <div class="product-size mt-4">
+        <h6 class="font-semibold">Category:</h6>
+        <span>{{ product.category }}</span>
+      </div>
+      <div class="product-size mt-4">
+        <h6 class="font-semibold">Category:</h6>
+        <span>{{ product.category }}</span>
+      </div>
+      <div class="product-size mt-4">
+        <h6 class="font-semibold">Parent Category:</h6>
+        <span>{{ product.parent_category }}</span>
+      </div>
+      <div class="product-size mt-4">
+        <h6 class="font-semibold">Sub Category:</h6>
+        <span>{{ product.sub_category }}</span>
+      </div>
+      <div class="product-size mt-4">
+        <h6 class="font-semibold">Stock:</h6>
+        <span>{{ product.stock }}</span>
+      </div>
+
+      <div class="product-color mt-4">
+        <h6 class="font-semibold">Color</h6>
+        <span
+          class="inline-block w-6 h-6 rounded-full border"
+          [style.backgroundColor]="product.color"
+          title="{{ product.color }}"
+        ></span>
+      </div>
+
+      <!-- <div class="product-rating mt-4">
+        <i class="fas fa-star" *ngFor="let star of [1, 2, 3, 4]"></i>
+        <i class="far fa-star"></i>
+      </div> -->
+
+      <p class="product-description mt-4">
+        {{ product.description || "Product details not available." }}
+      </p>
+    </div>
+  </div>
+</div>

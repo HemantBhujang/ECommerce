@@ -15,7 +15,8 @@ import { KidsCategoryComponent } from './components/kids-category/kids-category.
 import { DashboardContentComponent } from './components/Admin/dashboard-content/dashboard-content.component';
 import { AdminProductsComponent } from './components/Admin/admin-products/admin-products.component';
 import { adminAuthGuard } from '../admin-auth.guard';
-import { AdminAddProductsComponent } from './components/admin-add-products/admin-add-products.component';
+import { AdminAddProductsComponent } from './components/Admin/admin-add-products/admin-add-products.component';
+import { AdminViewProductComponent } from './components/Admin/admin-view-product/admin-view-product.component';
 
 
 
@@ -39,7 +40,8 @@ const routes: Routes = [
       {path:'',redirectTo:'dashboard',pathMatch:'full'},
       {path:'dashboard',component:DashboardContentComponent},
       {path:'products', component:AdminProductsComponent},
-      {path :'addproducts' , component:AdminAddProductsComponent}
+      {path :'addproducts' , component:AdminAddProductsComponent},
+      {path:'viewproducts/:id' , component:AdminViewProductComponent}
     ]
   
 },
