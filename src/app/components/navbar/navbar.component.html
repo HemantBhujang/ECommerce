@@ -24,10 +24,12 @@
       <form class="d-flex mx-lg-auto my-2 my-lg-0 w-75" role="search">
         <div class="input-group w-100">
           <input
+            #searchInput
             type="search"
             class="form-control border-0"
             placeholder="Search for product, brand, and more"
             aria-label="Search"
+            (keyup)="searchProduct($event)"
           />
           <span class="input-group-text bg-transparent border-0">
             <img
@@ -38,6 +40,28 @@
               class="ml-5"
             />
           </span>
+          <div
+            class="search-results position-absolute bg-white shadow p-2 w-100"
+            *ngIf="searchResult.length > 0"
+            style="z-index: 1000; top: 100%"
+          >
+            <div
+              *ngFor="let product of searchResult"
+              class="search-item d-flex align-items-center mb-2 p-2 rounded hover-bg"
+              (click)="goToProduct(product.id)"
+            >
+              <img
+                [src]="product.image"
+                alt="{{ product.name }}"
+                width="40"
+                height="40"
+                class="me-2 border rounded"
+              />
+              <div class="d-flex flex-column">
+                <strong>{{ product.name }}</strong>
+              </div>
+            </div>
+          </div>
         </div>
       </form>
 

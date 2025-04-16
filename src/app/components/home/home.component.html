@@ -1,17 +1,50 @@
 <div class="container-fluid bg-white py-3 shadow-sm">
   <div class="row text-center justify-content-center">
     <div
-      class="col-4 col-sm-3 col-md-2 mb-3"
+      class="col-4 col-sm-3 col-md-2 mb-3 position-relative"
       *ngFor="let category of categories"
-      (click)="navigateCategory(category.path)"
-      style="cursor: pointer"
+      [ngClass]="{ dropdown: category.hasSubcategories }"
     >
-      <img
-        [src]="category.img"
-        alt="{{ category.name }}"
-        class="img-fluid mb-2 category-img categoryImage"
-      />
-      <div class="fw-semibold">{{ category.name }}</div>
+      <div *ngIf="category.hasSubcategories" class="dropdown">
+        <img
+          [src]="category.img"
+          alt="{{ category.name }}"
+          class="img-fluid mb-2 category-img categoryImage dropdown-toggle"
+          data-bs-toggle="dropdown"
+        />
+        <div class="fw-semibold dropdown-toggle" data-bs-toggle="dropdown">
+          {{ category.name }}
+        </div>
+        <ul class="dropdown-menu text-start">
+          <li
+            *ngFor="let sub of category.subcategories"
+            class="dropdown-submenu position-relative"
+          >
+            <a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">
+              {{ sub.name }}
+            </a>
+            <ul class="dropdown-menu sub-dropdown">
+              <li *ngFor="let child of sub.children">
+                <a class="dropdown-item" (click)="navigateCategory(child.path)">
+                  {{ child.name }}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        *ngIf="!category.hasSubcategories"
+        (click)="navigateCategory(category.path)"
+      >
+        <img
+          [src]="category.img"
+          alt="{{ category.name }}"
+          class="img-fluid mb-2 category-img categoryImage"
+        />
+        <div class="fw-semibold">{{ category.name }}</div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,3 +1,17 @@
 .profile:active{
   background-color: #ff758c;
 }
+.search-results {
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 5px;
+}
+
+.search-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-item:hover, .hover-bg:hover {
+  background-color: #f5f5f5;
+}

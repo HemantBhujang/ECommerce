@@ -30,12 +30,22 @@ export class ProductService {
   getProductById(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
+  
 
   getProductsByCategory(category: string, parentCategory: string, subCategory: string): Observable<Product[]> {
-    return this.http.get<Product[]>(
-      `${this.apiUrl}/filter?category=${category}&parent_category=${parentCategory}&sub_category=${subCategory}`
-    );
+    let url = `${this.apiUrl}/filter?category=${category}`;
+    
+    if (parentCategory) {
+      url += `&parent_category=${parentCategory}`;
+    }
+    
+    if (subCategory) {
+      url += `&sub_category=${subCategory}`;
+    }
+    
+    return this.http.get<Product[]>(url);
   }
+  
 
   createProduct(product: Product): Observable<Product> {
     const headers = this.getHeaders();
@@ -51,5 +61,9 @@ export class ProductService {
     const headers = this.getHeaders();
     return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
   }
+
+  searchProduct(query : string){
+     return this.http.get<Product>(`${this.apiUrl}/search?keyword=${query}`)
+      }
   
 }

@@ -1,7 +1,7 @@
-<div class="container mx-auto py-8">
+<div class="container mx-auto py-8" *ngIf="product">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
-      <img [src]="product?.image" alt="Product Image" class="product-image" />
+      <img [src]="product.image" alt="Product Image" class="product-image" />
       <!-- This tells Angular: “only try to access .image if product is not null.” -->
     </div>
     <div class="product-details">

@@ -1,7 +1,8 @@
 // navbar.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/Services/login.service';
+import { ProductService } from 'src/app/Services/product.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,9 +10,12 @@ import { LoginService } from 'src/app/Services/login.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  user: any = null;
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
-  constructor(public loginService: LoginService, private router: Router) {}
+  user: any = null;
+  searchResult:any=[];
+
+  constructor(public loginService: LoginService, private router: Router,private productService: ProductService) {}
   ngOnInit(): void {
     if (this.loginService.isLoggedIn()) {
       const storedUser = localStorage.getItem('authUser');
@@ -54,4 +58,33 @@ export class NavbarComponent implements OnInit {
   goToLogin() {
     this.router.navigate(['/login']);
   }
+
+  searchProduct(query:Event){
+    if(query){
+      const element=(query.target as HTMLInputElement).value;
+      console.log(element);
+
+      if (!element) {
+        this.searchResult = []; // Clear search results if input is empty
+        return;
+      }
+
+      this.productService.searchProduct(element).subscribe((result:any)=>{
+        // console.log(result);
+         this.searchResult=result;
+         //console.log(this.searchResult);
+         })
+        }
+       }
+
+  goToProduct(productId: number) {
+    this.searchResult = []; // Clear results after navigation
+    if (this.searchInput) {
+      this.searchInput.nativeElement.value = ''; // ✅ Clear input field
+    }
+    this.router.navigate(['/product-details', productId]);
+   // this.searchResult.reset();
+
+  }
+  
 }
