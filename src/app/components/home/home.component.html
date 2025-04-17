@@ -7,7 +7,7 @@
     >
       <div *ngIf="category.hasSubcategories" class="dropdown">
         <img
-          [src]="category.img"
+          [src]="getCategoryImage(category.name)"
           alt="{{ category.name }}"
           class="img-fluid mb-2 category-img categoryImage dropdown-toggle"
           data-bs-toggle="dropdown"

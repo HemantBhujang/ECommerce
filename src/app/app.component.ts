@@ -17,6 +17,7 @@ export class AppComponent {
      this.router.url==='/register' || 
      this.router.url==='/adminLogin' || 
      this.router.url.includes('/adminDashboard')
+    //  this.router.url.includes('/product-details')
     //  this.router.url==='/adminDashboard'||
     //  this.router.url === '/adminDashboard/dashboard'||
     //  this.router.url==='/adminDashboard/products'||
