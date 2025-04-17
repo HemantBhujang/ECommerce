@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-capitalize">{{ category }} Collection</h2>
+  <div class="row">
+    <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
+      <div class="card h-100 shadow-sm" (click)="goToDetails(product.id)">
+        <img
+          [src]="product.image"
+          class="card-img-top"
+          alt="{{ product.name }}"
+          style="height: 250px; object-fit: cover"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text text-muted small">{{ product.description }}</p>
+          <p class="mb-1">
+            <span class="text-decoration-line-through text-muted">
+              ₹{{ product.old_price }}
+            </span>
+            <span class="text-danger fw-bold ms-2">
+              ₹{{ product.discount_price }}
+            </span>
+          </p>
+          <p class="mb-2">
+            <span class="badge bg-success">{{ product.discount }}% OFF</span>
+          </p>
+          <button class="btn amazon-btn w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

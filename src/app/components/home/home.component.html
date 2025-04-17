@@ -11,6 +11,7 @@
           alt="{{ category.name }}"
           class="img-fluid mb-2 category-img categoryImage dropdown-toggle"
           data-bs-toggle="dropdown"
+          (click)="navigateCategory(category.path)"
         />
         <div class="fw-semibold dropdown-toggle" data-bs-toggle="dropdown">
           {{ category.name }}

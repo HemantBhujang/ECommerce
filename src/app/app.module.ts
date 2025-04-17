@@ -24,6 +24,7 @@ import { AdminEditProductComponent } from './components/Admin/admin-edit-product
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CategoryProductsComponent } from './components/category-products/category-products.component';
 import { ParentCategoryProductsComponent } from './components/parent-category-products/parent-category-products.component';
+import { MainCategoryProductsComponent } from './components/main-category-products/main-category-products.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ParentCategoryProductsComponent } from './components/parent-category-pr
     ProductDetailsComponent,
     CategoryProductsComponent,
     ParentCategoryProductsComponent,
+    MainCategoryProductsComponent,
    
   ],
   imports: [

@@ -18,6 +18,7 @@ import { AdminEditProductComponent } from './components/Admin/admin-edit-product
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CategoryProductsComponent } from './components/category-products/category-products.component';
 import { ParentCategoryProductsComponent } from './components/parent-category-products/parent-category-products.component';
+import { MainCategoryProductsComponent } from './components/main-category-products/main-category-products.component';
 
 
 
@@ -50,7 +51,7 @@ const routes: Routes = [
 {path :"product-details/:id", component:ProductDetailsComponent},
 { path: ':category/:parent/:sub', component: CategoryProductsComponent },
 { path: ':category/:parent', component: ParentCategoryProductsComponent },
-
+{ path: ':category', component: MainCategoryProductsComponent },
 
 ];
 
