@@ -1,0 +1,63 @@
+<div class="container mt-4">
+  <!-- Enhanced Header Section -->
+  <div class="header-container mb-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#" class="text-decoration-none">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="#" class="text-decoration-none">{{ category }}</a>
+        </li>
+        <li class="breadcrumb-item active text-capitalize" aria-current="page">
+          <a
+            [routerLink]="['/', category, parent]"
+            class="text-decoration-none"
+            >{{ parent }}</a
+          >
+        </li>
+        <li class="breadcrumb-item active text-capitalize" aria-current="page">
+          {{ sub }}
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Existing Product Cards (Unchanged) -->
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
+        <div class="product-card">
+          <div class="card h-100 shadow-sm" (click)="goToDetails(product.id)">
+            <img
+              [src]="product.image"
+              class="card-img-top"
+              alt="{{ product.name }}"
+              style="height: 250px; object-fit: cover"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text text-muted small">
+                {{ product.description }}
+              </p>
+              <p class="mb-1">
+                <span class="text-decoration-line-through text-muted"
+                  >₹{{ product.old_price }}</span
+                >
+                <span class="text-danger fw-bold ms-2"
+                  >₹{{ product.discount_price }}</span
+                >
+              </p>
+              <p class="mb-2">
+                <span class="badge bg-success"
+                  >{{ product.discount }}% OFF</span
+                >
+              </p>
+              <button class="btn amazon-btn w-100">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

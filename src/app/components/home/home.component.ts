@@ -61,7 +61,7 @@ export class HomeComponent {
             name: sub_category,
             path: `${category.toLowerCase()}/${parent_category.toLowerCase().replace(/\s+/g, '')}/${sub_category.toLowerCase().replace(/\s+/g, '')}`
           });
-        }
+        }        
       });
   
       this.categories = Object.values(grouped);

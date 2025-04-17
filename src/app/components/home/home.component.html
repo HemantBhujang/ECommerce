@@ -20,7 +20,11 @@
             *ngFor="let sub of category.subcategories"
             class="dropdown-submenu position-relative"
           >
-            <a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">
+            <a
+              class="dropdown-item dropdown-toggle"
+              data-bs-toggle="dropdown"
+              (click)="navigateCategory(sub.path)"
+            >
               {{ sub.name }}
             </a>
             <ul class="dropdown-menu sub-dropdown">

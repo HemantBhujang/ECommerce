@@ -9,9 +9,6 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { AdminLoginComponent } from './components/Admin/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admin-dashboard.component';
 
-import { MenCategoryComponent } from './components/men-category/men-category.component';
-import { WomenCategoryComponent } from './components/women-category/women-category.component';
-import { KidsCategoryComponent } from './components/kids-category/kids-category.component';
 import { DashboardContentComponent } from './components/Admin/dashboard-content/dashboard-content.component';
 import { AdminProductsComponent } from './components/Admin/admin-products/admin-products.component';
 import { adminAuthGuard } from '../admin-auth.guard';
@@ -19,6 +16,8 @@ import { AdminAddProductsComponent } from './components/Admin/admin-add-products
 import { AdminViewProductComponent } from './components/Admin/admin-view-product/admin-view-product.component';
 import { AdminEditProductComponent } from './components/Admin/admin-edit-product/admin-edit-product.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { CategoryProductsComponent } from './components/category-products/category-products.component';
+import { ParentCategoryProductsComponent } from './components/parent-category-products/parent-category-products.component';
 
 
 
@@ -48,10 +47,10 @@ const routes: Routes = [
     ]
   
 },
-{ path: 'menCategory', component: MenCategoryComponent },
-{ path: 'womenCategory', component: WomenCategoryComponent },
-{ path: 'kidsCategory', component: KidsCategoryComponent },
-{path :"product-details/:id", component:ProductDetailsComponent}
+{path :"product-details/:id", component:ProductDetailsComponent},
+{ path: ':category/:parent/:sub', component: CategoryProductsComponent },
+{ path: ':category/:parent', component: ParentCategoryProductsComponent },
+
 
 ];
 
