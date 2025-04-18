@@ -10,27 +10,21 @@ export class ProfileService {
 
   constructor(private http: HttpClient) {}
 
-  getProfile() {
+  private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders({
+    return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
-
-    return this.http.get(`${this.baseUrl}/profile`, {
-      headers,
-          });
   }
 
-  // profile.service.ts
-updateProfile(profileData: any) {
-  const token = localStorage.getItem('authToken');
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  });
+  getProfile() {
+    const headers = this.getAuthHeaders();
+    return this.http.get(`${this.baseUrl}/profile`, { headers });
+  }
 
-  return this.http.put(`${this.baseUrl}/profile/update`, profileData, { headers });
-}
-
+  updateProfile(profileData: any) {
+    const headers = this.getAuthHeaders();
+    return this.http.put(`${this.baseUrl}/profile/update`, profileData, { headers });
+  }
 }
