@@ -22,6 +22,7 @@ import { MainCategoryProductsComponent } from './components/main-category-produc
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
 
 
 
@@ -53,6 +54,7 @@ const routes: Routes = [
   
 },
 {path:"cart", component:CartComponent},
+{path:"wishlist", component:WishlistComponent},
 {path :"product-details/:id", component:ProductDetailsComponent},
 { path: ':category/:parent/:sub', component: CategoryProductsComponent },
 { path: ':category/:parent', component: ParentCategoryProductsComponent },

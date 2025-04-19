@@ -1,0 +1,79 @@
+<!-- src/app/components/wishlist/wishlist.component.html -->
+<div class="container mt-4">
+  <h2 class="mb-4">My Wishlist</h2>
+
+  <div *ngIf="wishlistItems.length === 0" class="text-center my-5">
+    <div class="mb-4">
+      <i class="bi bi-heart" style="font-size: 3rem"></i>
+    </div>
+    <h3>Your wishlist is empty</h3>
+    <p class="text-muted">
+      Add items you like to your wishlist and save them for later
+    </p>
+    <button class="btn amazon-btn mt-3" [routerLink]="['/']">
+      Continue Shopping
+    </button>
+  </div>
+
+  <div class="row" *ngIf="wishlistItems.length > 0">
+    <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of wishlistItems">
+      <div class="product-card">
+        <div class="card h-100 shadow-sm">
+          <div class="position-relative">
+            <img
+              [src]="product.image"
+              class="card-img-top"
+              alt="{{ product.name }}"
+              (click)="goToProductDetails(product.id!)"
+              style="height: 250px; object-fit: cover; cursor: pointer"
+            />
+            <button
+              class="btn position-absolute top-0 end-0 m-2 bg-transparent"
+              (click)="removeFromWishlist(product.id!)"
+            >
+              <i
+                class="bi bi-heart-fill text-danger"
+                style="font-size: 1.5rem"
+              ></i>
+            </button>
+          </div>
+          <div class="card-body">
+            <h5
+              class="card-title"
+              (click)="goToProductDetails(product.id!)"
+              style="cursor: pointer"
+            >
+              {{ product.name }}
+            </h5>
+            <p class="card-text text-muted small">{{ product.description }}</p>
+            <p class="mb-1">
+              <span class="text-decoration-line-through text-muted"
+                >₹{{ product.old_price }}</span
+              >
+              <span class="text-danger fw-bold ms-2"
+                >₹{{ product.discount_price }}</span
+              >
+            </p>
+            <p class="mb-2">
+              <span class="badge bg-success">{{ product.discount }}% OFF</span>
+            </p>
+            <button
+              *ngIf="!isInCart(product.id!)"
+              class="btn amazon-btn w-100"
+              (click)="addToCart(product)"
+            >
+              Add to Cart
+            </button>
+            <button
+              *ngIf="isInCart(product.id!)"
+              class="btn btn-warning w-100"
+              (click)="goToCart()"
+            >
+              Go to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

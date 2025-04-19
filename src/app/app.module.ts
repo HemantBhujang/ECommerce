@@ -27,6 +27,7 @@ import { ParentCategoryProductsComponent } from './components/parent-category-pr
 import { MainCategoryProductsComponent } from './components/main-category-products/main-category-products.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CartComponent } from './components/cart/cart.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { CartComponent } from './components/cart/cart.component';
     MainCategoryProductsComponent,
     NotFoundComponent,
     CartComponent,
+    WishlistComponent,
    
   ],
   imports: [

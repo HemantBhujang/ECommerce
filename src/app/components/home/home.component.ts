@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 import { Product } from '../interface/product.model';
 import { CartService } from 'src/app/Services/cart.service';
+import { WishlistService } from 'src/app/Services/wishlist.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,10 @@ import { CartService } from 'src/app/Services/cart.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  constructor(private router: Router, private productService : ProductService,private cartService : CartService) {}
+  constructor(private router: Router, 
+    private productService : ProductService,
+    private cartService : CartService,
+  private wishlistService : WishlistService) {}
 
   categories: any[] = [];
 
@@ -97,6 +101,13 @@ export class HomeComponent {
 
   goToCart() {
     this.router.navigate(['/cart']);
+  }
+  toggleWishlist(product: Product) {
+    this.wishlistService.toggleWishlistItem(product);
+  }
+  
+  isInWishlist(productId: number): boolean {
+    return this.wishlistService.isProductInWishlist(productId);
   }
   
 }

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/Services/login.service';
 import { ProductService } from 'src/app/Services/product.service';
 import { CartService } from 'src/app/Services/cart.service';
+import { WishlistService } from 'src/app/Services/wishlist.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,13 +17,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
   user: any = null;
   searchResult: any = [];
   cartItemCount: number = 0;
+  wishlistItemCount: number = 0;
+  
   private cartSubscription!: Subscription;
+  private wishlistSubscription!: Subscription;
 
   constructor(
     public loginService: LoginService, 
     private router: Router,
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private wishlistService: WishlistService
   ) {}
 
   ngOnInit(): void {
@@ -42,15 +47,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
         return total + (item.quantity || 1);
       }, 0);
     });
+    
+    // Subscribe to wishlist changes to update the wishlist badge count
+    this.wishlistSubscription = this.wishlistService.wishlistItems$.subscribe(items => {
+      this.wishlistItemCount = items.length;
+    });
   }
 
   ngOnDestroy(): void {
-    // Clean up subscription when component is destroyed
+    // Clean up subscriptions when component is destroyed
     if (this.cartSubscription) {
       this.cartSubscription.unsubscribe();
     }
+    
+    if (this.wishlistSubscription) {
+      this.wishlistSubscription.unsubscribe();
+    }
   }
 
+  // Add this method to navigate to wishlist page
+  goToWishlist() {
+    this.router.navigate(['/wishlist']);
+  }
+
+  // Rest of your existing methods...
   onProfileClick() {
     if (this.loginService.isLoggedIn()) {
       this.router.navigate(['/profile']);

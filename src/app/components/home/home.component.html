@@ -54,19 +54,34 @@
   </div>
 </div>
 
-<!-- In the product card section of home.component.html -->
+<!-- Modify the product card section in home.component.html -->
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
       <div class="product-card">
         <div class="card h-100 shadow-sm">
-          <img
-            [src]="product.image"
-            class="card-img-top"
-            alt="{{ product.name }}"
-            (click)="productDetailsPage(product.id)"
-            style="height: 250px; object-fit: cover; cursor: pointer"
-          />
+          <div class="position-relative">
+            <img
+              [src]="product.image"
+              class="card-img-top"
+              alt="{{ product.name }}"
+              (click)="productDetailsPage(product.id)"
+              style="height: 250px; object-fit: cover; cursor: pointer"
+            />
+            <button
+              class="btn position-absolute top-0 end-0 m-2 bg-transparent"
+              (click)="toggleWishlist(product); $event.stopPropagation()"
+            >
+              <i
+                [class]="
+                  isInWishlist(product.id)
+                    ? 'bi bi-heart-fill text-danger'
+                    : 'bi bi-heart'
+                "
+                style="font-size: 1.5rem"
+              ></i>
+            </button>
+          </div>
           <div class="card-body">
             <h5
               class="card-title"
