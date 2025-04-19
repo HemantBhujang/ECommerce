@@ -23,7 +23,20 @@
           <p class="mb-2">
             <span class="badge bg-success">{{ product.discount }}% OFF</span>
           </p>
-          <button class="btn amazon-btn w-100">Add to Cart</button>
+          <button
+            *ngIf="!isInCart(product.id)"
+            class="btn amazon-btn w-100"
+            (click)="addToCart(product)"
+          >
+            Add to Cart
+          </button>
+          <button
+            *ngIf="isInCart(product.id)"
+            class="btn btn-warning w-100"
+            (click)="goToCart()"
+          >
+            Go to Cart
+          </button>
         </div>
       </div>
     </div>

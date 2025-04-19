@@ -25,6 +25,8 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { CategoryProductsComponent } from './components/category-products/category-products.component';
 import { ParentCategoryProductsComponent } from './components/parent-category-products/parent-category-products.component';
 import { MainCategoryProductsComponent } from './components/main-category-products/main-category-products.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { MainCategoryProductsComponent } from './components/main-category-produc
     CategoryProductsComponent,
     ParentCategoryProductsComponent,
     MainCategoryProductsComponent,
+    NotFoundComponent,
+    CartComponent,
    
   ],
   imports: [

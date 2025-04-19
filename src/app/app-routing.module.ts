@@ -19,10 +19,14 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { CategoryProductsComponent } from './components/category-products/category-products.component';
 import { ParentCategoryProductsComponent } from './components/parent-category-products/parent-category-products.component';
 import { MainCategoryProductsComponent } from './components/main-category-products/main-category-products.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { HomeComponent } from './components/home/home.component';
+import { CartComponent } from './components/cart/cart.component';
 
 
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   {
     path:"login",
     component:LoginComponent
@@ -48,10 +52,13 @@ const routes: Routes = [
     ]
   
 },
+{path:"cart", component:CartComponent},
 {path :"product-details/:id", component:ProductDetailsComponent},
 { path: ':category/:parent/:sub', component: CategoryProductsComponent },
 { path: ':category/:parent', component: ParentCategoryProductsComponent },
+{ path: 'not-found', component: NotFoundComponent },
 { path: ':category', component: MainCategoryProductsComponent },
+{ path: '**', redirectTo: 'not-found' }
 
 ];
 

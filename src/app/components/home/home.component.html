@@ -54,22 +54,27 @@
   </div>
 </div>
 
+<!-- In the product card section of home.component.html -->
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
       <div class="product-card">
-        <div
-          class="card h-100 shadow-sm"
-          (click)="productDetailsPage(product.id)"
-        >
+        <div class="card h-100 shadow-sm">
           <img
             [src]="product.image"
             class="card-img-top"
             alt="{{ product.name }}"
-            style="height: 250px; object-fit: cover"
+            (click)="productDetailsPage(product.id)"
+            style="height: 250px; object-fit: cover; cursor: pointer"
           />
           <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
+            <h5
+              class="card-title"
+              (click)="productDetailsPage(product.id)"
+              style="cursor: pointer"
+            >
+              {{ product.name }}
+            </h5>
             <p class="card-text text-muted small">{{ product.description }}</p>
             <p class="mb-1">
               <span class="text-decoration-line-through text-muted"
@@ -82,7 +87,20 @@
             <p class="mb-2">
               <span class="badge bg-success">{{ product.discount }}% OFF</span>
             </p>
-            <button class="btn amazon-btn w-100">Add to Cart</button>
+            <button
+              *ngIf="!isInCart(product.id)"
+              class="btn amazon-btn w-100"
+              (click)="addToCart(product)"
+            >
+              Add to Cart
+            </button>
+            <button
+              *ngIf="isInCart(product.id)"
+              class="btn btn-warning w-100"
+              (click)="goToCart()"
+            >
+              Go to Cart
+            </button>
           </div>
         </div>
       </div>

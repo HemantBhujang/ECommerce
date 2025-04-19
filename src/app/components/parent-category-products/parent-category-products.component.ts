@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
+import { Product } from '../interface/product.model';
+import { CartService } from 'src/app/Services/cart.service';
 
 @Component({
   selector: 'app-parent-category-products',
@@ -12,7 +14,10 @@ export class ParentCategoryProductsComponent implements OnInit {
   parent: string = '';
   products: any[] = [];
 
-  constructor(private route: ActivatedRoute, private productService: ProductService,private router : Router) {}
+  constructor(private route: ActivatedRoute,
+     private productService: ProductService,
+     private router : Router,
+    private cartService : CartService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -31,5 +36,15 @@ export class ParentCategoryProductsComponent implements OnInit {
     // Same as in HomeComponent
     this.router.navigate(['/product-details', id]);
   }
+   addToCart(product: Product) {
+      this.cartService.addToCart(product);
+    }
   
+    isInCart(productId: number): boolean {
+      return this.cartService.isProductInCart(productId);
+    }
+  
+    goToCart() {
+      this.router.navigate(['/cart']);
+    }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 import { Product } from '../interface/product.model';
+import { CartService } from 'src/app/Services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { Product } from '../interface/product.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  constructor(private router: Router, private productService : ProductService) {}
+  constructor(private router: Router, private productService : ProductService,private cartService : CartService) {}
 
   categories: any[] = [];
 
@@ -86,6 +87,16 @@ export class HomeComponent {
         //return category.img || 'https://via.placeholder.com/150'; // fallback image
     }
   }
-  
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+  }
+
+  isInCart(productId: number): boolean {
+    return this.cartService.isProductInCart(productId);
+  }
+
+  goToCart() {
+    this.router.navigate(['/cart']);
+  }
   
 }

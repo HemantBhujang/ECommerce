@@ -76,11 +76,24 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active my-2" href="#">
-            <img
-              src="../../../assets/shopping_bag_24dp_000000.svg"
-              alt="Cart"
-            />
+          <a
+            class="nav-link active my-2 position-relative"
+            (click)="goToCart()"
+            style="cursor: pointer"
+          >
+            <div class="position-relative d-inline-block">
+              <img
+                src="../../../assets/shopping_bag_24dp_000000.svg"
+                alt="Cart"
+              />
+              <span
+                *ngIf="cartItemCount > 0"
+                class="position-absolute badge rounded-pill bg-danger"
+                style="font-size: 0.65rem; top: -5px; right: -8px"
+              >
+                {{ cartItemCount }}
+              </span>
+            </div>
           </a>
         </li>
         <li class="nav-item">

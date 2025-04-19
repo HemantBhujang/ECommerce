@@ -2,16 +2,10 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
       <img [src]="product.image" alt="Product Image" class="product-image" />
-      <!-- This tells Angular: “only try to access .image if product is not null.” -->
     </div>
     <div class="product-details">
       <h1 class="text-3xl font-bold text-gray-800">{{ product.name }}</h1>
       <p class="text-gray-600 mt-2">{{ product.description }}</p>
-      <!-- <div class="product-reviews">
-        <span>4.2</span>
-        <i class="fa-solid fa-star"></i>
-        <span>1203 reviews</span>
-      </div> -->
       <div class="product-price">
         <span class="original-price">₹{{ product.old_price }}</span>
         <span class="sale-price">₹{{ product.discount_price }}</span>
@@ -33,9 +27,9 @@
       </div>
       <div class="product-quantity">
         <h6>Select Quantity</h6>
-        <button>-</button>
-        <p>1</p>
-        <button>+</button>
+        <button (click)="decreaseQuantity()">-</button>
+        <p>{{ quantity }}</p>
+        <button (click)="increaseQuantity()">+</button>
       </div>
       <div class="delivery-options">
         <h6 class="font-bold mb-2">DELIVERY OPTIONS</h6>
@@ -73,61 +67,20 @@
           <span class="detail-value">India</span>
         </div>
       </div>
-      <!-- <div class="product-reviews">
-        <div class="review-item">
-          <div class="review-header">
-            <div class="review-rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <span class="review-author">Vijay C.</span>
-            <span class="review-date">22 Mar, 2025</span>
-          </div>
-          <div class="review-content">
-            Great product! Fits perfectly and looks exactly like the pictures.
-            The fabric quality is excellent for the price point.
-          </div>
-        </div>
-        <div class="review-item">
-          <div class="review-header">
-            <div class="review-rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <span class="review-author">Raghav J.</span>
-            <span class="review-date">15 Mar, 2025</span>
-          </div>
-          <div class="review-content">
-            Absolutely loved it! The color is vibrant and material is soft. Will
-            definitely buy more from this brand.
-          </div>
-        </div>
-      </div> -->
 
-      <!-- <div class="similar-product">
-        <h6>SIMILAR PRODUCT</h6>
-      </div>
-
-      <div class="product-rating">
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="far fa-star"></i>
-      </div>
-      <p class="product-description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor,
-        magna vel aliquam ultricies, nisl nisl aliquam nisl, eget aliquam nisl
-        nisl sit amet nisl.
-      </p> -->
-      <button class="add-to-cart-button">Add to Cart</button>
-      <button class="add-to-cart-button mx-5">Buy Now</button>
+      <button
+        *ngIf="!isInCart"
+        class="add-to-cart-button"
+        (click)="addToCart()"
+      >
+        Add to Cart
+      </button>
+      <button *ngIf="isInCart" class="add-to-cart-button" (click)="goToCart()">
+        Go to Cart
+      </button>
+      <button class="add-to-cart-button mx-5" (click)="buyNow()">
+        Buy Now
+      </button>
     </div>
   </div>
 </div>

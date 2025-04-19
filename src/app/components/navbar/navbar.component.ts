@@ -1,31 +1,55 @@
-// navbar.component.ts
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/Services/login.service';
 import { ProductService } from 'src/app/Services/product.service';
+import { CartService } from 'src/app/Services/cart.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput') searchInput!: ElementRef;
-
+  
   user: any = null;
-  searchResult:any=[];
+  searchResult: any = [];
+  cartItemCount: number = 0;
+  private cartSubscription!: Subscription;
 
-  constructor(public loginService: LoginService, private router: Router,private productService: ProductService) {}
+  constructor(
+    public loginService: LoginService, 
+    private router: Router,
+    private productService: ProductService,
+    private cartService: CartService
+  ) {}
+
   ngOnInit(): void {
+    // Load user data if logged in
     if (this.loginService.isLoggedIn()) {
       const storedUser = localStorage.getItem('authUser');
       if (storedUser) {
         this.user = JSON.parse(storedUser);
-        console.log("Navbar User:", this.user); // ✅ Debug info
+        console.log("Navbar User:", this.user); // Debug info
       }
     }
+
+    // Subscribe to cart changes to update the cart badge count
+    this.cartSubscription = this.cartService.cartItems$.subscribe(items => {
+      // Calculate the total number of items (considering quantities)
+      this.cartItemCount = items.reduce((total, item) => {
+        return total + (item.quantity || 1);
+      }, 0);
+    });
   }
-  
+
+  ngOnDestroy(): void {
+    // Clean up subscription when component is destroyed
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
+  }
 
   onProfileClick() {
     if (this.loginService.isLoggedIn()) {
@@ -47,21 +71,24 @@ export class NavbarComponent implements OnInit {
   editProfile() {
     if (this.user && this.user.id) {
       this.router.navigate([`/edit-profile/${this.user.id}`]);
-      console.log("userId",this.user.id);
-      
+      console.log("userId", this.user.id);
     } else {
       console.warn("User not logged in or ID not available");
       this.router.navigate(['/login']);
     }
   }
-  
+
   goToLogin() {
     this.router.navigate(['/login']);
   }
 
-  searchProduct(query:Event){
-    if(query){
-      const element=(query.target as HTMLInputElement).value;
+  goToCart() {
+    this.router.navigate(['/cart']);
+  }
+
+  searchProduct(query: Event) {
+    if (query) {
+      const element = (query.target as HTMLInputElement).value;
       console.log(element);
 
       if (!element) {
@@ -69,22 +96,17 @@ export class NavbarComponent implements OnInit {
         return;
       }
 
-      this.productService.searchProduct(element).subscribe((result:any)=>{
-        // console.log(result);
-         this.searchResult=result;
-         //console.log(this.searchResult);
-         })
-        }
-       }
+      this.productService.searchProduct(element).subscribe((result: any) => {
+        this.searchResult = result;
+      });
+    }
+  }
 
   goToProduct(productId: number) {
     this.searchResult = []; // Clear results after navigation
     if (this.searchInput) {
-      this.searchInput.nativeElement.value = ''; // ✅ Clear input field
+      this.searchInput.nativeElement.value = ''; // Clear input field
     }
     this.router.navigate(['/product-details', productId]);
-   // this.searchResult.reset();
-
   }
-  
 }
