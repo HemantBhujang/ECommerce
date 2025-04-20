@@ -1,76 +1,130 @@
-<!-- src/app/components/wishlist/wishlist.component.html -->
-<div class="container mt-4">
-  <h2 class="mb-4">My Wishlist</h2>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-4">My Wishlist</h2>
 
-  <div *ngIf="wishlistItems.length === 0" class="text-center my-5">
-    <div class="mb-4">
-      <i class="bi bi-heart" style="font-size: 3rem"></i>
-    </div>
-    <h3>Your wishlist is empty</h3>
-    <p class="text-muted">
-      Add items you like to your wishlist and save them for later
-    </p>
-    <button class="btn amazon-btn mt-3" [routerLink]="['/']">
-      Continue Shopping
-    </button>
-  </div>
+      <!-- Loading spinner -->
+      <div *ngIf="isLoading" class="text-center py-5">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
 
-  <div class="row" *ngIf="wishlistItems.length > 0">
-    <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of wishlistItems">
-      <div class="product-card">
-        <div class="card h-100 shadow-sm">
-          <div class="position-relative">
-            <img
-              [src]="product.image"
-              class="card-img-top"
-              alt="{{ product.name }}"
-              (click)="goToProductDetails(product.id!)"
-              style="height: 250px; object-fit: cover; cursor: pointer"
-            />
+      <!-- Empty wishlist message -->
+      <div
+        *ngIf="!isLoading && wishlistItems.length === 0"
+        class="text-center py-5"
+      >
+        <div class="mb-4">
+          <i class="bi bi-heart" style="font-size: 3rem"></i>
+        </div>
+        <h4>Your wishlist is empty</h4>
+        <p class="text-muted">
+          Save items you love to your wishlist. Review them anytime and easily
+          move them to the cart.
+        </p>
+        <button class="btn amazon-btn mt-3" (click)="goToShop()">
+          Continue Shopping
+        </button>
+      </div>
+
+      <!-- Login Suggestion (showing this is optional, you can remove this if you want guests to use wishlist) -->
+      <div
+        *ngIf="!isLoggedIn && !isLoading && wishlistItems.length > 0"
+        class="alert alert-info mb-4"
+      >
+        <div class="d-flex align-items-center">
+          <i class="bi bi-info-circle me-3" style="font-size: 1.5rem"></i>
+          <div>
+            <p class="mb-1">
+              Sign in to sync your Wishlist across all your devices.
+            </p>
             <button
-              class="btn position-absolute top-0 end-0 m-2 bg-transparent"
-              (click)="removeFromWishlist(product.id!)"
+              class="btn btn-sm amazon-btn"
+              (click)="router.navigate(['/login'])"
             >
-              <i
-                class="bi bi-heart-fill text-danger"
-                style="font-size: 1.5rem"
-              ></i>
+              Sign In
             </button>
           </div>
-          <div class="card-body">
-            <h5
-              class="card-title"
-              (click)="goToProductDetails(product.id!)"
-              style="cursor: pointer"
-            >
-              {{ product.name }}
-            </h5>
-            <p class="card-text text-muted small">{{ product.description }}</p>
-            <p class="mb-1">
-              <span class="text-decoration-line-through text-muted"
-                >₹{{ product.old_price }}</span
-              >
-              <span class="text-danger fw-bold ms-2"
-                >₹{{ product.discount_price }}</span
-              >
-            </p>
-            <p class="mb-2">
-              <span class="badge bg-success">{{ product.discount }}% OFF</span>
-            </p>
-            <button
-              *ngIf="!isInCart(product.id!)"
-              class="btn amazon-btn w-100"
-              (click)="addToCart(product)"
-            >
-              Add to Cart
-            </button>
-            <button
-              *ngIf="isInCart(product.id!)"
-              class="btn btn-warning w-100"
-              (click)="goToCart()"
-            >
-              Go to Cart
-            </button>
+        </div>
+      </div>
+
+      <!-- Wishlist items -->
+      <div *ngIf="!isLoading && wishlistItems.length > 0" class="row">
+        <div class="col-md-12">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body p-0">
+              <!-- Wishlist items table -->
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead class="bg-light">
+                    <tr>
+                      <th scope="col" class="border-0 px-4 py-3">Product</th>
+                      <th scope="col" class="border-0 px-4 py-3">Price</th>
+                      <th scope="col" class="border-0 px-4 py-3">Actions</th>
+                      <th scope="col" class="border-0 px-4 py-3"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of wishlistItems">
+                      <td class="px-4 py-3">
+                        <div class="d-flex align-items-center">
+                          <img
+                            [src]="item.image"
+                            alt="{{ item.name }}"
+                            class="img-fluid rounded"
+                            style="width: 80px; height: 80px; object-fit: cover"
+                          />
+                          <div class="ms-3">
+                            <h6
+                              class="mb-0"
+                              style="cursor: pointer"
+                              (click)="goToProductDetails(item.id)"
+                            >
+                              {{ item.name }}
+                            </h6>
+                            <small class="text-muted"
+                              >{{ item.category }} >
+                              {{ item.sub_category }}</small
+                            >
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3">
+                        <div>
+                          <span class="text-danger fw-bold"
+                            >₹{{ item.discount_price }}</span
+                          >
+                          <br />
+                          <small class="text-decoration-line-through text-muted"
+                            >₹{{ item.old_price }}</small
+                          >
+                          <span class="badge bg-success ms-2"
+                            >{{ item.discount }}% OFF</span
+                          >
+                        </div>
+                      </td>
+                      <td class="px-4 py-3">
+                        <button
+                          class="btn amazon-btn"
+                          (click)="addToCart(item)"
+                        >
+                          <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                        </button>
+                      </td>
+                      <td class="px-4 py-3">
+                        <button
+                          class="btn btn-outline-danger btn-sm"
+                          (click)="removeFromWishlist(item)"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

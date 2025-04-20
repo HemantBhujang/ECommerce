@@ -65,12 +65,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Add this method to navigate to wishlist page
+  // Navigate to wishlist - no login check needed
   goToWishlist() {
     this.router.navigate(['/wishlist']);
   }
 
-  // Rest of your existing methods...
   onProfileClick() {
     if (this.loginService.isLoggedIn()) {
       this.router.navigate(['/profile']);
@@ -80,8 +79,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.loginService.logout();
-    this.router.navigate(['/']);
+    this.loginService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Logout error:', error);
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   goToProfile() {
