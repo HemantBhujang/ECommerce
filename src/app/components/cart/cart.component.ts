@@ -53,7 +53,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   continueShopping(): void {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/']);
   }
 
   viewProduct(productId: number): void {

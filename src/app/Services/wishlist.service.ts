@@ -68,7 +68,8 @@ export class WishlistService {
         // If response is an array of objects with product property
         if (response.length > 0 && response[0].product) {
           mappedItems = response.map(item => ({
-            ...item.product,
+            ...item,
+            wishlist_item_id: item.wishlist_item_id,
             quantity: item.quantity || 1
           }));
         }
@@ -89,7 +90,7 @@ export class WishlistService {
       // Logged-in user - use server API
       if (this.isProductInWishlist(product.id!)) {
         // Remove item
-        this.removeFromServerWishlist(product.id!).subscribe({
+        this.removeFromServerWishlist(product).subscribe({
           next: () => {
             const currentItems = this.wishlistItemsSubject.value;
             const updatedItems = currentItems.filter(item => item.id !== product.id);
@@ -142,12 +143,13 @@ export class WishlistService {
   }
 
   // Remove item from server wishlist
-  private removeFromServerWishlist(productId: number): Observable<any> {
+  private removeFromServerWishlist(product: any): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.loginService.getToken()}`
     });
-
-    return this.http.delete(`${this.apiUrl}/wishlistdel/${productId}`, { headers });
+  
+    const wishlistItemId = product.wishlist_item_id;
+    return this.http.delete(`${this.apiUrl}/wishlistdel/${wishlistItemId}`, { headers });
   }
 
   // Check if a product is in wishlist
