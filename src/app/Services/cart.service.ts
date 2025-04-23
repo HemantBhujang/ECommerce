@@ -4,7 +4,25 @@ import { BehaviorSubject } from 'rxjs';
 import { Product } from '../components/interface/product.model';
 
 export interface CartProduct extends Product {
-  quantity: number; // remove `| undefined`
+  id?: number;
+  cart_item_id?: number; // Added this field
+  name: string;
+  description: string;
+  old_price: string;
+  discount_price: string;
+  discount: number;
+  category: string;
+  parent_category: string;
+  sub_category: string;
+  stock: number;
+  image: string;
+  size: string;
+  color: string;
+  quantity: number;
+  created_at: string;
+  rating?: number;
+  reviews?: number;
+  brand?: string;
 }
 
 @Injectable({

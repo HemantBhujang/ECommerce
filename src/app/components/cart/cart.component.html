@@ -57,7 +57,7 @@
                 </button>
               </div>
             </td>
-            <td>(item.discount_price * (item.quantity || 1)).toFixed(2)</td>
+            <td>₹{{ getItemTotal(item.discount_price, item.quantity) }}</td>
             <td>
               <button
                 class="btn btn-sm btn-primary me-2"
@@ -67,7 +67,7 @@
               </button>
               <button
                 class="btn btn-sm btn-danger"
-                (click)="removeFromCart(item.id!)"
+                (click)="removeFromCart(item.cart_item_id)"
               >
                 <i class="bi bi-trash"></i> Remove
               </button>
