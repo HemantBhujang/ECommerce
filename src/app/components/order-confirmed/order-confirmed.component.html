@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Order Confirmed</h1>
+  <h2>Order Summary</h2>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of orderSummary.items">
+      {{ item }}
+    </li>
+  </ul>
+  <p>Subtotal: ${{ orderSummary.subtotal }}</p>
+  <p>Shipping Charges: ${{ orderSummary.shippingCharges }}</p>
+  <p>Taxes: ${{ orderSummary.taxes }}</p>
+  <p>Order Total: ${{ orderSummary.total }}</p>
+  <h2>Delivery Address</h2>
+  <p>{{ deliveryAddress }}</p>
+  <h2>Payment Method</h2>
+  <p>{{ paymentMethod }}</p>
+  <p>Estimated Delivery Date: {{ estimatedDeliveryDate }}</p>
+  <button class="btn btn-success">Done</button>
+</div>

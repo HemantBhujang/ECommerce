@@ -23,6 +23,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { OrderConfirmedComponent } from './components/order-confirmed/order-confirmed.component';
+import { OnlinePaymentComponent } from './components/online-payment/online-payment.component';
 
 
 
@@ -53,6 +56,9 @@ const routes: Routes = [
     ]
   
 },
+{path:"payment",component:PaymentComponent},
+{path:'order-confirmed',component:OrderConfirmedComponent},
+{path:'online-payment',component:OnlinePaymentComponent},
 {path:"cart", component:CartComponent},
 {path:"wishlist", component:WishlistComponent},
 {path :"product-details/:id", component:ProductDetailsComponent},

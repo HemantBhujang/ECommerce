@@ -106,22 +106,22 @@ export class CartComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeFromCart(cartItemId: number | undefined): void {
-    if (!cartItemId) return;
-    
+  removeFromCart(cartItemId: number | undefined, productId: number): void {
     if (this.isLoggedIn && this.token) {
+      if (!cartItemId) return;
+  
       this.dbCartService.removeFromCart(cartItemId, this.token).subscribe(() => {
         this.cartItems = this.cartItems.filter(item => item.cart_item_id !== cartItemId);
         this.calculateTotal();
       });
     } else {
-      // For local storage cart, we need to use the product id
-      const itemToRemove = this.cartItems.find(item => item.cart_item_id === cartItemId);
-      if (itemToRemove && itemToRemove.id) {
-        this.cartService.removeFromCart(itemToRemove.id);
-      }
+      // For local storage cart, filter by product ID directly
+      this.cartService.removeFromCart(productId);
+      this.cartItems = this.cartItems.filter(item => item.id !== productId);
+      this.calculateTotal();
     }
   }
+  
 
   clearCart(): void {
     if (this.isLoggedIn) {
@@ -129,7 +129,7 @@ export class CartComponent implements OnInit, OnDestroy {
       // For now, we'll delete items one by one
       [...this.cartItems].forEach(item => {
         if (item.cart_item_id) {
-          this.removeFromCart(item.cart_item_id);
+          this.removeFromCart(item.cart_item_id,item.id!);
         }
       });
     } else {
