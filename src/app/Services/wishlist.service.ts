@@ -59,22 +59,32 @@ export class WishlistService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.loginService.getToken()}`
     });
-
+  
     return this.http.get<any[]>(`${this.apiUrl}/wishlistget`, { headers }).pipe(
       tap(response => {
-        // Map the response to match our frontend format if needed
-        let mappedItems = response;
+        console.log('Wishlist server response:', response);
+        let mappedItems = [];
         
         // If response is an array of objects with product property
-        if (response.length > 0 && response[0].product) {
-          mappedItems = response.map(item => ({
-            ...item,
-            wishlist_item_id: item.wishlist_item_id,
-            quantity: item.quantity || 1
-          }));
+        if (response.length > 0) {
+          if (response[0].product) {
+            // Case where each item has a product property
+            mappedItems = response.map(item => ({
+              ...item.product,  // Spread all product properties
+              wishlist_item_id: item.wishlist_item_id,  // Add the wishlist item ID
+              quantity: item.quantity || 1
+            }));
+          } else {
+            // Case where we might have a flatter structure
+            mappedItems = response.map(item => ({
+              ...item,
+              wishlist_item_id: item.wishlist_item_id,
+              quantity: item.quantity || 1
+            }));
+          }
         }
         
-        // Update the BehaviorSubject
+        console.log('Mapped wishlist items:', mappedItems);
         this.wishlistItemsSubject.next(mappedItems);
       }),
       catchError(error => {
@@ -83,16 +93,19 @@ export class WishlistService {
       })
     );
   }
-
   // Toggle an item in wishlist (add or remove)
   toggleWishlistItem(product: Product): void {
     if (this.loginService.isLoggedIn()) {
       // Logged-in user - use server API
-      if (this.isProductInWishlist(product.id!)) {
-        // Remove item
-        this.removeFromServerWishlist(product).subscribe({
+      const currentItems = this.wishlistItemsSubject.value;
+      const existingItem = currentItems.find(item => item.id === product.id);
+      
+      if (existingItem && existingItem.wishlist_item_id) {
+        // Remove item - use the wishlist_item_id from the existing item
+        console.log('Removing wishlist item with ID:', existingItem.wishlist_item_id);
+        
+        this.removeFromServerWishlist(existingItem).subscribe({
           next: () => {
-            const currentItems = this.wishlistItemsSubject.value;
             const updatedItems = currentItems.filter(item => item.id !== product.id);
             this.wishlistItemsSubject.next(updatedItems);
           },
@@ -101,10 +114,11 @@ export class WishlistService {
       } else {
         // Add item
         this.addToServerWishlist(product.id!).subscribe({
-          next: () => {
-            const currentItems = this.wishlistItemsSubject.value;
-            const updatedItems = [...currentItems, product];
-            this.wishlistItemsSubject.next(updatedItems);
+          next: (response) => {
+            console.log('Added to wishlist response:', response);
+            
+            // After adding to server, fetch the updated wishlist to get the correct IDs
+            this.fetchWishlistFromServer().subscribe();
           },
           error: err => console.error('Error adding to wishlist:', err)
         });
@@ -130,17 +144,22 @@ export class WishlistService {
   }
 
   // Add item to server wishlist
-  private addToServerWishlist(productId: number): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.loginService.getToken()}`
-    });
+// Modify the addToServerWishlist method to handle the response better
+private addToServerWishlist(productId: number): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${this.loginService.getToken()}`
+  });
 
-    return this.http.post(`${this.apiUrl}/wishlistadd`, {
-      product_id: productId,
-      quantity: 1
-    }, { headers });
-  }
+  return this.http.post(`${this.apiUrl}/wishlistadd`, {
+    product_id: productId,
+    quantity: 1
+  }, { headers }).pipe(
+    tap(response => {
+      console.log('Add to wishlist response:', response);
+    })
+  );
+}
 
   // Remove item from server wishlist
   private removeFromServerWishlist(product: any): Observable<any> {
