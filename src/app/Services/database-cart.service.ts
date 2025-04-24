@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from '../components/interface/product.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,9 @@ import { Observable } from 'rxjs';
 export class DatabaseCartService {
   private apiUrl = 'http://localhost:5000/api/cart';
   
+  // Subject to notify components when cart is updated
+  private cartUpdatedSubject = new Subject<void>();
+  cartUpdated$ = this.cartUpdatedSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -26,7 +30,13 @@ export class DatabaseCartService {
       product_id: productId,
       quantity: quantity
     };
-    return this.http.post(`${this.apiUrl}/cartadd`, body, this.getAuthHeaders(token));
+    return this.http.post(`${this.apiUrl}/cartadd`, body, this.getAuthHeaders(token))
+      .pipe(
+        tap(() => {
+          // Notify subscribers that cart has been updated
+          this.cartUpdatedSubject.next();
+        })
+      );
   }
 
   getCartItems(token: string): Observable<Product[]> {
@@ -34,8 +44,17 @@ export class DatabaseCartService {
   }
 
   removeFromCart(itemId: number, token: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/cartdel/${itemId}`, this.getAuthHeaders(token));
+    return this.http.delete(`${this.apiUrl}/cartdel/${itemId}`, this.getAuthHeaders(token))
+      .pipe(
+        tap(() => {
+          // Notify subscribers that cart has been updated
+          this.cartUpdatedSubject.next();
+        })
+      );
   }
-
   
+  // Call this method manually if you need to notify components that cart data has changed
+  notifyCartUpdated(): void {
+    this.cartUpdatedSubject.next();
+  }
 }
