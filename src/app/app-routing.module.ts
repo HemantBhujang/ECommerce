@@ -58,7 +58,7 @@ const routes: Routes = [
     ]
   
 },
-{path:"payment",component:PaymentComponent},
+{path:"payment",component:PaymentComponent,canActivate: [AuthGuard]},
 {path:'order-confirmed',component:OrderConfirmedComponent},
 {path:'online-payment',component:OnlinePaymentComponent},
 {path:"cart", component:CartComponent},
