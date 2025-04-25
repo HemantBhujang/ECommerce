@@ -1,59 +1,33 @@
-/* General Styles */
-body {
-    background-color: #fff3f5; /* Light background color */
-    font-family: Arial, sans-serif; /* Font family */
+
+.checkout-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-h1, h2 {
-    color: #ff758c; /* Heading color */
+.checkout-header {
+    color: #333;
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+.section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
-/* Container for the components */
-.container {
-    border: 1px solid #ff6f61; /* Border color */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Padding inside the container */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+.details-card {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
-
-/* List group item styles */
-.list-group-item {
-    background-color: #ff9a8b; /* Background color for list items */
-    color: white; /* Text color */
-    border: none; /* No border */
+.title{
+    font-size: 30px;
+    font-weight: 600;
 }
-
-.list-group-item:hover {
-    background-color: #ff758c; /* Hover background color */
-}
-
-/* Form label styles */
-.form-label {
-    color: #ff6f61; /* Label color */
-}
-
-/* Form control styles */
-.form-control {
-    border: 1px solid #ff6f61; /* Border color */
-    border-radius: 5px; /* Rounded corners */
-}
-
-.form-control:focus {
-    border-color: #ff758c; /* Border color on focus */
-    box-shadow: 0 0 5px rgba(255, 117, 140, 0.5); /* Shadow on focus */
-}
-
-/* Button styles */
-.btn-success {
-    background-color: #ff758c; /* Button background color */
-    border: none; /* No border */
-}
-
-.btn-success:hover {
-    background-color: #ff6f61; /* Button hover color */
-    color: white; /* Text color on hover */
-}
-
-.btn-success:focus {
-    box-shadow: 0 0 5px rgba(255, 117, 140, 0.5); /* Shadow on focus */
+.phone-details {
+    color: #666;
 }

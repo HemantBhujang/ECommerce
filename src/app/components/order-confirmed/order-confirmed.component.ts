@@ -1,5 +1,9 @@
 // order-confirmed.component.ts
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CartProduct, CartService } from 'src/app/Services/cart.service';
+import { DatabaseCartService } from 'src/app/Services/database-cart.service';
+import { LoginService } from 'src/app/Services/login.service';
 
 @Component({
   selector: 'app-order-confirmed',
@@ -7,15 +11,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./order-confirmed.component.css']
 })
 export class OrderConfirmedComponent {
-  orderSummary = {
-    items: ['Product A', 'Product B'],
-    subtotal: 100,
-    shippingCharges: 10,
-    taxes: 5,
-    total: 115
-  };
+   cartItems: CartProduct[] = [];
 
-  deliveryAddress = '123 Main St, Anytown USA';
-  paymentMethod = 'Cash on Delivery';
-  estimatedDeliveryDate = 'April 25, 2023';
+    constructor(
+       private cartService: CartService,
+       private dbCartService: DatabaseCartService,
+       private loginService: LoginService,
+       private router: Router
+     ) {}
 }

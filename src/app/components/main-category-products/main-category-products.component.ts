@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 import { Product } from '../interface/product.model';
 import { CartService } from 'src/app/Services/cart.service';
+import { LoginService } from 'src/app/Services/login.service';
+import { DatabaseCartService } from 'src/app/Services/database-cart.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-main-category-products',
@@ -13,12 +16,16 @@ export class MainCategoryProductsComponent implements OnInit {
   category = '';
   products: any[] = [];
   validCategories = ['men', 'women', 'kids']; // Define valid categories
+  isLoading = true;
+  dbCartProductIds: number[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
-    private cartService : CartService
+    private cartService : CartService,
+    private loginService : LoginService,
+    private dbCartService : DatabaseCartService
   ) {}
 
   ngOnInit(): void {
@@ -32,8 +39,34 @@ export class MainCategoryProductsComponent implements OnInit {
       }
       
       this.loadCategoryProducts();
+
+      this.loadCartItems();
     });
   }
+
+  loadCartItems(): void {
+      if (this.loginService.isLoggedIn()) {
+        const token = this.loginService.getToken();
+        if (token) {
+          this.isLoading = true;
+          this.dbCartService.getCartItems(token)
+            .pipe(finalize(() => this.isLoading = false))
+            .subscribe({
+              next: (items: any[]) => {
+                // Extract product IDs from cart items
+                this.dbCartProductIds = items.map(item => item.product?.id || item.product_id);
+                console.log('Cart items loaded:', this.dbCartProductIds);
+              },
+              error: (err) => {
+                console.error('Error loading cart items:', err);
+              }
+            });
+        }
+      } else {
+        // For non-logged in users, use the local cart service
+        this.dbCartProductIds = this.cartService.getCartItems().map(item => item.id!);
+      }
+    }
 
   loadCategoryProducts() {
     this.productService.getAllProducts().subscribe((data: any[]) => {
@@ -51,8 +84,9 @@ export class MainCategoryProductsComponent implements OnInit {
     }
   
     isInCart(productId: number): boolean {
-      return this.cartService.isProductInCart(productId);
+      return this.dbCartProductIds.includes(productId);
     }
+    
   
     goToCart() {
       this.router.navigate(['/cart']);

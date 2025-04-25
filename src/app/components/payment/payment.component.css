@@ -1,7 +1,74 @@
-button{
-    background-color: #ff758c;
-  }
   
-  h1 {
-      color: #ff758c;
-  }
+        .checkout-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .checkout-header {
+            color: #333;
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .details-card {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .edit-button {
+            color: #6c63ff;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .payment-option {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .payment-option:last-child {
+            border-bottom: none;
+        }
+        
+        .continue-btn {
+            background-color: #e97a9b;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 12px;
+            width: 100%;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        
+        .continue-btn:hover {
+            background-color: #d66a8a;
+        }
+        
+        .address-details {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .phone-details {
+            color: #666;
+        }
+        
+        .form-check-input:checked {
+            background-color: #6c63ff;
+            border-color: #6c63ff;
+        }

@@ -3,7 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 import { CartService } from 'src/app/Services/cart.service';
 import { Product } from '../interface/product.model';
-import { Subscription } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
+import { DatabaseCartService } from 'src/app/Services/database-cart.service';
+import { LoginService } from 'src/app/Services/login.service';
 
 @Component({
   selector: 'app-product-details',
@@ -13,15 +15,19 @@ import { Subscription } from 'rxjs';
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   product!: Product;
   quantity: number = 1;
-  isInCart: boolean = false;
+  isInCart1: boolean = false;
   private routeSub!: Subscription;
   private cartSub!: Subscription;
+  isLoading= true;
+  dbCartProductIds: number[] = [];
 
   constructor(
     private productService: ProductService, 
     private cartService: CartService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dbCartService : DatabaseCartService,
+    private loginService : LoginService
   ) {}
 
   ngOnInit() {
@@ -30,6 +36,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       const productId = +params['id']; // Convert to number
       this.loadProductDetails(productId);
       this.checkIfInCart(productId);
+
+      this.loadCartItems();
     });
 
     // Subscribe to cart changes to update UI accordingly
@@ -48,10 +56,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   checkIfInCart(productId: number) {
-    this.isInCart = this.cartService.isProductInCart(productId);
+    this.isInCart1 = this.cartService.isProductInCart(productId);
     
     // If in cart, update quantity to match what's in cart
-    if (this.isInCart) {
+    if (this.isInCart1) {
       const cartItem = this.cartService.getProductFromCart(productId);
       if (cartItem && cartItem.quantity) {
         this.quantity = cartItem.quantity;
@@ -62,7 +70,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   increaseQuantity() {
     if (this.quantity < 10) { // Adding a reasonable max limit
       this.quantity++;
-      if (this.isInCart && this.product.id) {
+      if (this.isInCart1 && this.product.id) {
         this.cartService.updateQuantity(this.product.id, this.quantity);
       }
     }
@@ -71,7 +79,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   decreaseQuantity() {
     if (this.quantity > 1) {
       this.quantity--;
-      if (this.isInCart && this.product.id) {
+      if (this.isInCart1&& this.product.id) {
         this.cartService.updateQuantity(this.product.id, this.quantity);
       }
     }
@@ -82,7 +90,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       // Create a copy of the product with quantity
       const productToAdd = { ...this.product, quantity: this.quantity };
       this.cartService.addToCart(productToAdd);
-      this.isInCart = true;
+      this.isInCart1 = true;
     }
   }
 
@@ -91,7 +99,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   buyNow() {
-    if (!this.isInCart) {
+    if (!this.isInCart1) {
       this.addToCart();
     }
     this.router.navigate(['/checkout']);
@@ -106,4 +114,33 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       this.cartSub.unsubscribe();
     }
   }
+
+  isInCart(productId: number): boolean {
+    return this.dbCartProductIds.includes(productId);
+  }
+
+    loadCartItems(): void {
+            if (this.loginService.isLoggedIn()) {
+              const token = this.loginService.getToken();
+              if (token) {
+                this.isLoading = true;
+                this.dbCartService.getCartItems(token)
+                  .pipe(finalize(() => this.isLoading = false))
+                  .subscribe({
+                    next: (items: any[]) => {
+                      // Extract product IDs from cart items
+                      this.dbCartProductIds = items.map(item => item.product?.id || item.product_id);
+                      console.log('Cart items loaded:', this.dbCartProductIds);
+                    },
+                    error: (err) => {
+                      console.error('Error loading cart items:', err);
+                    }
+                  });
+              }
+            } else {
+              // For non-logged in users, use the local cart service
+              this.dbCartProductIds = this.cartService.getCartItems().map(item => item.id!);
+            }
+          }
+  
 }

@@ -53,23 +53,6 @@
     font-weight: bold;
     font-size: 1.5rem;
   }
-  
-  .product-rating {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .product-rating i {
-    color: #fbbf24;
-    margin-right: 0.25rem;
-  }
-  
-  .product-description {
-    color: #6b7280;
-    margin-bottom: 1.5rem;
-  }
-  
   /* Button styles */
   .add-to-cart-button {
     background-color: #ec4899;
@@ -84,31 +67,6 @@
   
   .add-to-cart-button:hover {
     background-color: #be185d;
-  }
-  
-  .product-reviews {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .product-reviews span {
-    margin-right: 0.5rem;
-  }
-  
-  .product-reviews span:first-child {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: green;
-  }
-  
-  .product-reviews span:last-child {
-    color: #6b7280;
-  }
-
-  .product-reviews i{
-    color: green;
-    font-size: small;
   }
 .product.size {
     display: inline-block;
@@ -158,19 +116,6 @@
     border-color: #333; /* Change border color on hover */
 }
 
-/* Example color options */
-.product-color span.color1 {
-    background-color: #ff0000; /* Red */
-}
-
-.product-color span.color2 {
-    background-color: #00ff00; /* Green */
-}
-
-.product-color span.color3 {
-    background-color: #0000ff; /* Blue */
-}
-
 .product-size,
 .product-color {
   display: flex;
@@ -201,24 +146,6 @@
   line-height: 40px;
   cursor: pointer;
   transition: background-color 0.3s;
-}
-
-.size-options span:hover,
-.color-options span:hover {
-  background-color: #be185d;
-  color: #f0f0f0;
-}
-
-.color-options span.color1 {
-  background-color: #ff0000; /* Red */
-}
-
-.color-options span.color2 {
-  background-color: #00ff00; /* Green */
-}
-
-.color-options span.color3 {
-  background-color: #0000ff; /* Blue */
 }
 
 .product-quantity {
@@ -293,30 +220,10 @@
 .detail-label {
   font-weight: bold;
 }
-.product-reviews {
-  margin-top: 24px;
-}
-.review-item {
-  border-top: 1px solid #e5e7eb;
-  padding-top: 16px;
-  margin-top: 16px;
-}
-
-.review-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.review-rating {
-  color: #fbbf24;
-  margin-right: 8px;
-}
-.review-author {
-  font-weight: bold;
-  margin-right: 8px;
-}
-
-.review-date {
-  color: #6b7280;
+.cart-btn{
+    padding: 12px ;
+    margin : 15px 15px;
+    height: 50px;
+    width: 120px;
+    border-radius: 50px;
 }

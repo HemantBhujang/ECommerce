@@ -146,7 +146,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   checkout(): void {
-    this.router.navigate(['/checkout']);
+    this.router.navigate(['/payment']);
   }
 
   ngOnDestroy(): void {
