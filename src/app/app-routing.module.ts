@@ -64,6 +64,7 @@ const routes: Routes = [
 },
 {path:"payment",component:PaymentComponent,canActivate: [AuthGuard]},
 {path:"checkout/:id",component:CheckoutComponent,canActivate:[AuthGuard]},
+{path:"checkout",component:CheckoutComponent,canActivate:[AuthGuard]},
 
 {path:'order-confirmed',component:OrderConfirmedComponent,canActivate: [AuthGuard]},
 {path:'order-confirmed/:id',component:OrderConfirmedComponent,canActivate: [AuthGuard]},
