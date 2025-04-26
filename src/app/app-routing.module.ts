@@ -29,8 +29,8 @@ import { OnlinePaymentComponent } from './components/online-payment/online-payme
 import { AdminUsersComponent } from './components/Admin/admin-users/admin-users.component';
 import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { PaymentOneProductComponent } from './components/payment-one-product/payment-one-product.component';
-import { CashOneProductComponent } from './components/cash-one-product/cash-one-product.component';
+// import { PaymentOneProductComponent } from './components/payment-one-product/payment-one-product.component';
+// import { CashOneProductComponent } from './components/cash-one-product/cash-one-product.component';
 
 
 
@@ -62,15 +62,16 @@ const routes: Routes = [
     ]
   
 },
-{path:"payment",component:PaymentComponent,canActivate: [AuthGuard]},
+// {path:"payment",component:PaymentComponent,canActivate: [AuthGuard]},
 {path:"checkout/:id",component:CheckoutComponent,canActivate:[AuthGuard]},
 {path:"checkout",component:CheckoutComponent,canActivate:[AuthGuard]},
 
 {path:'order-confirmed',component:OrderConfirmedComponent,canActivate: [AuthGuard]},
 {path:'order-confirmed/:id',component:OrderConfirmedComponent,canActivate: [AuthGuard]},
 {path:'online-payment',component:OnlinePaymentComponent,canActivate: [AuthGuard]},
-{path:"payment-one-product/:id",component:PaymentOneProductComponent,canActivate:[AuthGuard]},
-{path:"cash-one-product/:id",component:CashOneProductComponent,canActivate:[AuthGuard]},
+{path:'online-payment/:id',component:OnlinePaymentComponent,canActivate: [AuthGuard]},
+// {path:"payment-one-product/:id",component:PaymentOneProductComponent,canActivate:[AuthGuard]},
+// {path:"cash-one-product/:id",component:CashOneProductComponent,canActivate:[AuthGuard]},
 {path:'online-order',component:OrderComponent,canActivate: [AuthGuard]},
 {path:"cart", component:CartComponent},
 {path:"wishlist", component:WishlistComponent},

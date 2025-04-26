@@ -55,9 +55,18 @@ export class CheckoutComponent {
 
   onContinue() {
     if (this.paymentMethod === 'online') {
-      this.router.navigate(['/payment-one-product',this.id]);
+      if (this.id) {
+        this.router.navigate(['/online-payment', this.id]);
+      } else {
+        this.router.navigate(['/online-payment']);
+      }
     } else {
-      this.router.navigate(['/cash-one-product',this.id]);
+      if (this.id) {
+        this.router.navigate(['/order-confirmed', this.id]);
+      } else {
+        this.router.navigate(['/order-confirmed']);
+      }
     }
   }
+  
 }
