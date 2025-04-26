@@ -1,5 +1,7 @@
 // components/dashboard-content/dashboard-content.component.ts
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/Services/product.service';
+import { UsersService } from 'src/app/Services/users.service';
 
 @Component({
   selector: 'app-dashboard-content',
@@ -7,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard-content.component.css']
 })
 export class DashboardContentComponent implements OnInit {
+
+  totalProducts:number=0;
   metrics = {
     clients: 128,
     clientsChange: 12.5,
@@ -20,9 +24,36 @@ export class DashboardContentComponent implements OnInit {
 
  
 
-  constructor() { }
+  constructor(private productService : ProductService,
+    private userService : UsersService
+ ) { }
 
   ngOnInit(): void {
-    // In a real app, you would load data from a service here
+
+    this.getProdutCount()
+    this.getUserCount()
+  }
+
+  getProdutCount(){
+    this.productService.getAllProducts().subscribe({
+      next: (products) => {
+        const totalProducts = products.length;
+        console.log('Total Products:', totalProducts);
+        this.totalProducts=totalProducts
+      },
+      error: (err) => {
+        console.error('Error fetching products:', err);
+      }
+    });
+  }
+
+  getUserCount(){
+  this.userService.getUsers().subscribe({
+    next:(user:any)=>{
+      const totalusers=user.length;
+    console.log('Total Users:',totalusers);
+    this.metrics.clients=totalusers
+        }
+  })
   }
 }

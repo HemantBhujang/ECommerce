@@ -21,17 +21,7 @@
           positive: metrics.clientsChange > 0,
           negative: metrics.clientsChange < 0
         }"
-      >
-        <i
-          class="bi"
-          [ngClass]="
-            metrics.clientsChange > 0
-              ? 'bi-arrow-up-right'
-              : 'bi-arrow-down-right'
-          "
-        ></i>
-        <span>{{ metrics.clientsChange }}%</span>
-      </div>
+      ></div>
     </div>
 
     <div class="metric-box orders">
@@ -66,7 +56,7 @@
         <i class="bi bi-box-seam"></i>
       </div>
       <div class="metric-details">
-        <h3>{{ metrics.products }}</h3>
+        <h3>{{ totalProducts }}</h3>
         <p>Total Products</p>
       </div>
       <div
@@ -76,15 +66,14 @@
           negative: metrics.productsChange < 0
         }"
       >
-        <i
+        <!-- <i
           class="bi"
           [ngClass]="
             metrics.productsChange > 0
               ? 'bi-arrow-up-right'
               : 'bi-arrow-down-right'
           "
-        ></i>
-        <span>{{ metrics.productsChange }}%</span>
+        ></i> -->
       </div>
     </div>
 
