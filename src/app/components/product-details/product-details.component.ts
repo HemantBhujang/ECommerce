@@ -20,6 +20,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private cartSub!: Subscription;
   isLoading= true;
   dbCartProductIds: number[] = [];
+  id='';
 
   constructor(
     private productService: ProductService, 
@@ -32,6 +33,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Subscribe to route parameter changes
+
+    this.id = this.route.snapshot.paramMap.get('id') || '';
+   // console.log('User ID:', this.id);
+
     this.routeSub = this.route.params.subscribe(params => {
       const productId = +params['id']; // Convert to number
       this.loadProductDetails(productId);
@@ -102,7 +107,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     if (!this.isInCart1) {
       this.addToCart();
     }
-    this.router.navigate(['/checkout']);
+    this.router.navigate(['/checkout',this.id]);
   }
 
   ngOnDestroy() {

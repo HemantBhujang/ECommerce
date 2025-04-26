@@ -1,1 +1,16 @@
-<p>order works!</p>
+<div *ngIf="isLoading">Loading...</div>
+
+<div *ngIf="!isLoading && orderDetails">
+  <h2>Order Summary</h2>
+  <div>
+    <h3>Product: {{ orderDetails.product_name }}</h3>
+    <img [src]="orderDetails.product_image" alt="Product Image" width="100" />
+    <p>Price: {{ orderDetails.price | currency }}</p>
+    <p>Quantity: {{ orderDetails.quantity }}</p>
+    <p>Delivery Charge: {{ orderDetails.delivery_charge | currency }}</p>
+    <p>Total Cost: {{ orderDetails.total_cost | currency }}</p>
+  </div>
+
+  <!-- Place order button -->
+  <button (click)="placeOrder()">Place Order</button>
+</div>

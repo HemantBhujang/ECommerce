@@ -33,6 +33,9 @@ import { OrderConfirmedComponent } from './components/order-confirmed/order-conf
 import { OnlinePaymentComponent } from './components/online-payment/online-payment.component';
 import { AdminUsersComponent } from './components/Admin/admin-users/admin-users.component';
 import { OrderComponent } from './components/order/order.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { PaymentOneProductComponent } from './components/payment-one-product/payment-one-product.component';
+import { CashOneProductComponent } from './components/cash-one-product/cash-one-product.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +66,9 @@ import { OrderComponent } from './components/order/order.component';
     OnlinePaymentComponent,
     AdminUsersComponent,
     OrderComponent,
+    CheckoutComponent,
+    PaymentOneProductComponent,
+    CashOneProductComponent,
    
   ],
   imports: [

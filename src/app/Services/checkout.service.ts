@@ -28,6 +28,11 @@ export class CheckoutService {
       const headers =this.getAuthHeaders();
       return this.http.get(`${this.baseUrl}/order-summary`,{headers})
     }
+
+    getOneProductOrderSummary(id:number){
+      const headers =this.getAuthHeaders();
+      return this.http.get(`${this.baseUrl}/order-summary?productId=${id}`,{headers})
+    }
   
   
 }
