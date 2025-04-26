@@ -34,8 +34,7 @@ import { OnlinePaymentComponent } from './components/online-payment/online-payme
 import { AdminUsersComponent } from './components/Admin/admin-users/admin-users.component';
 import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { PaymentOneProductComponent } from './components/payment-one-product/payment-one-product.component';
-import { CashOneProductComponent } from './components/cash-one-product/cash-one-product.component';
+
 
 @NgModule({
   declarations: [
@@ -67,8 +66,6 @@ import { CashOneProductComponent } from './components/cash-one-product/cash-one-
     AdminUsersComponent,
     OrderComponent,
     CheckoutComponent,
-    PaymentOneProductComponent,
-    CashOneProductComponent,
    
   ],
   imports: [
