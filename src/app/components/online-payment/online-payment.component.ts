@@ -1,5 +1,7 @@
 // online-payment.component.ts
 import { Component } from '@angular/core';
+import { CartProduct } from 'src/app/Services/cart.service';
+import { CheckoutService } from 'src/app/Services/checkout.service';
 
 @Component({
   selector: 'app-online-payment',
@@ -7,21 +9,54 @@ import { Component } from '@angular/core';
   styleUrls: ['./online-payment.component.css']
 })
 export class OnlinePaymentComponent {
-  orderSummary = {
-    items: ['Product A', 'Product B'],
-    subtotal: 100,
-    shippingCharges: 10,
-    taxes: 5,
-    total: 115
-  };
-
-  deliveryAddress = '123 Main St, Anytown USA';
-  cardNumber = '';
-  expirationDate = '';
-  cvv = '';
-  estimatedDeliveryDate = 'April 25, 2023';
-
-  onPlaceOrder() {
-    // Implement the logic to place the order
-  }
+    cartItems: CartProduct[] = [];
+  
+     image=''
+     address='';
+     arrivalDate='';
+     productNames='';
+     orderTotal=''
+     user: any = null;
+     products: any[] = [];
+     getItemTotal=0;
+     getDeliveryTotal=0;
+  
+  
+      constructor(
+        private chechoutService: CheckoutService
+       ) {}
+  
+       ngOnInit(){
+       this.loadOrderSummary()
+       }
+  
+       loadOrderSummary(){
+        this.chechoutService.getOrderSummary().subscribe({
+          next: (data) => {
+            this.user = data;
+            console.log(this.user);
+            
+            this.arrivalDate=this.user.arrivalDate
+            this.address=this.user.address
+          //  this.name=this.user.products.name
+            this.orderTotal = this.user.orderTotal
+          console.log('order total :',this.orderTotal)
+        
+            // const productNames = this.user.products.map((product: any) => product.name);
+            // console.log(productNames);
+            //  this.productNames = productNames;
+  
+            this.products = this.user.products;
+            console.log('Products:', this.products);
+            this.getItemTotal=Number(this.products.length);
+  
+            this.getDeliveryTotal = this.products.reduce((sum, product) => {
+              return sum + (product.delivery || 0); // if delivery is undefined, treat as 0
+            }, 0);
+      
+            console.log('Total Delivery Charge:', this.getDeliveryTotal);
+         
+          }
+        })
+       }
 }

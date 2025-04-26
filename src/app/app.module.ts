@@ -32,6 +32,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { OrderConfirmedComponent } from './components/order-confirmed/order-confirmed.component';
 import { OnlinePaymentComponent } from './components/online-payment/online-payment.component';
 import { AdminUsersComponent } from './components/Admin/admin-users/admin-users.component';
+import { OrderComponent } from './components/order/order.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { AdminUsersComponent } from './components/Admin/admin-users/admin-users.
     OrderConfirmedComponent,
     OnlinePaymentComponent,
     AdminUsersComponent,
+    OrderComponent,
    
   ],
   imports: [

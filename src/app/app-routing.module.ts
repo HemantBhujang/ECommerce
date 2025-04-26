@@ -59,8 +59,8 @@ const routes: Routes = [
   
 },
 {path:"payment",component:PaymentComponent,canActivate: [AuthGuard]},
-{path:'order-confirmed',component:OrderConfirmedComponent},
-{path:'online-payment',component:OnlinePaymentComponent},
+{path:'order-confirmed',component:OrderConfirmedComponent,canActivate: [AuthGuard]},
+{path:'online-payment',component:OnlinePaymentComponent,canActivate: [AuthGuard]},
 {path:"cart", component:CartComponent},
 {path:"wishlist", component:WishlistComponent},
 {path :"product-details/:id", component:ProductDetailsComponent},

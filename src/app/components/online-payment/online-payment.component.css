@@ -1,53 +1,49 @@
-body {
-    background-color: #fff3f5;
-    font-family: Arial, sans-serif;
-}
 
-h1, h2 {
-    color: #ff758c;
-}
-
-.container {
-    border: 1px solid #ff6f61;
-    border-radius: 10px;
+.checkout-container {
+    max-width: 600px;
+    margin: 0 auto;
     padding: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.list-group-item {
-    background-color: #ff9a8b;
-    color: white;
+.checkout-header {
+    color: #333;
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+.section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.details-card {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.title{
+    font-size: 30px;
+    font-weight: 600;
+}
+.phone-details {
+    color: #666;
+}
+.continue-btn {
+    background-color: #e97a9b;
     border: none;
-}
-
-.list-group-item:hover {
-    background-color: #ff758c;
-}
-
-.form-label {
-    color: #ff6f61;
-}
-
-.form-control {
-    border: 1px solid #ff6f61;
-    border-radius: 5px;
-}
-
-.form-control:focus {
-    border-color: #ff758c;
-    box-shadow: 0 0 5px rgba(255, 117, 140, 0.5);
-}
-
-.btn-success {
-    background-color: #ff758c;
-    border: none;
-}
-
-.btn-success:hover {
-    background-color: #ff6f61;
+    border-radius: 30px;
     color: white;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px;
+    width: 100%;
+    margin-top: 15px;
+    transition: background-color 0.3s;
 }
 
-.btn-success:focus {
-    box-shadow: 0 0 5px rgba(255, 117, 140, 0.5);
+.continue-btn:hover {
+    background-color: #d66a8a;
 }
