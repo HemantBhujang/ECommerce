@@ -28,7 +28,6 @@ import { MainCategoryProductsComponent } from './components/main-category-produc
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CartComponent } from './components/cart/cart.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
-import { PaymentComponent } from './components/payment/payment.component';
 import { OrderConfirmedComponent } from './components/order-confirmed/order-confirmed.component';
 import { OnlinePaymentComponent } from './components/online-payment/online-payment.component';
 import { AdminUsersComponent } from './components/Admin/admin-users/admin-users.component';
@@ -60,7 +59,6 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     NotFoundComponent,
     CartComponent,
     WishlistComponent,
-    PaymentComponent,
     OrderConfirmedComponent,
     OnlinePaymentComponent,
     AdminUsersComponent,
