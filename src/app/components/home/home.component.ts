@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 import { Product } from '../interface/product.model';
@@ -7,17 +7,34 @@ import { WishlistService } from 'src/app/Services/wishlist.service';
 import { LoginService } from 'src/app/Services/login.service';
 import { DatabaseCartService } from 'src/app/Services/database-cart.service';
 import { finalize } from 'rxjs/operators';
+import { interval, Subscription } from 'rxjs';
 
+interface Collection {
+  name: string;
+  path: string;
+  image: string;
+}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
-  products: any[] = [];
+export class HomeComponent implements OnInit, OnDestroy {
+  products: Product[] = [];
   categories: any[] = [];
   dbCartProductIds: number[] = [];
   isLoading = true;
+  
+  // New properties for enhanced UI
+  newArrivals: Product[] = [];
+  trendingProducts: Product[] = [];
+  dealOfTheDay: Product | null = null;
+  // Countdown timer
+  countdownHours: string = '00';
+  countdownMinutes: string = '00';
+  countdownSeconds: string = '00';
+  private countdownSubscription?: Subscription;
+  private endTime: Date = new Date();
 
   constructor(
     private router: Router, 
@@ -32,13 +49,67 @@ export class HomeComponent implements OnInit {
     // Load products and cart status in parallel
     this.loadProducts();
     this.loadCartItems();
+    this.initializeCountdown();
+  }
+  
+  ngOnDestroy(): void {
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
+    }
+  }
+
+  initializeCountdown(): void {
+    // Set the end time to 24 hours from now
+    this.endTime = new Date();
+    this.endTime.setHours(this.endTime.getHours() + 24);
+    
+    this.countdownSubscription = interval(1000).subscribe(() => {
+      this.updateCountdown();
+    });
+  }
+  
+  updateCountdown(): void {
+    const now = new Date();
+    const diff = this.endTime.getTime() - now.getTime();
+    
+    if (diff <= 0) {
+      // Reset timer for the next day
+      this.endTime = new Date();
+      this.endTime.setHours(this.endTime.getHours() + 24);
+      return;
+    }
+    
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    this.countdownHours = hours.toString().padStart(2, '0');
+    this.countdownMinutes = minutes.toString().padStart(2, '0');
+    this.countdownSeconds = seconds.toString().padStart(2, '0');
   }
 
   loadProducts(): void {
     this.productService.getAllProducts().subscribe((data: Product[]) => {
       this.products = data;
       this.organizeCategories();
+      this.setupProductSections();
     });
+  }
+
+  setupProductSections(): void {
+    // Sort products to get newest items (could use date field if available)
+    this.newArrivals = [...this.products]
+      .sort((a, b) => b.id! - a.id!)  // Assuming higher IDs mean newer products
+      .slice(0, 4);  // Show only 4 items
+
+    // For trending, choose products with highest discount rates
+    this.trendingProducts = [...this.products]
+      .sort((a, b) => b.discount - a.discount)
+      .slice(0, 4);  // Show only 4 items
+
+    // Select deal of the day (product with max discount)
+    this.dealOfTheDay = [...this.products]
+      .sort((a, b) => b.discount - a.discount)[0];
   }
 
   loadCartItems(): void {
@@ -64,7 +135,6 @@ export class HomeComponent implements OnInit {
       this.dbCartProductIds = this.cartService.getCartItems().map(item => item.id!);
     }
   }
-
   organizeCategories(): void {
     const grouped: any = {};
   
@@ -110,7 +180,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/product-details', id]);
   }
 
-  getCategoryImage(categoryName: string): any {
+  getCategoryImage(categoryName: string): string {
     switch (categoryName.toLowerCase()) {
       case 'men':
         return 'https://tse1.mm.bing.net/th?id=OIP.dmQRXWusIlb_auYpgBDx8wHaKd&pid=Api&P=0&h=180';
@@ -119,14 +189,14 @@ export class HomeComponent implements OnInit {
       case 'kids':
         return 'https://tse1.mm.bing.net/th?id=OIP.la9Z6d3qwEIH77kmkaZQxwHaFs&pid=Api&rs=1&c=1&qlt=95&w=149&h=114';
       default:
-        //return category.img || 'https://via.placeholder.com/150'; // fallback image
+        return 'https://via.placeholder.com/60';
     }
   }
 
-
-
   navigateCategory(path: string) {
+    // this.router.navigate(['/category',path]);
     this.router.navigate([path]);
+
   }
 
   addToCart(product: Product) {
@@ -164,5 +234,16 @@ export class HomeComponent implements OnInit {
   
   isInWishlist(productId: number): boolean {
     return this.wishlistService.isProductInWishlist(productId);
+  }
+ showMoreNewArrivals(): void {
+    this.router.navigate(['/category'], { 
+      queryParams: { filter: 'new-arrivals' } 
+    });
+  }
+  
+  showMoreTrending(): void {
+    this.router.navigate(['/category'], { 
+      queryParams: { filter: 'trending' } 
+    });
   }
 }
