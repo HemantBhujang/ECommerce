@@ -6,6 +6,7 @@ import { CartService } from 'src/app/Services/cart.service';
 import { LoginService } from 'src/app/Services/login.service';
 import { DatabaseCartService } from 'src/app/Services/database-cart.service';
 import { finalize } from 'rxjs';
+import { WishlistService } from 'src/app/Services/wishlist.service';
 
 @Component({
   selector: 'app-main-category-products',
@@ -25,7 +26,8 @@ export class MainCategoryProductsComponent implements OnInit {
     private router: Router,
     private cartService : CartService,
     private loginService : LoginService,
-    private dbCartService : DatabaseCartService
+    private dbCartService : DatabaseCartService,
+    private wishlistService: WishlistService
   ) {}
 
   ngOnInit(): void {
@@ -75,12 +77,17 @@ export class MainCategoryProductsComponent implements OnInit {
       );
     });
   }
-
+  toggleWishlist(product: Product) {
+    this.wishlistService.toggleWishlistItem(product);
+  }
   goToDetails(id: number) {
     this.router.navigate(['/product-details', id]);
   }
    addToCart(product: Product) {
       this.cartService.addToCart(product);
+    }
+    isInWishlist(productId: number): boolean {
+      return this.wishlistService.isProductInWishlist(productId);
     }
   
     isInCart(productId: number): boolean {
@@ -90,5 +97,10 @@ export class MainCategoryProductsComponent implements OnInit {
   
     goToCart() {
       this.router.navigate(['/cart']);
+    }
+    showMoreNewArrivals(): void {
+      this.router.navigate(['/category'], { 
+        queryParams: { filter: 'new-arrivals' } 
+      });
     }
 }

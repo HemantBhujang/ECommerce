@@ -1,42 +1,68 @@
-<div class="container mt-4">
-  <h2 class="mb-4 text-capitalize">{{ category }} Collection</h2>
-  <div class="row">
-    <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
-      <div class="card h-100 shadow-sm" (click)="goToDetails(product.id)">
-        <img
-          [src]="product.image"
-          class="card-img-top"
-          alt="{{ product.name }}"
-          style="height: 250px; object-fit: cover"
-        />
-        <div class="card-body">
-          <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text text-muted small">{{ product.description }}</p>
-          <p class="mb-1">
-            <span class="text-decoration-line-through text-muted">
-              ₹{{ product.old_price }}
-            </span>
-            <span class="text-danger fw-bold ms-2">
-              ₹{{ product.discount_price }}
-            </span>
-          </p>
-          <p class="mb-2">
-            <span class="badge bg-success">{{ product.discount }}% OFF</span>
-          </p>
-          <button
-            *ngIf="!isInCart(product.id)"
-            class="btn amazon-btn w-100"
-            (click)="addToCart(product)"
-          >
-            Add to Cart
-          </button>
-          <button
-            *ngIf="isInCart(product.id)"
-            class="btn btn-warning w-100"
-            (click)="goToCart()"
-          >
-            Go to Cart
-          </button>
+<div class="product-section py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="section-title">{{ category }} Collection</h2>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-6 col-md-3 mb-4" *ngFor="let product of products">
+        <div class="product-card h-100 shadow-sm rounded overflow-hidden">
+          <div class="product-image-container position-relative">
+            <img
+              [src]="product.image"
+              class="card-img-top product-image"
+              alt="{{ product.name }}"
+              (click)="goToDetails(product.id!)"
+            />
+            <div class="product-actions">
+              <button
+                class="btn action-btn wishlist-btn"
+                (click)="toggleWishlist(product); $event.stopPropagation()"
+              >
+                <i
+                  [class]="
+                    isInWishlist(product.id!)
+                      ? 'bi bi-heart-fill text-danger'
+                      : 'bi bi-heart'
+                  "
+                ></i>
+              </button>
+              <button
+                class="btn action-btn cart-btn"
+                (click)="goToDetails(product.id!); $event.stopPropagation()"
+              >
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+            <span class="badge position-absolute top-0 start-0 m-2 bg-danger"
+              >NEW</span
+            >
+          </div>
+          <div class="product-info p-3">
+            <h6 class="product-title" (click)="goToDetails(product.id!)">
+              {{ product.name }}
+            </h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="product-price">
+                <span class="new-price fw-bold"
+                  >₹{{ product.discount_price }}</span
+                >
+                <span
+                  class="old-price text-decoration-line-through text-muted small ms-2"
+                  >₹{{ product.old_price }}</span
+                >
+              </div>
+              <button
+                class="btn btn-sm rounded-circle amazon-btn add-to-cart-btn"
+                (click)="addToCart(product); $event.stopPropagation()"
+                [disabled]="isInCart(product.id!)"
+              >
+                <i
+                  [class]="isInCart(product.id!) ? 'bi bi-check' : 'bi bi-plus'"
+                ></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

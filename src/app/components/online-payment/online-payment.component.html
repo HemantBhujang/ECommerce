@@ -46,7 +46,7 @@
         </div>
         <div class="col text-end my-3">
           <h6 class="my-2">Online Payment</h6>
-          <h6 class="my-2">{{ arrivalDate | date }}</h6>
+          <h6 class="my-2">{{ arrivalDate }}</h6>
         </div>
       </div>
     </div>
@@ -57,5 +57,7 @@
     <span>{{ address }}</span>
   </div>
 
-  <button class="continue-btn" routerLink="/online-order">Pay Now</button>
+  <button class="continue-btn" (click)="payNow()" routerLink="/online-order">
+    Pay Now
+  </button>
 </div>

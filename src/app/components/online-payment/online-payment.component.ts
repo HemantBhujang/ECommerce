@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartProduct } from 'src/app/Services/cart.service';
 import { CheckoutService } from 'src/app/Services/checkout.service';
+import { OrderService } from 'src/app/Services/order.service';
+
+declare var Razorpay: any;
 
 @Component({
   selector: 'app-online-payment',
@@ -24,7 +27,8 @@ export class OnlinePaymentComponent {
 
   constructor(
     private checkoutService: CheckoutService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private orderService : OrderService
   ) {}
 
   ngOnInit() {
@@ -77,4 +81,55 @@ export class OnlinePaymentComponent {
     console.log('Total Item Count:', this.getItemTotal);
     console.log('Total Delivery Charge:', this.getDeliveryTotal);
   }
+
+// online-payment.component.ts
+payNow() {
+  this.orderService.postOrder(this.products, this.address).subscribe({
+    next: (response) => {
+      console.log('Order created successfully', response);
+
+      const options: any = {
+        key: 'rzp_test_g35ZqjZ8of2jQr', // Replace with your Razorpay public key
+        amount: response.amount, // Amount in paise
+        currency: response.currency,
+        name: 'Deals',
+        description: 'Order Payment',
+        order_id: response.orderId, // Razorpay order ID from backend
+        handler: (paymentResponse: any) => {
+          console.log('Payment Success', paymentResponse);
+
+          // After payment success → Place order
+          this.orderService.placeOrderAfterPayment(
+            this.products,
+            this.address,
+            paymentResponse.razorpay_order_id,
+            paymentResponse.razorpay_payment_id
+          ).subscribe({
+            next: (data) => {
+              console.log('Order saved in database', data);
+              // Show success message / redirect
+            },
+            error: (err) => {
+              console.error('Failed to save order in database', err);
+            }
+          });
+        },
+        prefill: {
+          name: this.user.name,
+          email: this.user.email,
+        },
+        theme: {
+          color: '#3399cc'
+        }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    },
+    error: (err) => {
+      console.error('Error creating Razorpay order:', err);
+    }
+  });
+}
+
 }
