@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { WishlistService } from 'src/app/Services/wishlist.service';
 import { CartService } from 'src/app/Services/cart.service';
 import { LoginService } from 'src/app/Services/login.service';
+import { DatabaseCartService } from 'src/app/Services/database-cart.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -18,7 +19,8 @@ export class WishlistComponent implements OnInit {
     private wishlistService: WishlistService,
     private cartService: CartService,
     public router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private dbcartService : DatabaseCartService
   ) { }
 
   ngOnInit(): void {

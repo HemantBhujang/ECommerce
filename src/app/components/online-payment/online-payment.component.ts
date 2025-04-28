@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartProduct } from 'src/app/Services/cart.service';
 import { CheckoutService } from 'src/app/Services/checkout.service';
 import { OrderService } from 'src/app/Services/order.service';
@@ -28,7 +28,8 @@ export class OnlinePaymentComponent {
   constructor(
     private checkoutService: CheckoutService,
     private route: ActivatedRoute,
-    private orderService : OrderService
+    private orderService : OrderService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -89,7 +90,7 @@ payNow() {
       console.log('Order created successfully', response);
 
       const options: any = {
-        key: 'rzp_test_g35ZqjZ8of2jQr', // Replace with your Razorpay public key
+        key: 'rzp_test_g35ZqjZ8of2jQr', 
         amount: response.amount, // Amount in paise
         currency: response.currency,
         name: 'Deals',
@@ -108,6 +109,7 @@ payNow() {
             next: (data) => {
               console.log('Order saved in database', data);
               // Show success message / redirect
+              this.router.navigate(['/online-order']);
             },
             error: (err) => {
               console.error('Failed to save order in database', err);
@@ -125,6 +127,8 @@ payNow() {
 
       const rzp = new Razorpay(options);
       rzp.open();
+
+    
     },
     error: (err) => {
       console.error('Error creating Razorpay order:', err);

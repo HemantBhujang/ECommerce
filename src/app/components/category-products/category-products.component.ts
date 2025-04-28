@@ -6,6 +6,8 @@ import { CartService } from 'src/app/Services/cart.service';
 import { LoginService } from 'src/app/Services/login.service';
 import { DatabaseCartService } from 'src/app/Services/database-cart.service';
 import { finalize } from 'rxjs';
+import { WishlistComponent } from '../wishlist/wishlist.component';
+import { WishlistService } from 'src/app/Services/wishlist.service';
 
 @Component({
   selector: 'app-category-products',
@@ -25,7 +27,8 @@ export class CategoryProductsComponent implements OnInit {
      private router: Router,
     private cartService : CartService,
   private loginService : LoginService,
-private dbCartService : DatabaseCartService) {}
+private dbCartService : DatabaseCartService,
+private wishlistService : WishlistService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -87,6 +90,12 @@ private dbCartService : DatabaseCartService) {}
     
       goToCart() {
         this.router.navigate(['/cart']);
+      }
+      toggleWishlist(product: Product) {
+        this.wishlistService.toggleWishlistItem(product);
+      }
+      isInWishlist(productId: number): boolean {
+        return this.wishlistService.isProductInWishlist(productId);
       }
   
 }
