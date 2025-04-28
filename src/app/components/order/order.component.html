@@ -1,20 +1,7 @@
-<!-- <div *ngIf="isLoading">Loading...</div>
-
-<div *ngIf="!isLoading && orderDetails">
-  <h2>Order Summary</h2>
-  <div>
-    <h3>Product: {{ orderDetails.product_name }}</h3>
-    <img [src]="orderDetails.product_image" alt="Product Image" width="100" />
-    <p>Price: {{ orderDetails.price | currency }}</p>
-    <p>Quantity: {{ orderDetails.quantity }}</p>
-    <p>Delivery Charge: {{ orderDetails.delivery_charge | currency }}</p>
-    <p>Total Cost: {{ orderDetails.total_cost | currency }}</p>
-  </div>
-
-  Place order button 
-  <button (click)="placeOrder()">Place Order</button>
-</div> -->
-
-<!-- <button (click)="payNow()" class="btn btn-primary">
-  Pay ₹{{ amount / 100 }}
-</button> -->
+<div style="text-align: center; margin-top: 100px">
+  <h1>🎉 Payment Successful!</h1>
+  <p>Thank you for your order. We are processing it.</p>
+  <button (click)="goHome()" style="padding: 10px 20px; margin-top: 20px">
+    Go to Home
+  </button>
+</div>

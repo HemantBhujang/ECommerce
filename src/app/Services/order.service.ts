@@ -51,7 +51,10 @@ export class OrderService {
       razorpay_payment_id
     };
   
-    return this.http.post<any>('http://localhost:5000/api/onlinepay/place-order', payload, { headers });
+    // ❌ Wrong earlier: 'http://localhost:5000/api/onlinepay/place-order'
+    // ✅ Correct now:
+    return this.http.post<any>('http://localhost:5000/api/onlinepay/verify-payment', payload, { headers });
   }
+  
   
 }
