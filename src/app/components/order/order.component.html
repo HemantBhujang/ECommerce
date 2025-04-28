@@ -1,7 +1,15 @@
-<div style="text-align: center; margin-top: 100px">
-  <h1>🎉 Payment Successful!</h1>
-  <p>Thank you for your order. We are processing it.</p>
-  <button (click)="goHome()" style="padding: 10px 20px; margin-top: 20px">
-    Go to Home
-  </button>
+<div class="container text-center">
+  <div class="confirmation-container">
+    <div class="check-circle">
+      <div class="check-mark"></div>
+    </div>
+
+    <h1>Order Confirmed!</h1>
+    <p>
+      Thank you for your purchase. Your order has been received and is now being
+      processed.
+    </p>
+
+    <button class="btn btn-success home" routerLink="/">GO TO HOME</button>
+  </div>
 </div>

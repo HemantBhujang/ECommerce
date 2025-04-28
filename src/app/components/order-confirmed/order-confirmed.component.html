@@ -57,5 +57,11 @@
     <span>{{ address }}</span>
   </div>
 
-  <button class="continue-btn">CONFIRM ORDER</button>
+  <button
+    class="continue-btn"
+    (click)="confirmedOrder()"
+    routerLink="/online-order"
+  >
+    CONFIRM ORDER
+  </button>
 </div>

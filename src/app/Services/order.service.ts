@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class OrderService {
   private apiUrl = 'http://localhost:5000/api/orders';  // For normal orders
   private orderUrl = 'http://localhost:5000/api/onlinepay/create-order'; // For Razorpay
+  private codUrl=' http://localhost:5000/api/pay/cod';
 
   constructor(private http: HttpClient) {}
 
@@ -56,5 +57,19 @@ export class OrderService {
     return this.http.post<any>('http://localhost:5000/api/onlinepay/verify-payment', payload, { headers });
   }
   
+
+  cashOnDelivery(products: any[], address: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    const payload = {
+      products,
+      address
+    };
+  
+    return this.http.post<any>(this.codUrl, payload, { headers });
+  }
   
 }

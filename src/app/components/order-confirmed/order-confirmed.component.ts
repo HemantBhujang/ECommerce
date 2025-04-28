@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartProduct } from 'src/app/Services/cart.service';
 import { CheckoutService } from 'src/app/Services/checkout.service';
+import { OrderService } from 'src/app/Services/order.service';
 
 @Component({
   selector: 'app-order-confirmed',
@@ -24,7 +25,8 @@ export class OrderConfirmedComponent {
 
   constructor(
     private checkoutService: CheckoutService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private orderService: OrderService
   ) {}
 
   ngOnInit() {
@@ -76,6 +78,22 @@ export class OrderConfirmedComponent {
 
     console.log('Total Item Count:', this.getItemTotal);
     console.log('Total Delivery Charge:', this.getDeliveryTotal);
+  }
+
+
+  confirmedOrder() {
+    if (this.id) {
+      this.orderService.cashOnDelivery(this.products, this.address).subscribe({
+        next: (data) => {
+          console.log('Order confirmed successfully:', data);
+        },
+        error: (err) => {
+          console.error('Error confirming order', err);
+        }
+      });
+    } else {
+      console.error('No ID found for order confirmation');
+    }
   }
 }
 
