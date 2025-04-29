@@ -10,6 +10,7 @@ export class OrderService {
   private apiUrl = 'http://localhost:5000/api/orders';  // For normal orders
   private orderUrl = 'http://localhost:5000/api/onlinepay/create-order'; // For Razorpay
   private codUrl=' http://localhost:5000/api/pay/cod';
+ // private userOrderUrl ='http://localhost:5000/api/orders/myorders'
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +19,7 @@ export class OrderService {
   }
 
   createOrder(orderData: any): Observable<any> {
-    const token = localStorage.getItem('authToken');  // ✅ get token from localStorage
+    const token = localStorage.getItem('authToken');  //  get token from localStorage
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -26,7 +27,7 @@ export class OrderService {
   }
 
   postOrder(products: any[], address: string): Observable<any> {
-    const token = localStorage.getItem('authToken');  // ✅ get token
+    const token = localStorage.getItem('authToken');  //  get token
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -36,7 +37,7 @@ export class OrderService {
       address: address
     };
 
-    return this.http.post<any>(this.orderUrl, payload, { headers }); // ✅ send with headers
+    return this.http.post<any>(this.orderUrl, payload, { headers }); // send with headers
   }
 
   placeOrderAfterPayment(products: any[], address: string, razorpay_order_id: string, razorpay_payment_id: string): Observable<any> {
@@ -52,8 +53,7 @@ export class OrderService {
       razorpay_payment_id
     };
   
-    // ❌ Wrong earlier: 'http://localhost:5000/api/onlinepay/place-order'
-    // ✅ Correct now:
+   
     return this.http.post<any>('http://localhost:5000/api/onlinepay/verify-payment', payload, { headers });
   }
   
@@ -70,6 +70,20 @@ export class OrderService {
     };
   
     return this.http.post<any>(this.codUrl, payload, { headers });
+  }
+
+
+  getUserOrder():Observable<any> {
+    const token = localStorage.getItem('authToken');  //  get token
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+        return this.http.get<any>(`${this.apiUrl}/myorders`,{ headers });
+  }
+  
+
+  getRazorpayKey(): Observable<{ key: string }> {
+    return this.http.get<{ key: string }>('http://localhost:5000/api/onlinepay/razorpay-key');
   }
   
 }

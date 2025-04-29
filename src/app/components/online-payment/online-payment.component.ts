@@ -87,53 +87,48 @@ export class OnlinePaymentComponent {
 payNow() {
   this.orderService.postOrder(this.products, this.address).subscribe({
     next: (response) => {
-      console.log('Order created successfully', response);
-
-      const options: any = {
-        key: 'rzp_test_g35ZqjZ8of2jQr', 
-        amount: response.amount, // Amount in paise
-        currency: response.currency,
-        name: 'Deals',
-        description: 'Order Payment',
-        order_id: response.orderId, // Razorpay order ID from backend
-        handler: (paymentResponse: any) => {
-          console.log('Payment Success', paymentResponse);
-
-          // After payment success → Place order
-          this.orderService.placeOrderAfterPayment(
-            this.products,
-            this.address,
-            paymentResponse.razorpay_order_id,
-            paymentResponse.razorpay_payment_id
-          ).subscribe({
-            next: (data) => {
-              console.log('Order saved in database', data);
-              // Show success message / redirect
-              this.router.navigate(['/online-order']);
+      this.orderService.getRazorpayKey().subscribe({
+        next: (keyData) => {
+          const options: any = {
+            key: keyData.key, 
+            amount: response.amount,
+            currency: response.currency,
+            name: 'Deals',
+            description: 'Order Payment',
+            order_id: response.orderId,
+            handler: (paymentResponse: any) => {
+              this.orderService.placeOrderAfterPayment(
+                this.products,
+                this.address,
+                paymentResponse.razorpay_order_id,
+                paymentResponse.razorpay_payment_id
+              ).subscribe({
+                next: () => this.router.navigate(['/online-order']),
+                error: (err) => console.error('Failed to save order:', err)
+              });
             },
-            error: (err) => {
-              console.error('Failed to save order in database', err);
+            prefill: {
+              name: this.user.name,
+              email: this.user.email,
+            },
+            theme: {
+              color: '#3399cc',
             }
-          });
+          };
+  
+          const rzp = new Razorpay(options);
+          rzp.open();
         },
-        prefill: {
-          name: this.user.name,
-          email: this.user.email,
-        },
-        theme: {
-          color: '#3399cc'
+        error: (err) => {
+          console.error('Failed to get Razorpay key:', err);
         }
-      };
-
-      const rzp = new Razorpay(options);
-      rzp.open();
-
-    
+      });
     },
     error: (err) => {
-      console.error('Error creating Razorpay order:', err);
+      console.error('Failed to create Razorpay order:', err);
     }
   });
+  
 }
 
 }

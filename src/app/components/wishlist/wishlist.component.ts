@@ -36,12 +36,29 @@ export class WishlistComponent implements OnInit {
   removeFromWishlist(product: any): void {
     this.wishlistService.toggleWishlistItem(product);
   }
-
   addToCart(product: any): void {
-    this.cartService.addToCart(product);
-    // Optionally remove from wishlist after adding to cart
-    this.removeFromWishlist(product);
+    if (this.loginService.isLoggedIn()) {
+      const token = this.loginService.getToken();
+      if (token) {
+        // User is logged in -> add to database
+        this.dbcartService.addToCart(product.id, product.quantity, token).subscribe({
+          next: () => {
+            console.log('Product added to cart in database');
+            this.removeFromWishlist(product);
+          },
+          error: (error) => {
+            console.error('Error adding to database cart', error);
+          }
+        });
+      }
+    } else {
+      // User not logged in -> add to local storage cart
+      this.cartService.addToCart(product);
+      console.log('Product added to local cart');
+      this.removeFromWishlist(product);
+    }
   }
+  
 
   goToProductDetails(productId: number): void {
     this.router.navigate(['/product-details', productId]);
