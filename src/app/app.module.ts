@@ -33,6 +33,7 @@ import { OnlinePaymentComponent } from './components/online-payment/online-payme
 import { AdminUsersComponent } from './components/Admin/admin-users/admin-users.component';
 import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { AdminOrderComponent } from './components/Admin/admin-order/admin-order.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     AdminUsersComponent,
     OrderComponent,
     CheckoutComponent,
+    AdminOrderComponent,
    
   ],
   imports: [

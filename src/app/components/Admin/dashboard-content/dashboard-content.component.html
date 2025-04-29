@@ -32,23 +32,6 @@
         <h3>{{ metrics.orders }}</h3>
         <p>Total Orders</p>
       </div>
-      <div
-        class="metric-change"
-        [ngClass]="{
-          positive: metrics.ordersChange > 0,
-          negative: metrics.ordersChange < 0
-        }"
-      >
-        <i
-          class="bi"
-          [ngClass]="
-            metrics.ordersChange > 0
-              ? 'bi-arrow-up-right'
-              : 'bi-arrow-down-right'
-          "
-        ></i>
-        <span>{{ metrics.ordersChange }}%</span>
-      </div>
     </div>
 
     <div class="metric-box products">
@@ -74,33 +57,6 @@
               : 'bi-arrow-down-right'
           "
         ></i> -->
-      </div>
-    </div>
-
-    <div class="metric-box revenue">
-      <div class="metric-icon">
-        <i class="bi bi-currency-dollar"></i>
-      </div>
-      <div class="metric-details">
-        <h3>${{ metrics.revenue.toLocaleString() }}</h3>
-        <p>Total Revenue</p>
-      </div>
-      <div
-        class="metric-change"
-        [ngClass]="{
-          positive: metrics.revenueChange > 0,
-          negative: metrics.revenueChange < 0
-        }"
-      >
-        <i
-          class="bi"
-          [ngClass]="
-            metrics.revenueChange > 0
-              ? 'bi-arrow-up-right'
-              : 'bi-arrow-down-right'
-          "
-        ></i>
-        <span>{{ metrics.revenueChange }}%</span>
       </div>
     </div>
   </div>

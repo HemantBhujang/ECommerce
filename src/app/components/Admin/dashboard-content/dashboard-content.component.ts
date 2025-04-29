@@ -1,5 +1,6 @@
 // components/dashboard-content/dashboard-content.component.ts
 import { Component, OnInit } from '@angular/core';
+import { AdminOrderService } from 'src/app/Services/admin-order-service.service';
 import { ProductService } from 'src/app/Services/product.service';
 import { UsersService } from 'src/app/Services/users.service';
 
@@ -25,13 +26,15 @@ export class DashboardContentComponent implements OnInit {
  
 
   constructor(private productService : ProductService,
-    private userService : UsersService
+    private userService : UsersService,
+    private adminOrderService: AdminOrderService
  ) { }
 
   ngOnInit(): void {
 
     this.getProdutCount()
     this.getUserCount()
+    this.getOrderCount()
   }
 
   getProdutCount(){
@@ -56,4 +59,19 @@ export class DashboardContentComponent implements OnInit {
         }
   })
   }
+  getOrderCount() {
+    this.adminOrderService.getAllOrders().subscribe({
+      next: (response: any) => {
+        const totalOrders = response.orders.length;
+        console.log('Total Orders:', totalOrders);
+        this.metrics.orders = totalOrders;
+      },
+      error: (err) => {
+        console.error('Error fetching orders:', err);
+      }
+    });
+  }
+  
+  
+  
 }
