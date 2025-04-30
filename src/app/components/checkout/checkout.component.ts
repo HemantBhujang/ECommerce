@@ -11,7 +11,13 @@ export class CheckoutComponent {
   constructor(private router : Router, 
     private checkOutService : CheckoutService,
      private route: ActivatedRoute,
-  ){}
+  ){
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras?.state as { productIds: number[] };
+    this.productIds = state?.productIds || [];
+
+    console.log('Product IDs passed from cart:', this.productIds);
+  }
 
   paymentMethod: string = "online";
   address='';
@@ -20,6 +26,7 @@ export class CheckoutComponent {
   error: string = '';
   user: any = null;
   id='';
+  productIds: number[] = [];
 
   ngOnInit(){
 
@@ -58,15 +65,20 @@ export class CheckoutComponent {
       if (this.id) {
         this.router.navigate(['/online-payment', this.id]);
       } else {
-        this.router.navigate(['/online-payment']);
+        this.router.navigate(['/online-payment'], {
+          state: { productIds: this.productIds }
+        });
       }
     } else {
       if (this.id) {
         this.router.navigate(['/order-confirmed', this.id]);
       } else {
-        this.router.navigate(['/order-confirmed']);
+        this.router.navigate(['/order-confirmed'], {
+          state: { productIds: this.productIds }
+        });
       }
     }
   }
+  
   
 }

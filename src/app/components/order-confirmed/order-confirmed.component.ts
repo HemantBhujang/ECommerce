@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartProduct } from 'src/app/Services/cart.service';
 import { CheckoutService } from 'src/app/Services/checkout.service';
 import { OrderService } from 'src/app/Services/order.service';
@@ -22,12 +22,19 @@ export class OrderConfirmedComponent {
   getItemTotal = 0;
   getDeliveryTotal = 0;
   id: number | null = null;
+  productIds: number[] = [];
 
   constructor(
     private checkoutService: CheckoutService,
     private route: ActivatedRoute,
-    private orderService: OrderService
-  ) {}
+    private orderService: OrderService,
+    private router: Router
+  ) {
+    const nav = this.router.getCurrentNavigation();
+  const state = nav?.extras?.state as { productIds: number[] };
+  this.productIds = state?.productIds || [];
+  console.log('Received product IDs in order confirmed:', this.productIds);
+  }
 
   ngOnInit() {
     const idParam = this.route.snapshot.paramMap.get('id');
@@ -83,17 +90,42 @@ export class OrderConfirmedComponent {
 
   confirmedOrder() {
     if (this.id) {
+      // Case: ID is available
       this.orderService.cashOnDelivery(this.products, this.address).subscribe({
         next: (data) => {
-          console.log('Order confirmed successfully:', data);
+          console.log('Order confirmed successfully with ID:', this.id, data);
         },
         error: (err) => {
-          console.error('Error confirming order', err);
+          console.error('Error confirming order with ID', err);
         }
       });
     } else {
-      console.error('No ID found for order confirmation');
+      // Case: No ID present – use product data from setOrderData
+      const productIds = this.products.map(p => p.product_id);
+      const orderPayload = {
+        productIds: productIds,
+        address: this.address,
+        totalAmount: this.orderTotal,
+        deliveryCharge: this.getDeliveryTotal,
+        items: this.products.map(p => ({
+          product_id: p.product_id,
+          quantity: p.quantity,
+          price: p.price,
+          total: p.total,
+          delivery: p.delivery
+        }))
+      };
+  
+      this.orderService.cashOnDelivery(this.products, this.address).subscribe({
+        next: (data) => {
+          console.log('Order confirmed without ID, new order created:', data);
+        },
+        error: (err) => {
+          console.error('Error confirming order without ID', err);
+        }
+      });
     }
   }
+  
 }
 

@@ -146,8 +146,14 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   checkout(): void {
-    this.router.navigate(['/checkout']);
+    const productIds = this.cartItems.map(item => item.id);
+    console.log("product id",productIds);
+    
+    this.router.navigate(['/checkout'], {
+      state: { productIds }
+    });
   }
+  
 
   ngOnDestroy(): void {
     if (this.cartSub) {

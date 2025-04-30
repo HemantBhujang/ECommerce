@@ -218,7 +218,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.dbCartService.addToCart(product.id!, quantity, token).subscribe({
           next: (response) => {
             console.log('Item added to DB cart', response);
-            this.dbCartProductIds.push(product.id!); // Add to local list immediately
+            this.dbCartProductIds.push(product.id!); 
+            console.log(this.dbCartProductIds);
+            // Add to local list immediately
           },
           error: (err) => console.error('Error adding to DB cart', err)
         });

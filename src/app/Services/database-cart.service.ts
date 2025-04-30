@@ -35,6 +35,8 @@ export class DatabaseCartService {
         tap(() => {
           // Notify subscribers that cart has been updated
           this.cartUpdatedSubject.next();
+          console.log('Item added to cart:', body);
+          
         })
       );
   }
