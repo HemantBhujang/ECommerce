@@ -74,13 +74,27 @@ private wishlistService : WishlistService) {}
     // Same as in HomeComponent
     this.router.navigate(['/product-details', id]);
   }
-   addToCart(product: Product) {
-      this.cartService.addToCart(product);
-    }
+  addToCart(product: Product) {
+    const quantity = 1;
   
-    isInCart(productId: number): boolean {
-      return this.dbCartProductIds.includes(productId);
+    if (this.loginService.isLoggedIn()) {
+      const token = this.loginService.getToken();
+      if (token) {
+        this.dbCartService.addToCart(product.id!, quantity, token).subscribe({
+          next: (response) => {
+            console.log('Item added to DB cart', response);
+            this.dbCartProductIds.push(product.id!); // Add to local list immediately
+          },
+          error: (err) => console.error('Error adding to DB cart', err)
+        });
+      }
+    } else {
+      this.cartService.addToCart({ ...product, quantity });
+      // Update local tracking for non-logged in users
+      this.dbCartProductIds.push(product.id!);
     }
+  }
+  
     toggleWishlist(product: Product) {
       this.wishlistService.toggleWishlistItem(product);
     }
@@ -91,4 +105,8 @@ private wishlistService : WishlistService) {}
     goToCart() {
       this.router.navigate(['/cart']);
     }
+    isInCart(productId: number): boolean {
+      return this.dbCartProductIds.includes(productId);
+    }
+      
 }

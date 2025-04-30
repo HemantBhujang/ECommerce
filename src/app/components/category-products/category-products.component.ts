@@ -80,13 +80,30 @@ private wishlistService : WishlistService) {}
     this.router.navigate(['/product-details', id]);
   }
 
-   addToCart(product: Product) {
-        this.cartService.addToCart(product);
+  addToCart(product: Product) {
+    const quantity = 1;
+  
+    if (this.loginService.isLoggedIn()) {
+      const token = this.loginService.getToken();
+      if (token) {
+        this.dbCartService.addToCart(product.id!, quantity, token).subscribe({
+          next: (response) => {
+            console.log('Item added to DB cart', response);
+            this.dbCartProductIds.push(product.id!); // Add to local list immediately
+          },
+          error: (err) => console.error('Error adding to DB cart', err)
+        });
       }
-    
-      isInCart(productId: number): boolean {
-        return this.dbCartProductIds.includes(productId);
-      }
+    } else {
+      this.cartService.addToCart({ ...product, quantity });
+      // Update local tracking for non-logged in users
+      this.dbCartProductIds.push(product.id!);
+    }
+  }
+  
+  isInCart(productId: number): boolean {
+    return this.dbCartProductIds.includes(productId);
+  }
     
       goToCart() {
         this.router.navigate(['/cart']);

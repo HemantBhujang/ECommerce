@@ -96,6 +96,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  
+
   setupProductSections(): void {
     // Sort products to get newest items (could use date field if available)
     this.newArrivals = [...this.products]
@@ -235,15 +237,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   isInWishlist(productId: number): boolean {
     return this.wishlistService.isProductInWishlist(productId);
   }
- showMoreNewArrivals(): void {
-    this.router.navigate(['/category'], { 
-      queryParams: { filter: 'new-arrivals' } 
-    });
-  }
+//  showMoreNewArrivals(): void {
+//     this.router.navigate(['/category'], { 
+//       queryParams: { filter: 'new-arrivals' } 
+//     });
+//   }
   
-  showMoreTrending(): void {
-    this.router.navigate(['/category'], { 
-      queryParams: { filter: 'trending' } 
-    });
+  // showMoreTrending(): void {
+  //   this.router.navigate(['/category'], { 
+  //     queryParams: { filter: 'trending' } 
+  //   });
+  // }
+
+  exploreMoreProducts(){
+    
   }
+
 }

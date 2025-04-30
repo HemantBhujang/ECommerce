@@ -197,9 +197,9 @@
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="section-title">New Arrivals</h2>
-      <button class="btn custom-outline" (click)="showMoreNewArrivals()">
+      <!-- <button class="btn custom-outline" (click)="showMoreNewArrivals()">
         View All
-      </button>
+      </button> -->
     </div>
 
     <div class="row g-4">
@@ -330,9 +330,9 @@
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="section-title">Trending Now</h2>
-      <button class="btn custom-outline" (click)="showMoreTrending()">
+      <!-- <button class="btn custom-outline" (click)="showMoreTrending()">
         View All
-      </button>
+      </button> -->
     </div>
 
     <div class="row g-4">
@@ -371,6 +371,80 @@
               class="badge position-absolute top-0 start-0 m-2 bg-warning text-dark"
               >TRENDING</span
             >
+          </div>
+          <div class="product-info p-3">
+            <h6 class="product-title" (click)="productDetailsPage(product.id!)">
+              {{ product.name }}
+            </h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="product-price">
+                <span class="new-price fw-bold"
+                  >₹{{ product.discount_price }}</span
+                >
+                <span
+                  class="old-price text-decoration-line-through text-muted small ms-2"
+                  >₹{{ product.old_price }}</span
+                >
+              </div>
+              <button
+                class="btn btn-sm rounded-circle amazon-btn add-to-cart-btn"
+                (click)="addToCart(product); $event.stopPropagation()"
+                [disabled]="isInCart(product.id!)"
+              >
+                <i
+                  [class]="isInCart(product.id!) ? 'bi bi-check' : 'bi bi-plus'"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Explore more products -->
+<div class="product-section py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="section-title">Explore More Products</h2>
+      <button class="btn custom-outline" (click)="exploreMoreProducts()">
+        View All
+      </button>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-6 col-md-3 mb-4" *ngFor="let product of products">
+        <div class="product-card h-100 shadow-sm rounded overflow-hidden">
+          <div class="product-image-container position-relative">
+            <img
+              [src]="product.image"
+              class="card-img-top product-image"
+              alt="{{ product.name }}"
+              (click)="productDetailsPage(product.id!)"
+            />
+            <div class="product-actions">
+              <button
+                class="btn action-btn wishlist-btn"
+                (click)="toggleWishlist(product); $event.stopPropagation()"
+              >
+                <i
+                  [class]="
+                    isInWishlist(product.id!)
+                      ? 'bi bi-heart-fill text-danger'
+                      : 'bi bi-heart'
+                  "
+                ></i>
+              </button>
+              <button
+                class="btn action-btn cart-btn"
+                (click)="
+                  productDetailsPage(product.id!); $event.stopPropagation()
+                "
+              >
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
           </div>
           <div class="product-info p-3">
             <h6 class="product-title" (click)="productDetailsPage(product.id!)">
