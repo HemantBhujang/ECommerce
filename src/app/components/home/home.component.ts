@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   countdownSeconds: string = '00';
   private countdownSubscription?: Subscription;
   private endTime: Date = new Date();
+  firstEightProducts: Product[] | undefined;
 
   constructor(
     private router: Router, 
@@ -112,6 +113,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     // Select deal of the day (product with max discount)
     this.dealOfTheDay = [...this.products]
       .sort((a, b) => b.discount - a.discount)[0];
+
+      this.getFirstEightProducts()
+    
+  }
+
+  getFirstEightProducts(): void {
+    this.firstEightProducts = this.products.slice(0, 8);
   }
 
   loadCartItems(): void {
@@ -250,7 +258,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   // }
 
   exploreMoreProducts(){
-    
+    this.router.navigate(['/get-all-products']);
   }
 
 }

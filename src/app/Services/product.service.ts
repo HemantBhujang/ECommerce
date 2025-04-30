@@ -66,4 +66,9 @@ export class ProductService {
      return this.http.get<Product>(`${this.apiUrl}/search?keyword=${query}`)
       }
   
+
+      getFirstEightProducts(): Observable<Product[]> {
+        return this.http.get<Product[]>(`${this.apiUrl}?_limit=8`);
+      }
+      
 }
