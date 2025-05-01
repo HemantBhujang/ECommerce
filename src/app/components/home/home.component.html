@@ -2,34 +2,36 @@
 <!-- https://cdn.shopify.com/videos/c/o/v/490dc6527090487f97c5fb00903c0c75.mp4 -->
 
 <!-- Categories Section with Enhanced UI -->
-<div class="categories-section py-4 bg-light mt-3">
+<div class="categories-section bg-light mt-2">
   <div class="container">
-    <!-- <h2 class="section-title mb-4">Shop By Category</h2> -->
-    <div class="row g-4 justify-content-center">
-      <div
-        class="col-4 col-sm-3 col-md-2 mb-3"
-        *ngFor="let category of categories"
-      >
-        <div class="category-card" (click)="navigateCategory(category.path)">
-          <div class="category-icon-wrapper mb-3">
-            <img
-              [src]="getCategoryImage(category.name)"
-              alt="{{ category.name }}"
-              class="img-fluid category-img"
-            />
-          </div>
-          <h6
-            class="category-name text-center"
-            (click)="navigateCategory(category.path)"
-          >
+    <div class="row g-2 justify-content-center">
+      <div class="col-4 col-sm-3 col-md-2" *ngFor="let category of categories">
+        <!-- Category Card with click for mobile and hover for desktop -->
+        <div
+          class="category-card"
+          (click)="handleCategoryClick($event, category)"
+          [attr.data-category]="category.name"
+        >
+          <h6 class="category-name text-center">
             {{ category.name }}
+            <img
+              src="../../../assets/expand_more_24dp_000000.svg"
+              class="dropdown-icon"
+              alt="expand"
+            />
           </h6>
 
-          <!-- Flyout menu on hover -->
+          <!-- Flyout menu -->
           <div class="category-flyout shadow">
             <div class="row g-0">
-              <div class="col-md-4" *ngFor="let sub of category.subcategories">
-                <h6 class="fw-bold mb-2" (click)="navigateCategory(sub.path)">
+              <div
+                class="col-12 col-md-4"
+                *ngFor="let sub of category.subcategories"
+              >
+                <h6
+                  class="fw-bold mb-2"
+                  (click)="navigateCategory(sub.path); $event.stopPropagation()"
+                >
                   {{ sub.name }}
                 </h6>
                 <ul class="list-unstyled">
@@ -38,8 +40,9 @@
                       (click)="
                         navigateCategory(child.path); $event.stopPropagation()
                       "
-                      >{{ child.name }}</a
                     >
+                      {{ child.name }}
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -51,8 +54,9 @@
   </div>
 </div>
 
-<div class="hero-slider">
+<div class="mt-4">
   <div id="fashionCarousel" class="carousel slide" data-bs-ride="carousel">
+    <!-- Indicators -->
     <div class="carousel-indicators">
       <button
         type="button"
@@ -60,149 +64,117 @@
         data-bs-slide-to="0"
         class="active"
         aria-current="true"
+        aria-label="Slide 1"
       ></button>
       <button
         type="button"
         data-bs-target="#fashionCarousel"
         data-bs-slide-to="1"
+        aria-label="Slide 2"
       ></button>
       <button
         type="button"
         data-bs-target="#fashionCarousel"
         data-bs-slide-to="2"
+        aria-label="Slide 3"
       ></button>
     </div>
 
+    <!-- Carousel Items -->
     <div class="carousel-inner">
-      <!-- Slide 1 -->
       <div class="carousel-item active">
-        <div class="slider-container">
-          <div class="content-wrapper">
-            <div class="slider-content">
-              <span class="season-tag">New Season</span>
-              <h2 class="collection-title">Summer Collection</h2>
-              <p class="collection-desc">
-                Explore top trending styles for your perfect beach getaway
-              </p>
-              <a href="#" class="shop-btn">Shop Now</a>
-            </div>
-          </div>
-          <div class="image-wrapper">
-            <img
-              src="../../../assets/summer collection.jpeg"
-              alt="Summer collection clothing"
-            />
-          </div>
-        </div>
+        <img
+          src="../../../assets/slider1.png"
+          alt="White Fashion Collection"
+          class="d-block w-100"
+        />
       </div>
-
-      <!-- Slide 2 -->
       <div class="carousel-item">
-        <div class="slider-container">
-          <div class="content-wrapper">
-            <div class="slider-content">
-              <span class="season-tag">Trending</span>
-              <h2 class="collection-title">Casual Wear</h2>
-              <p class="collection-desc">
-                Comfort meets style with our exclusive casual collection
-              </p>
-              <a href="#" class="shop-btn">Shop Now</a>
-            </div>
-          </div>
-          <div class="image-wrapper">
-            <img
-              src="https://s7d4.scene7.com/is/image/KG/19-1762448_KG_SUMMER_0506_02_MOB?scl=1&qlt=90"
-              alt="Casual wear collection"
-            />
-          </div>
-        </div>
+        <img
+          src="../../../assets/slider2.png"
+          alt="Purple Saree Collection"
+          class="d-block w-100"
+        />
       </div>
-
-      <!-- Slide 3 -->
       <div class="carousel-item">
-        <div class="slider-container">
-          <div class="content-wrapper">
-            <div class="slider-content">
-              <span class="season-tag">Premium</span>
-              <h2 class="collection-title">Designer Outfits</h2>
-              <p class="collection-desc">
-                Premium quality at affordable prices
-              </p>
-              <a href="#" class="shop-btn">Shop Now</a>
-            </div>
-          </div>
-          <div class="image-wrapper">
-            <img
-              src="../../../assets/traditional.jpg"
-              alt="Designer outfits collection"
-            />
-          </div>
-        </div>
+        <img
+          src="../../../assets/slider3.png"
+          alt="Menswear Collection"
+          class="d-block w-100"
+        />
       </div>
     </div>
 
+    <!-- Controls -->
     <button
       class="carousel-control-prev"
       type="button"
       data-bs-target="#fashionCarousel"
       data-bs-slide="prev"
     >
-      <span class="carousel-control-icon">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M15 18L9 12L15 6"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </span>
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-
     <button
       class="carousel-control-next"
       type="button"
       data-bs-target="#fashionCarousel"
       data-bs-slide="next"
     >
-      <span class="carousel-control-icon">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M9 18L15 12L9 6"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </span>
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
+  </div>
+</div>
+
+<!-- sale slider -->
+<div class="sale-announcement-wrapper mt-2">
+  <div class="sale-slider">
+    <!-- Create multiple copies of the same message for seamless looping -->
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
   </div>
 </div>
 
 <!-- New Arrivals Section -->
 <div class="product-section py-5">
   <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="section-title">New Arrivals</h2>
-      <!-- <button class="btn custom-outline" (click)="showMoreNewArrivals()">
-        View All
-      </button> -->
+    <div class="text-center mb-5">
+      <div class="title-container">
+        <h2 class="section-title position-relative d-inline-block">
+          NEW ARRIVALS
+        </h2>
+      </div>
     </div>
 
     <div class="row g-4">
@@ -256,13 +228,14 @@
                 >
               </div>
               <button
-                class="btn btn-sm rounded-circle amazon-btn add-to-cart-btn"
-                (click)="addToCart(product); $event.stopPropagation()"
-                [disabled]="isInCart(product.id!)"
+                class="btn btn-sm cart-action-btn"
+                [ngClass]="isInCart(product.id!) ? 'btn-success' : 'btn-cart'"
+                (click)="
+                  isInCart(product.id!) ? goToCart() : addToCart(product);
+                  $event.stopPropagation()
+                "
               >
-                <i
-                  [class]="isInCart(product.id!) ? 'bi bi-check' : 'bi bi-plus'"
-                ></i>
+                {{ isInCart(product.id!) ? "Go to Cart" : "Add to Cart" }}
               </button>
             </div>
           </div>
@@ -273,8 +246,9 @@
 </div>
 <!-- Deal of the Day -->
 <div class="deal-section py-4">
-  <div class="container">
-    <div class="deal-wrapper p-4 rounded">
+  <div class="container-fluid">
+    <!-- <div class="deal-wrapper p-4 rounded"> -->
+    <div class="bg-dark bg-opacity-25 text-white py-5 p-5 rounded">
       <div class="row align-items-center">
         <div class="col-md-6">
           <h2 class="section-title mb-2">Deal of the Day</h2>
@@ -306,7 +280,9 @@
               [src]="dealOfTheDay.image"
               class="img-fluid rounded"
               alt="{{ dealOfTheDay.name }}"
+              style="max-height: 350px; object-fit: cover"
             />
+
             <div class="deal-details mt-3">
               <h4>{{ dealOfTheDay.name }}</h4>
               <div class="price-wrapper">
@@ -331,11 +307,12 @@
 <!-- Trending Products Section -->
 <div class="product-section py-5">
   <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="section-title">Trending Now</h2>
-      <!-- <button class="btn custom-outline" (click)="showMoreTrending()">
-        View All
-      </button> -->
+    <div class="text-center mb-5">
+      <div class="title-container">
+        <h2 class="section-title position-relative d-inline-block">
+          Trending Products
+        </h2>
+      </div>
     </div>
 
     <div class="row g-4">
@@ -390,13 +367,14 @@
                 >
               </div>
               <button
-                class="btn btn-sm rounded-circle amazon-btn add-to-cart-btn"
-                (click)="addToCart(product); $event.stopPropagation()"
-                [disabled]="isInCart(product.id!)"
+                class="btn btn-sm cart-action-btn"
+                [ngClass]="isInCart(product.id!) ? 'btn-success' : 'btn-cart'"
+                (click)="
+                  isInCart(product.id!) ? goToCart() : addToCart(product);
+                  $event.stopPropagation()
+                "
               >
-                <i
-                  [class]="isInCart(product.id!) ? 'bi bi-check' : 'bi bi-plus'"
-                ></i>
+                {{ isInCart(product.id!) ? "Go to Cart" : "Add to Cart" }}
               </button>
             </div>
           </div>
@@ -409,11 +387,12 @@
 <!-- Explore more products -->
 <div class="product-section py-5">
   <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="section-title">Explore More Products</h2>
-      <button class="btn custom-outline" (click)="exploreMoreProducts()">
-        View All
-      </button>
+    <div class="text-center mb-5">
+      <div class="title-container">
+        <h2 class="section-title position-relative d-inline-block">
+          Shop More Save More
+        </h2>
+      </div>
     </div>
 
     <div class="row g-4">
@@ -467,16 +446,45 @@
                 >
               </div>
               <button
-                class="btn btn-sm rounded-circle amazon-btn add-to-cart-btn"
-                (click)="addToCart(product); $event.stopPropagation()"
-                [disabled]="isInCart(product.id!)"
+                class="btn btn-sm cart-action-btn"
+                [ngClass]="isInCart(product.id!) ? 'btn-success' : 'btn-cart'"
+                (click)="
+                  isInCart(product.id!) ? goToCart() : addToCart(product);
+                  $event.stopPropagation()
+                "
               >
-                <i
-                  [class]="isInCart(product.id!) ? 'bi bi-check' : 'bi bi-plus'"
-                ></i>
+                {{ isInCart(product.id!) ? "Go to Cart" : "Add to Cart" }}
               </button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center my-5">
+      <button class="btn custom-outline" (click)="exploreMoreProducts()">
+        View More
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- news -->
+<div class="newsletter-section py-5 my-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+        <h3 class="mb-3">Join Our Newsletter</h3>
+        <p class="text-muted mb-4">
+          Subscribe to receive updates on new arrivals and special offers
+        </p>
+        <div class="input-group mb-3">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Your email address"
+          />
+          <button class="btn btn-dark" type="button">Subscribe</button>
         </div>
       </div>
     </div>

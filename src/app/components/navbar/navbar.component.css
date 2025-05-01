@@ -1,3 +1,7 @@
+.navbar{
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}
 .profile:active{
   background-color: #ff758c;
 }
@@ -15,3 +19,11 @@
 .search-item:hover, .hover-bg:hover {
   background-color: #f5f5f5;
 }
+.app-name {
+  font-size: 1.2rem;        
+  font-weight: 600;          
+  font-family: 'Poppins', sans-serif; 
+  color: #f9a1b0;             
+  letter-spacing: 0.5px;
+}
+

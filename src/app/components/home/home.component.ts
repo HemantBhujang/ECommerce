@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 import { Product } from '../interface/product.model';
@@ -36,6 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   private countdownSubscription?: Subscription;
   private endTime: Date = new Date();
   firstEightProducts: Product[] | undefined;
+  isMobileView: boolean = false;
+  activeCategory: string | null = null;
 
   constructor(
     private router: Router, 
@@ -51,12 +53,52 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.loadProducts();
     this.loadCartItems();
     this.initializeCountdown();
+    this.checkScreenSize();
   }
   
   ngOnDestroy(): void {
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe();
     }
+  }
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    this.isMobileView = window.innerWidth < 768;
+  }
+
+  handleCategoryClick(event: Event, category: any) {
+    if (this.isMobileView) {
+      event.preventDefault();
+      event.stopPropagation();
+      
+      if (this.activeCategory === category.name) {
+        // If already active, navigate to the category page
+        this.navigateCategory(category.path);
+        this.activeCategory = null;
+      } else {
+        // Otherwise, show the dropdown
+        this.activeCategory = category.name;
+        
+        // Close the flyout when clicking outside
+        setTimeout(() => {
+          document.addEventListener('click', this.closeDropdown);
+        }, 0);
+      }
+    } else {
+      // On desktop, just navigate
+      this.navigateCategory(category.path);
+    }
+  }
+
+  closeDropdown = () => {
+    this.activeCategory = null;
+    document.removeEventListener('click', this.closeDropdown);
   }
 
   initializeCountdown(): void {
