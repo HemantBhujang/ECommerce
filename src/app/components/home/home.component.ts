@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 import { Product } from '../interface/product.model';
@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   firstEightProducts: Product[] | undefined;
   isMobileView: boolean = false;
   activeCategory: string | null = null;
+  // zone: any;
 
   constructor(
     private router: Router, 
@@ -45,7 +46,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private wishlistService: WishlistService,
     private loginService: LoginService,
-    private dbCartService: DatabaseCartService
+    private dbCartService: DatabaseCartService,
+    private zone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -56,10 +58,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.checkScreenSize();
   }
   
+    
   ngOnDestroy(): void {
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe();
     }
+    document.removeEventListener('click', this.closeDropdown);
   }
 
 
@@ -69,34 +73,92 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   checkScreenSize() {
+    const wasAlreadyMobile = this.isMobileView;
     this.isMobileView = window.innerWidth < 768;
-  }
-
-  handleCategoryClick(event: Event, category: any) {
-    if (this.isMobileView) {
-      event.preventDefault();
-      event.stopPropagation();
-      
-      if (this.activeCategory === category.name) {
-        // If already active, navigate to the category page
-        this.navigateCategory(category.path);
-        this.activeCategory = null;
-      } else {
-        // Otherwise, show the dropdown
-        this.activeCategory = category.name;
-        
-        // Close the flyout when clicking outside
-        setTimeout(() => {
-          document.addEventListener('click', this.closeDropdown);
-        }, 0);
-      }
-    } else {
-      // On desktop, just navigate
-      this.navigateCategory(category.path);
+    
+    // If we switched from mobile to desktop view, close any active dropdown
+    if (wasAlreadyMobile && !this.isMobileView && this.activeCategory) {
+      this.activeCategory = null;
+      document.removeEventListener('click', this.closeDropdown);
     }
   }
 
-  closeDropdown = () => {
+  handleCategoryClick(event: Event, category: any) {
+    // Prevent default behavior for all screen sizes
+    event.preventDefault();
+    event.stopPropagation();
+    
+    if (this.activeCategory === category.name) {
+      // If already active, navigate to the category page
+      this.navigateCategory(category.path);
+      this.activeCategory = null;
+      document.removeEventListener('click', this.closeDropdown);
+    } else {
+      // If there was another active category, close it first
+      if (this.activeCategory) {
+        this.activeCategory = null;
+        document.removeEventListener('click', this.closeDropdown);
+      }
+      
+      // Show the dropdown for this category on all screen sizes
+      setTimeout(() => {
+        this.zone.run(() => {
+          this.activeCategory = category.name;
+          
+          // Position the flyout appropriately (only needed for mobile but won't harm desktop)
+          this.adjustFlyoutPosition(category.name);
+          
+          // Close the flyout when clicking outside
+          setTimeout(() => {
+            document.addEventListener('click', this.closeDropdown);
+          }, 0);
+        });
+      }, 50);
+    }
+  }
+
+
+  adjustFlyoutPosition(categoryName: string) {
+    setTimeout(() => {
+      const categoryCard = document.querySelector(`[data-category="${categoryName}"]`) as HTMLElement;
+      const flyout = categoryCard?.querySelector('.category-flyout') as HTMLElement;
+      
+      if (categoryCard && flyout && this.isMobileView) {
+        // Position the flyout relative to the viewport
+        const cardRect = categoryCard.getBoundingClientRect();
+        const topPosition = cardRect.bottom + window.scrollY + 10; // Add 10px spacing
+        
+        // Make sure the flyout is properly positioned below the category card
+        flyout.style.top = `${topPosition}px`;
+        flyout.style.maxHeight = `${window.innerHeight - topPosition - 20}px`;
+        
+        // Ensure there's enough space below
+        const availableSpaceBelow = window.innerHeight - cardRect.bottom;
+        if (availableSpaceBelow < 200) { // If less than 200px available
+          window.scrollBy({
+            top: 200 - availableSpaceBelow,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }, 0);
+  }
+  closeDropdown = (event: Event) => {
+    // Check if the click is outside the active category card
+    const target = event.target as HTMLElement;
+    const activeCard = document.querySelector('.category-card.active');
+    
+    if (activeCard && !activeCard.contains(target)) {
+      this.zone.run(() => {
+        this.activeCategory = null;
+        document.removeEventListener('click', this.closeDropdown);
+      });
+    }
+  }
+
+  navigateToSubcategory(event: Event, path: string) {
+    event.stopPropagation();
+    this.navigateCategory(path);
     this.activeCategory = null;
     document.removeEventListener('click', this.closeDropdown);
   }
@@ -231,20 +293,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   productDetailsPage(id: number) {
     this.router.navigate(['/product-details', id]);
   }
-
-  getCategoryImage(categoryName: string): string {
-    switch (categoryName.toLowerCase()) {
-      case 'men':
-        return 'https://tse1.mm.bing.net/th?id=OIP.dmQRXWusIlb_auYpgBDx8wHaKd&pid=Api&P=0&h=180';
-      case 'women':
-        return 'https://tse2.mm.bing.net/th?id=OIP.aLcChT8Y2gUkeiDMQQpCHAHaJl&pid=Api&P=0&h=180';
-      case 'kids':
-        return 'https://tse1.mm.bing.net/th?id=OIP.la9Z6d3qwEIH77kmkaZQxwHaFs&pid=Api&rs=1&c=1&qlt=95&w=149&h=114';
-      default:
-        return 'https://via.placeholder.com/60';
-    }
-  }
-
   navigateCategory(path: string) {
     // this.router.navigate(['/category',path]);
     this.router.navigate([path]);

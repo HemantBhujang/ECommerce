@@ -73,7 +73,7 @@
   transform: translateX(3px);
 }
 
-/* Desktop Hover Behavior */
+/* Desktop Behavior */
 @media (min-width: 768px) {
   .category-card:hover {
     transform: translateY(-3px);
@@ -81,17 +81,85 @@
     background-color: #fff;
   }
   
-  .category-card:hover .category-flyout {
+  /* Active state for desktop */
+  .category-card.active {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .category-card.active .dropdown-icon {
+    transform: rotate(180deg);
+  }
+  
+  .category-card.active .category-flyout {
     opacity: 1;
     visibility: visible;
+    display: block;
+  }
+  
+  /* Fix for wider dropdown on desktop */
+  .category-card .category-flyout {
+    width: 600px; /* Wider for desktop to fit all subcategories */
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: none; /* Remove max-height restriction on desktop */
+  }
+  
+  /* Ensure we don't overflow viewport */
+  .category-card:nth-child(1) .category-flyout,
+  .category-card:nth-child(2) .category-flyout {
+    left: 0;
+    transform: none;
+  }
+  
+  .category-card:nth-last-child(1) .category-flyout,
+  .category-card:nth-last-child(2) .category-flyout {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+  
+  /* Ensure flyout is visible and properly laid out on desktop */
+  .category-flyout .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .category-flyout .col-12.col-md-4 {
+    width: 33.3333%;
+    padding: 0 10px;
   }
 }
 
 /* Mobile Touch Behavior */
 @media (max-width: 767px) {
-  .categories-section {
+  .categories-section .container {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  
+  .categories-section .row {
+    flex-wrap: nowrap;
     overflow-x: auto;
-    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    padding-bottom: 10px; /* Add padding for the scrolling area */
+    margin-right: 0;
+    margin-left: 0;
+  }
+  
+  /* Hide scrollbar for Chrome/Safari */
+  .categories-section .row::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .categories-section .col-4 {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+    padding: 0 5px;
   }
   
   .category-name {
@@ -111,20 +179,31 @@
   .category-card.active .category-flyout {
     opacity: 1;
     visibility: visible;
-  }
-  
-  /* Make flyout full width on mobile */
-  .category-flyout {
-    width: 100%;
-    max-width: 100vw;
+    position: fixed;
+    top: auto; /* Will be set dynamically by JavaScript */
     left: 0;
     right: 0;
-    box-sizing: border-box;
+    width: 100%;
+    max-height: 70vh; /* Limit height on mobile */
+    overflow-y: auto;
+    z-index: 1000;
   }
   
-  /* Stack subcategories vertically on mobile */
-  .category-flyout .row .col-12 {
-    margin-bottom: 10px;
+  /* Show all subcategories in a single column on mobile */
+  .category-flyout .row {
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  
+  .category-flyout .row .col-12,
+  .category-flyout .row .col-md-4 {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+    padding: 0;
   }
 }
 

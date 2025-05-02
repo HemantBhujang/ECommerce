@@ -11,6 +11,7 @@
           class="category-card"
           (click)="handleCategoryClick($event, category)"
           [attr.data-category]="category.name"
+          [class.active]="activeCategory === category.name"
         >
           <h6 class="category-name text-center">
             {{ category.name }}
@@ -30,17 +31,13 @@
               >
                 <h6
                   class="fw-bold mb-2"
-                  (click)="navigateCategory(sub.path); $event.stopPropagation()"
+                  (click)="navigateToSubcategory($event, sub.path)"
                 >
                   {{ sub.name }}
                 </h6>
                 <ul class="list-unstyled">
                   <li *ngFor="let child of sub.children">
-                    <a
-                      (click)="
-                        navigateCategory(child.path); $event.stopPropagation()
-                      "
-                    >
+                    <a (click)="navigateToSubcategory($event, child.path)">
                       {{ child.name }}
                     </a>
                   </li>
@@ -385,6 +382,7 @@
 </div>
 
 <!-- Explore more products -->
+
 <div class="product-section py-5">
   <div class="container">
     <div class="text-center mb-5">
