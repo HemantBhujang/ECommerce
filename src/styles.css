@@ -241,6 +241,127 @@
     }
   }
     
+
+
+  .hero-banner-custom {
+    margin-top: 30px; /* Space for navbar */
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    height: 420px; /* Fixed height */
+  }
+  
+  .hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .hero-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero-button {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    background-color: white;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .hero-button:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-banner-custom {
+      height: 350px;
+      margin-top: 60px;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .hero-banner-custom {
+      height: 300px;
+    }
+    
+    .hero-title {
+      font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+    
+    .hero-button {
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+    }
+  }
+  
+  /* Main container */
+  .fashion-products-container {
+    padding-top: 0;
+    position: relative;
+    z-index: 1; /* Ensure proper stacking context */
+  }
+  
+  .top-margin{
+    margin-top: 500px;
+  }
+  
       
   
   

@@ -6,7 +6,6 @@ import { CartService } from 'src/app/Services/cart.service';
 import { LoginService } from 'src/app/Services/login.service';
 import { DatabaseCartService } from 'src/app/Services/database-cart.service';
 import { finalize } from 'rxjs';
-import { WishlistComponent } from '../wishlist/wishlist.component';
 import { WishlistService } from 'src/app/Services/wishlist.service';
 
 @Component({
@@ -16,19 +15,28 @@ import { WishlistService } from 'src/app/Services/wishlist.service';
 })
 export class CategoryProductsComponent implements OnInit {
   products: any[] = [];
+  filteredProducts: any[] = []; // Array to hold filtered products
   category = '';
   parent = '';
   sub = '';
-  isLoading= true;
+  isLoading = true;
   dbCartProductIds: number[] = [];
+  
+  // Price filter properties
+  minPrice: number = 0;
+  maxPrice: number = 5000; // Default max price
+  currentMinPrice: number = 0;
+  currentMaxPrice: number = 5000;
 
-  constructor(private route: ActivatedRoute, 
+  constructor(
+    private route: ActivatedRoute, 
     private productService: ProductService,
-     private router: Router,
-    private cartService : CartService,
-  private loginService : LoginService,
-private dbCartService : DatabaseCartService,
-private wishlistService : WishlistService) {}
+    private router: Router,
+    private cartService: CartService,
+    private loginService: LoginService,
+    private dbCartService: DatabaseCartService,
+    private wishlistService: WishlistService
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -36,35 +44,35 @@ private wishlistService : WishlistService) {}
       this.parent = params['parent'];
       this.sub = params['sub'];
 
-      // Optionally, you can call a method here to load/filter products
+      // Load products and cart items
       this.loadProducts();
       this.loadCartItems();
     });
   }
 
-   loadCartItems(): void {
-          if (this.loginService.isLoggedIn()) {
-            const token = this.loginService.getToken();
-            if (token) {
-              this.isLoading = true;
-              this.dbCartService.getCartItems(token)
-                .pipe(finalize(() => this.isLoading = false))
-                .subscribe({
-                  next: (items: any[]) => {
-                    // Extract product IDs from cart items
-                    this.dbCartProductIds = items.map(item => item.product?.id || item.product_id);
-                    console.log('Cart items loaded:', this.dbCartProductIds);
-                  },
-                  error: (err) => {
-                    console.error('Error loading cart items:', err);
-                  }
-                });
+  loadCartItems(): void {
+    if (this.loginService.isLoggedIn()) {
+      const token = this.loginService.getToken();
+      if (token) {
+        this.isLoading = true;
+        this.dbCartService.getCartItems(token)
+          .pipe(finalize(() => this.isLoading = false))
+          .subscribe({
+            next: (items: any[]) => {
+              // Extract product IDs from cart items
+              this.dbCartProductIds = items.map(item => item.product?.id || item.product_id);
+              console.log('Cart items loaded:', this.dbCartProductIds);
+            },
+            error: (err) => {
+              console.error('Error loading cart items:', err);
             }
-          } else {
-            // For non-logged in users, use the local cart service
-            this.dbCartProductIds = this.cartService.getCartItems().map(item => item.id!);
-          }
-        }
+          });
+      }
+    } else {
+      // For non-logged in users, use the local cart service
+      this.dbCartProductIds = this.cartService.getCartItems().map(item => item.id!);
+    }
+  }
 
   loadProducts() {
     this.productService.getAllProducts().subscribe((data) => {
@@ -74,8 +82,50 @@ private wishlistService : WishlistService) {}
         product.parent_category.toLowerCase().replace(/\s+/g, '') === this.parent &&
         product.sub_category.toLowerCase().replace(/\s+/g, '') === this.sub
       );
+      
+      // Initialize filtered products
+      this.filteredProducts = [...this.products];
+      
+      // Set initial price range based on actual product prices
+      if (this.products.length > 0) {
+        // Find min and max prices in the product list
+        this.minPrice = Math.min(...this.products.map(p => p.discount_price));
+        this.maxPrice = Math.max(...this.products.map(p => p.discount_price));
+        
+        // Set current filter values to match the range
+        this.currentMinPrice = this.minPrice;
+        this.currentMaxPrice = this.maxPrice;
+      }
     });
   }
+
+  // Update price range - immediate filter application
+  updatePriceRange(min: string, max: string): void {
+    this.currentMinPrice = Number(min);
+    this.currentMaxPrice = Number(max);
+    this.applyPriceFilter();
+  }
+  
+  // Apply price filter
+  applyPriceFilter(): void {
+    this.filteredProducts = this.products.filter(product => 
+      product.discount_price >= this.currentMinPrice && 
+      product.discount_price <= this.currentMaxPrice
+    );
+  }
+
+  // Reset price filter (called as part of clearFilters)
+  resetPriceFilter(): void {
+    this.currentMinPrice = this.minPrice;
+    this.currentMaxPrice = this.maxPrice;
+    this.filteredProducts = [...this.products];
+  }
+  
+  // Clear all filters
+  clearFilters(): void {
+    this.resetPriceFilter();
+  }
+  
   goToDetails(id: number) {
     this.router.navigate(['/product-details', id]);
   }
@@ -105,14 +155,15 @@ private wishlistService : WishlistService) {}
     return this.dbCartProductIds.includes(productId);
   }
     
-      goToCart() {
-        this.router.navigate(['/cart']);
-      }
-      toggleWishlist(product: Product) {
-        this.wishlistService.toggleWishlistItem(product);
-      }
-      isInWishlist(productId: number): boolean {
-        return this.wishlistService.isProductInWishlist(productId);
-      }
+  goToCart() {
+    this.router.navigate(['/cart']);
+  }
   
+  toggleWishlist(product: Product) {
+    this.wishlistService.toggleWishlistItem(product);
+  }
+  
+  isInWishlist(productId: number): boolean {
+    return this.wishlistService.isProductInWishlist(productId);
+  }
 }
