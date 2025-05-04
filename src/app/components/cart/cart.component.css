@@ -1,0 +1,55 @@
+.cart-table-container {
+    margin-bottom: 20px;
+    overflow-x: auto;
+  }
+  
+  .table {
+    min-width: 800px; /* Ensures the table doesn't shrink too much */
+  }
+  
+  .table th, .table td {
+    vertical-align: middle;
+  }
+  
+  .mobile-cart-items .card {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+  
+  .mobile-cart-items .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quantity-controls .btn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+  
+  /* Additional responsive tweaks */
+  @media (max-width: 767.98px) {
+    h2 {
+      font-size: 1.75rem;
+    }
+    
+    .btn {
+      font-size: 0.875rem;
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 575.98px) {
+    .container {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
