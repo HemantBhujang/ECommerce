@@ -29,7 +29,8 @@ import { AdminUsersComponent } from './components/Admin/admin-users/admin-users.
 import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AdminOrderComponent } from './components/Admin/admin-order/admin-order.component';
-import { AllProductsComponent } from './components/all-products/all-products.component';
+import { ViewMoreComponent } from './components/view-more/view-more.component';
+// import { AllProductsComponent } from './components/all-products/all-products.component';
 // import { PaymentOneProductComponent } from './components/payment-one-product/payment-one-product.component';
 // import { CashOneProductComponent } from './components/cash-one-product/cash-one-product.component';
 
@@ -78,7 +79,8 @@ const routes: Routes = [
 {path:"cart", component:CartComponent},
 {path:"wishlist", component:WishlistComponent},
 {path :"product-details/:id", component:ProductDetailsComponent},
-{path: 'get-all-products',component:AllProductsComponent},
+// {path: 'get-all-products',component:AllProductsComponent},
+{path:"view-more",component:ViewMoreComponent},
 { path: ':category/:parent/:sub', component: CategoryProductsComponent },
 { path: ':category/:parent', component: ParentCategoryProductsComponent },
 { path: 'not-found', component: NotFoundComponent },

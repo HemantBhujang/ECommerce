@@ -350,7 +350,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   // }
 
   exploreMoreProducts(){
-    this.router.navigate(['/get-all-products']);
+    this.router.navigate(['/view-more']);
   }
 
 }
