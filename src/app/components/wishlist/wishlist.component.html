@@ -66,7 +66,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of wishlistItems">
+                    <tr *ngFor="let item of paginatedItems">
                       <td class="px-4 py-3">
                         <div class="d-flex align-items-center">
                           <img
@@ -124,6 +124,62 @@
                   </tbody>
                 </table>
               </div>
+
+              <!-- Pagination -->
+              <div
+                *ngIf="totalPages > 1"
+                class="d-flex justify-content-center p-3 border-top"
+              >
+                <nav aria-label="Wishlist pagination">
+                  <ul class="pagination mb-0">
+                    <!-- Previous page button -->
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                      <button
+                        class="page-link"
+                        (click)="previousPage()"
+                        aria-label="Previous"
+                      >
+                        <span aria-hidden="true">&laquo;</span>
+                      </button>
+                    </li>
+
+                    <!-- Page numbers -->
+                    <ng-container *ngFor="let page of getPageNumbers()">
+                      <!-- Ellipsis -->
+                      <li *ngIf="page < 0" class="page-item disabled">
+                        <span class="page-link">...</span>
+                      </li>
+
+                      <!-- Regular page number -->
+                      <li
+                        *ngIf="page > 0"
+                        class="page-item"
+                        [class.active]="currentPage === page"
+                      >
+                        <button class="page-link" (click)="goToPage(page)">
+                          {{ page }}
+                        </button>
+                      </li>
+                    </ng-container>
+
+                    <!-- Next page button -->
+                    <li
+                      class="page-item"
+                      [class.disabled]="currentPage === totalPages"
+                    >
+                      <button
+                        class="page-link"
+                        (click)="nextPage()"
+                        aria-label="Next"
+                      >
+                        <span aria-hidden="true">&raquo;</span>
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+              <!-- Items per page selector (optional) -->
             </div>
           </div>
         </div>

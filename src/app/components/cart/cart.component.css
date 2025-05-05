@@ -1,55 +1,103 @@
 .cart-table-container {
-    margin-bottom: 20px;
-    overflow-x: auto;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.table {
+  min-width: 800px; /* Ensures the table doesn't shrink too much */
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+/* Hide the mobile cards on larger screens */
+.mobile-cart-items {
+  display: none;
+}
+
+/* Show mobile cards on small screens */
+@media (max-width: 767.98px) {
+  .cart-table-container {
+    display: none; /* Hide the table on mobile */
   }
   
-  .table {
-    min-width: 800px; /* Ensures the table doesn't shrink too much */
+  .mobile-cart-items {
+    display: block;
+  }
+}
+
+.mobile-cart-items .card {
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.mobile-cart-items .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quantity-controls .btn {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+/* Pagination styling */
+.pagination {
+  margin-bottom: 0;
+}
+
+.page-link {
+  color: #333;
+  border-radius: 4px;
+  margin: 0 2px;
+}
+
+.page-item.active .page-link {
+  background-color: #ff758c;
+  border-color: #ff758c;
+}
+
+.page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 117, 140, 0.25);
+}
+
+.page-link:hover {
+  color: #fff;
+  background-color: #ff758c;
+  border-color: #ff758c;
+}
+
+
+/* Additional responsive tweaks */
+@media (max-width: 767.98px) {
+  h2 {
+    font-size: 1.75rem;
   }
   
-  .table th, .table td {
-    vertical-align: middle;
+  .btn {
+    font-size: 0.875rem;
   }
   
-  .mobile-cart-items .card {
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+  .card-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
   }
   
-  .mobile-cart-items .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  .pagination .page-link {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
   }
-  
-  .quantity-controls .btn {
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-  }
-  
-  /* Additional responsive tweaks */
-  @media (max-width: 767.98px) {
-    h2 {
-      font-size: 1.75rem;
-    }
-    
-    .btn {
-      font-size: 0.875rem;
-    }
-    
-    .card-title {
-      font-size: 1.25rem;
-    }
-  }
-  
-  @media (max-width: 575.98px) {
-    .container {
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-  }
+}
