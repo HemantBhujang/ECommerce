@@ -1,63 +1,50 @@
-<!-- components/product-management/product-management.component.html -->
+<!-- Improved Product Management Component -->
 <div class="content-wrapper">
   <div class="header-section">
     <div class="content-header">
       <h2>Manage Products</h2>
       <p class="text-muted">View, edit, and manage your product catalog</p>
     </div>
-    <button class="btn btn-primary add-product-btn" (click)="addNewProduct()">
+    <button class="btn add-product-btn" (click)="addNewProduct()">
       <i class="bi bi-plus-circle"></i> Add New Product
     </button>
   </div>
 
   <!-- Products Grid -->
-  <!-- <div class="products-grid">
-    <div class="product-card" *ngFor="let product of products"></div>
-  </div> -->
-
-  <!-- Empty state message when no products -->
-  <div class="text-center py-5" *ngIf="products && products.length === 0">
-    <i class="bi bi-box-seam fs-1 text-muted"></i>
-    <h4 class="mt-3">No Products Found</h4>
-    <p class="text-muted">Get started by adding your first product</p>
-    <button class="btn btn-primary mt-2" (click)="addNewProduct()">
-      <i class="bi bi-plus-circle"></i> Add Product
-    </button>
-  </div>
-</div>
-
-<div class="container-fluid products-grid">
-  <div class="product-card" *ngFor="let product of products">
+  <div class="products-grid">
     <div
-      class="card mx-auto col-md-3 col-10 mt-5"
+      class="product-card"
+      *ngFor="let product of products"
       routerLink="/adminDashboard/viewproducts/{{ product.id }}"
     >
-      <img
-        class="mx-auto img-thumbnail"
-        [src]="product.image"
-        [alt]="product.name"
-        width="auto"
-        height="auto"
-      />
-      <div class="card-body text-center mx-auto">
-        <div class="cvp">
-          <h5 class="card-title font-weight-bold">Yail wrist watch</h5>
-          <p class="card-text">$299</p>
-
-          <a
-            href="#"
-            class="btn details px-auto"
-            routerLink="/adminDashboard/editproducts/{{ product.id }}"
-            >Edit </a
-          ><br />
-          <a
-            href="#"
-            class="btn cart px-auto"
-            (click)="deleteProduct(product.id!)"
-            >Delete</a
+      <div class="product-image-container">
+        <img class="product-image" [src]="product.image" [alt]="product.name" />
+      </div>
+      <div class="product-details">
+        <h3 class="product-title">{{ product.name || "Yail wrist watch" }}</h3>
+        <div class="product-price">${{ product.discount_price }}</div>
+        <div class="product-actions">
+          <button
+            class="btn-edit"
+            [routerLink]="['/adminDashboard/editproducts', product.id]"
           >
+            Edit
+          </button>
+          <button class="btn-delete" (click)="deleteProduct(product.id!)">
+            Delete
+          </button>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Empty state message when no products -->
+  <div class="empty-state" *ngIf="products && products.length === 0">
+    <i class="bi bi-box-seam"></i>
+    <h4>No Products Found</h4>
+    <p>Get started by adding your first product</p>
+    <button class="btn add-product-btn" (click)="addNewProduct()">
+      <i class="bi bi-plus-circle"></i> Add Product
+    </button>
   </div>
 </div>
