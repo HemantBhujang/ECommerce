@@ -1,88 +1,103 @@
-<div class="wrapper">
-  <!-- <div class="logo">
-    <img src="../../../assets/logo.png" alt="Logo" />
-  </div> -->
-  <div class="text-center mt-4 name">Add Product</div>
-
-  <form class="p-3 mt-3" [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
-    <div class="form-field">
-      <input type="text" placeholder="Name" formControlName="name" />
+<div class="container my-5">
+  <div class="text">Add New Product</div>
+  <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="name" />
+        <div class="underline"></div>
+        <label for="">Name</label>
+      </div>
+      <div class="input-data">
+        <input type="text" formControlName="image" />
+        <div class="underline"></div>
+        <label for="">Image Url</label>
+      </div>
     </div>
 
-    <div class="form-field">
-      <input
-        type="text"
-        placeholder="Description"
-        formControlName="description"
-      />
+    <div class="form-row">
+      <div class="input-data">
+        <input type="number" formControlName="old_price" />
+        <div class="underline"></div>
+        <label for="">Old price</label>
+      </div>
+      <div class="input-data">
+        <input type="number" formControlName="discount_price" />
+        <div class="underline"></div>
+        <label for="">Discount Price</label>
+      </div>
+      <div class="input-data">
+        <input type="number" formControlName="discount" />
+        <div class="underline"></div>
+        <label for="">Discount (%)</label>
+      </div>
     </div>
 
-    <div class="form-field">
-      <input
-        type="number"
-        placeholder="Old Price"
-        formControlName="old_price"
-      />
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="category" />
+        <div class="underline"></div>
+        <label for="">Category</label>
+      </div>
+      <div class="input-data">
+        <input type="text" formControlName="parent_category" />
+        <div class="underline"></div>
+        <label for="">Parent Category</label>
+      </div>
+      <div class="input-data">
+        <input type="text" formControlName="sub_category" />
+        <div class="underline"></div>
+        <label for="">Sub Catgeory</label>
+      </div>
     </div>
 
-    <div class="form-field">
-      <input
-        type="number"
-        placeholder="Discount Price"
-        formControlName="discount_price"
-      />
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="color" />
+        <div class="underline"></div>
+        <label for="">Color</label>
+      </div>
+      <div class="input-data">
+        <input type="text" formControlName="size" />
+        <div class="underline"></div>
+        <label for="">Size</label>
+      </div>
     </div>
 
-    <div class="form-field">
-      <input
-        type="number"
-        placeholder="Discount (%)"
-        formControlName="discount"
-      />
+    <div class="form-row">
+      <div class="input-data">
+        <input type="number" formControlName="quantity" />
+        <div class="underline"></div>
+        <label for="">Quantity</label>
+      </div>
+      <div class="input-data">
+        <input type="number" formControlName="stock" />
+        <div class="underline"></div>
+        <label for="">Stock</label>
+      </div>
     </div>
 
-    <div class="form-field">
-      <input type="text" placeholder="Category" formControlName="category" />
+    <div class="form-row">
+      <div class="input-data textarea">
+        <textarea
+          rows="8"
+          cols="80"
+          required
+          formControlName="description"
+        ></textarea>
+        <div class="underline"></div>
+        <label for="">Description</label>
+      </div>
     </div>
 
-    <div class="form-field">
-      <input
-        type="text"
-        placeholder="Parent Category"
-        formControlName="parent_category"
-      />
+    <div class="form-row submit-btn">
+      <div class="input-data">
+        <div class="inner"></div>
+        <input
+          type="submit"
+          value="submit"
+          [disabled]="addProductForm.invalid"
+        />
+      </div>
     </div>
-
-    <div class="form-field">
-      <input
-        type="text"
-        placeholder="Sub Category"
-        formControlName="sub_category"
-      />
-    </div>
-
-    <div class="form-field">
-      <input type="number" placeholder="Stock" formControlName="stock" />
-    </div>
-
-    <div class="form-field">
-      <input type="text" placeholder="Image URL" formControlName="image" />
-    </div>
-
-    <div class="form-field">
-      <input type="text" placeholder="Size" formControlName="size" />
-    </div>
-
-    <div class="form-field">
-      <input type="text" placeholder="Color" formControlName="color" />
-    </div>
-
-    <div class="form-field">
-      <input type="number" placeholder="Quantity" formControlName="quantity" />
-    </div>
-
-    <button class="btn mt-3" type="submit" [disabled]="addProductForm.invalid">
-      Add Product
-    </button>
   </form>
 </div>
