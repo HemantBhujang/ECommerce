@@ -35,6 +35,7 @@ import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AdminOrderComponent } from './components/Admin/admin-order/admin-order.component';
 import { ViewMoreComponent } from './components/view-more/view-more.component';
+import { ChatComponent } from './components/chat/chat.component';
 // import { AllProductsComponent } from './components/all-products/all-products.component';
 
 
@@ -69,6 +70,7 @@ import { ViewMoreComponent } from './components/view-more/view-more.component';
     CheckoutComponent,
     AdminOrderComponent,
     ViewMoreComponent,
+    ChatComponent,
     // AllProductsComponent,
    
   ],

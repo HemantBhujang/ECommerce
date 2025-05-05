@@ -10,88 +10,54 @@
     </button>
   </div>
 
-  <!-- Search and Filter Section -->
-  <div class="filter-section">
-    <div class="search-box">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search products..."
-      />
-      <i class="bi bi-search"></i>
-    </div>
-    <div class="filter-controls">
-      <select class="form-select">
-        <option selected>All Categories</option>
-        <option>Men</option>
-        <option>Women</option>
-        <option>Kids</option>
-      </select>
-      <select class="form-select">
-        <option selected>All Status</option>
-        <option>In Stock</option>
-        <option>Out of Stock</option>
-      </select>
-    </div>
-  </div>
-
   <!-- Products Grid -->
-  <div class="products-grid">
-    <div class="product-card" *ngFor="let product of products">
-      <div class="product-image">
-        <img [src]="product.image" alt="{{ product.name }}" />
-        <!-- <span
-          class="stock-badge"
-          [ngClass]="{
-            'in-stock': product.stock > 0,
-            'out-of-stock': product.stock <= 0
-          }"
-        >
-          {{ product.stock > 0 ? "In Stock" : "Out of Stock" }}
-        </span> -->
-      </div>
-      <div class="product-content">
-        <h3 class="product-title">{{ product.name }}</h3>
-        <p class="product-category">{{ product.category }}</p>
-        <p class="product-description">{{ product.description }}</p>
-      </div>
-      <div class="product-actions">
-        <button
-          class="btn btn-sm btn-outline-primary"
-          routerLink="/adminDashboard/viewproducts/{{ product.id }}"
-        >
-          <i class="bi bi-eye"></i> View
-        </button>
-        <button
-          class="btn btn-sm btn-outline-success"
-          routerLink="/adminDashboard/editproducts/{{ product.id }}"
-        >
-          <i class="bi bi-pencil"></i> Edit
-        </button>
-        <button
-          class="btn btn-sm btn-outline-danger"
-          (click)="deleteProduct(product.id!)"
-        >
-          <i class="bi bi-trash"></i> Delete
-        </button>
+  <!-- <div class="products-grid">
+    <div class="product-card" *ngFor="let product of products"></div>
+  </div> -->
+
+  <!-- Empty state message when no products -->
+  <div class="text-center py-5" *ngIf="products && products.length === 0">
+    <i class="bi bi-box-seam fs-1 text-muted"></i>
+    <h4 class="mt-3">No Products Found</h4>
+    <p class="text-muted">Get started by adding your first product</p>
+    <button class="btn btn-primary mt-2" (click)="addNewProduct()">
+      <i class="bi bi-plus-circle"></i> Add Product
+    </button>
+  </div>
+</div>
+
+<div class="container-fluid products-grid">
+  <div class="product-card" *ngFor="let product of products">
+    <div
+      class="card mx-auto col-md-3 col-10 mt-5"
+      routerLink="/adminDashboard/viewproducts/{{ product.id }}"
+    >
+      <img
+        class="mx-auto img-thumbnail"
+        [src]="product.image"
+        [alt]="product.name"
+        width="auto"
+        height="auto"
+      />
+      <div class="card-body text-center mx-auto">
+        <div class="cvp">
+          <h5 class="card-title font-weight-bold">Yail wrist watch</h5>
+          <p class="card-text">$299</p>
+
+          <a
+            href="#"
+            class="btn details px-auto"
+            routerLink="/adminDashboard/editproducts/{{ product.id }}"
+            >Edit </a
+          ><br />
+          <a
+            href="#"
+            class="btn cart px-auto"
+            (click)="deleteProduct(product.id!)"
+            >Delete</a
+          >
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- Pagination -->
-  <!-- <nav class="pagination-container">
-    <ul class="pagination">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
-          >Previous</a
-        >
-      </li>
-      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#">Next</a>
-      </li>
-    </ul>
-  </nav> -->
 </div>

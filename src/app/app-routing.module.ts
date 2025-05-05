@@ -30,6 +30,7 @@ import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AdminOrderComponent } from './components/Admin/admin-order/admin-order.component';
 import { ViewMoreComponent } from './components/view-more/view-more.component';
+import { ChatComponent } from './components/chat/chat.component';
 // import { AllProductsComponent } from './components/all-products/all-products.component';
 // import { PaymentOneProductComponent } from './components/payment-one-product/payment-one-product.component';
 // import { CashOneProductComponent } from './components/cash-one-product/cash-one-product.component';
@@ -77,6 +78,7 @@ const routes: Routes = [
 // {path:"cash-one-product/:id",component:CashOneProductComponent,canActivate:[AuthGuard]},
 {path:'online-order',component:OrderComponent,canActivate: [AuthGuard]},
 {path:"cart", component:CartComponent},
+{path:"chat",component:ChatComponent},
 {path:"wishlist", component:WishlistComponent},
 {path :"product-details/:id", component:ProductDetailsComponent},
 // {path: 'get-all-products',component:AllProductsComponent},
@@ -85,6 +87,7 @@ const routes: Routes = [
 { path: ':category/:parent', component: ParentCategoryProductsComponent },
 { path: 'not-found', component: NotFoundComponent },
 { path: ':category', component: MainCategoryProductsComponent },
+
 { path: '**', redirectTo: 'not-found' }
 
 ];

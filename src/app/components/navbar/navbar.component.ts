@@ -201,4 +201,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
     this.router.navigate(['/product-details', productId]);
   }
+  goToChat(){
+   this.router.navigate(['/chat']);
+  }
 }

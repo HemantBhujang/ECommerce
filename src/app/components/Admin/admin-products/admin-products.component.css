@@ -1,136 +1,111 @@
 /* components/product-management/product-management.component.css */
 .content-wrapper {
-    padding: 2rem;
-  }
-  
-  .header-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-  
-  .content-header {
-    flex-grow: 1;
-  }
-  
-  .content-header h2 {
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-  
-  .add-product-btn {
-    background-color: #ff4b7d;
-    border-color: #ff4b7d;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-  }
-  
-  .add-product-btn:hover {
-    background-color: #e6366a;
-    border-color: #e6366a;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Search and Filter Section */
-  .filter-section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    background-color: white;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-  
-  .search-box {
-    flex-grow: 1;
-    position: relative;
-    min-width: 200px;
-  }
-  
-  .search-box input {
-    padding-right: 2.5rem;
-  }
-  
-  .search-box i {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #6c757d;
-  }
-  
-  .filter-controls {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .filter-controls select {
-    min-width: 150px;
-  }
-  
-  /* Products Grid */
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-  
-  .product-card {
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-  
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .product-image {
-    height: 200px;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  
-  .product-card:hover .product-image img {
-    transform: scale(1.05);
-  }
-  
-  .stock-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-  
-  .in-stock {
-    background-color: rgba(28, 200, 138, 0.1);
-    color: #1cc88a;
-  }
-  
-  .out-of-stock {
-    background-color: rgba(231, 74, 59, 0.1);
-  }
+  padding: 1.5rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.content-header {
+  flex-grow: 1;
+}
+
+.content-header h2 {
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1.75rem;
+}
+
+.add-product-btn {
+  background-color: #ff4b7d;
+  border-color: #ff4b7d;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-product-btn:hover {
+  background-color: #e6366a;
+  border-color: #e6366a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Products Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  align-items: stretch;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.details {
+  border: 1.5px solid grey;
+  color: #212121;
+  width: 100%;
+  height: auto;
+  box-shadow: 0px 0px 10px #212121;
+}
+
+.cart {
+  background-color: #212121;
+  color: white;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 900;
+  width: 100%;
+  height: 39px;
+  padding-top: 9px;
+  box-shadow: 0px 5px 10px  #212121;
+}
+
+.card {
+  width: fit-content;
+}
+
+.card-body {
+  width: fit-content;
+}
+
+.btn {
+  border-radius: 0;
+}
+
+.img-thumbnail {
+  border: none;
+}
+
+.card {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
+  border-radius: 5px;
+  padding-bottom: 10px;
+}
