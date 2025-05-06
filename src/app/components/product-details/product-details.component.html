@@ -1,90 +1,233 @@
-<div class="container mx-auto py-8" *ngIf="product">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    <div>
-      <img [src]="product.image" alt="Product Image" class="product-image" />
+<div class="product-container" *ngIf="product">
+  <!-- Breadcrumb navigation -->
+  <!-- <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span>/</span>
+    <a href="/category/{{ product.parent_category }}">{{
+      product.parent_category
+    }}</a>
+    <span>/</span>
+    <a href="/category/{{ product.category }}">{{ product.category }}</a>
+    <span>/</span>
+    <span>{{ product.name }}</span>
+  </div> -->
+
+  <!-- Product grid layout -->
+  <div class="product-grid">
+    <!-- Product gallery section - fixed on desktop -->
+    <div class="product-gallery">
+      <div class="main-image-container">
+        <img
+          class="main-image"
+          [src]="selectedImage || product.image"
+          [alt]="product.name"
+        />
+      </div>
+      <div class="thumbnail-container">
+        <img
+          class="thumbnail"
+          [ngClass]="{
+            active: selectedImage === product.image || !selectedImage
+          }"
+          [src]="product.image"
+          alt="Thumbnail 1"
+          (click)="selectImage(product.image)"
+        />
+        <img
+          *ngIf="product.image2"
+          class="thumbnail"
+          [ngClass]="{ active: selectedImage === product.image2 }"
+          [src]="product.image2"
+          alt="Thumbnail 2"
+          (click)="selectImage(product.image2)"
+        />
+        <img
+          *ngIf="product.image3"
+          class="thumbnail"
+          [ngClass]="{ active: selectedImage === product.image3 }"
+          [src]="product.image3"
+          alt="Thumbnail 3"
+          (click)="selectImage(product.image3)"
+        />
+        <img
+          *ngIf="product.image4"
+          class="thumbnail"
+          [ngClass]="{ active: selectedImage === product.image4 }"
+          [src]="product.image4"
+          alt="Thumbnail 4"
+          (click)="selectImage(product.image4)"
+        />
+        <img
+          *ngIf="product.image5"
+          class="thumbnail"
+          [ngClass]="{ active: selectedImage === product.image5 }"
+          [src]="product.image5"
+          alt="Thumbnail 5"
+          (click)="selectImage(product.image5)"
+        />
+      </div>
     </div>
-    <div class="product-details">
-      <h1 class="text-3xl font-bold text-gray-800">{{ product.name }}</h1>
-      <p class="text-gray-600 mt-2">{{ product.description }}</p>
+
+    <!-- Product information section -->
+    <div class="product-info">
+      <h1 class="product-title">{{ product.name }}</h1>
+      <p class="product-category">
+        {{ product.parent_category }} > {{ product.category }} >
+        {{ product.sub_category }}
+      </p>
+
+      <!-- Price section -->
       <div class="product-price">
-        <span class="original-price">₹{{ product.old_price }}</span>
-        <span class="sale-price">₹{{ product.discount_price }}</span>
-        <span style="color: green; margin-left: 1rem"
-          >{{ product.discount }}% OFF</span
+        <div class="discount-price">₹{{ product.discount_price }}</div>
+        <div class="original-price">₹{{ product.old_price }}</div>
+        <div class="discount-percentage">{{ product.discount }}% OFF</div>
+      </div>
+
+      <!-- Stock status -->
+      <div class="stock-status" *ngIf="product.stock > 0">
+        <div
+          class="stock-indicator"
+          [ngClass]="{
+            'in-stock': product.stock > 10,
+            'low-stock': product.stock <= 10
+          }"
+        ></div>
+        <div class="stock-text" *ngIf="product.stock > 10">In Stock</div>
+        <div class="stock-text" *ngIf="product.stock <= 10">
+          Only {{ product.stock }} left!
+        </div>
+      </div>
+      <div class="stock-status" *ngIf="product.stock <= 0">
+        <div class="stock-indicator out-of-stock"></div>
+        <div class="stock-text">Out of Stock</div>
+      </div>
+
+      <p class="product-description">{{ product.description }}</p>
+
+      <div class="divider"></div>
+
+      <!-- Product attributes -->
+      <div class="product-attributes">
+        <!-- Size selector -->
+        <div class="attribute-group">
+          <h3 class="attribute-title">Size</h3>
+          <div class="size-options">
+            <div class="size-option selected">{{ product.size }}</div>
+          </div>
+        </div>
+
+        <!-- Color selector -->
+        <div class="attribute-group">
+          <h3 class="attribute-title">Color</h3>
+          <div class="color-options">
+            <div
+              class="color-option selected"
+              [style.backgroundColor]="product.color"
+              [title]="product.color"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Quantity selector -->
+        <div class="quantity-selector">
+          <h3 class="attribute-title">Quantity</h3>
+          <div class="quantity-controls">
+            <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
+            <input
+              class="quantity-input"
+              type="text"
+              [value]="quantity"
+              readonly
+            />
+            <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="action-buttons">
+        <button
+          *ngIf="!isInCart1"
+          class="btn btn-secondary btn-cart"
+          (click)="addToCart()"
         >
+          <i class="fas fa-shopping-cart"></i> Add to Cart
+        </button>
+        <button
+          *ngIf="isInCart1"
+          class="btn btn-secondary btn-cart"
+          (click)="goToCart()"
+        >
+          <i class="fas fa-shopping-bag"></i> Go to Cart
+        </button>
+        <button class="btn btn-primary" (click)="buyNow()">Buy Now</button>
       </div>
-      <div class="product size">
-        <h6>Size</h6>
-        <span>{{ product.size }}</span>
-      </div>
-      <div class="product-color mt-4">
-        <h6 class="font-semibold">Color</h6>
-        <span
-          class="inline-block w-6 h-6 rounded-full border"
-          [style.backgroundColor]="product.color"
-          title="{{ product.color }}"
-        ></span>
-      </div>
-      <div class="product-quantity">
-        <h6>Select Quantity</h6>
-        <button (click)="decreaseQuantity()">-</button>
-        <p>{{ quantity }}</p>
-        <button (click)="increaseQuantity()">+</button>
-      </div>
-      <div class="delivery-options">
-        <h6 class="font-bold mb-2">DELIVERY OPTIONS</h6>
-        <div class="delivery-info">
-          <div class="delivery-item">
-            <i class="fas fa-map-marker-alt text-gray-500 mr-2"></i>
-            <p>Deliver to: <span style="font-weight: bold">11011</span></p>
+
+      <div class="divider"></div>
+
+      <!-- Delivery options -->
+      <div class="delivery-section">
+        <h3 class="delivery-title">DELIVERY OPTIONS</h3>
+        <div class="delivery-options">
+          <div class="delivery-option">
+            <div class="delivery-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="delivery-text">
+              <span class="delivery-text-primary"
+                >Deliver to: <strong>11011</strong></span
+              >
+              <span class="delivery-text-secondary"
+                >Get it by 5 - 7 business days</span
+              >
+            </div>
           </div>
-
-          <div class="delivery-item">
-            <i class="fas fa-undo text-gray-500 mr-2"></i>
-            <p style="font-weight: bold">7 Days Easy Return</p>
-            <p style="color: rgb(125, 122, 122); font-size: small">
-              Change of mind not applicable
-            </p>
+          <div class="delivery-option">
+            <div class="delivery-icon">
+              <i class="fas fa-undo"></i>
+            </div>
+            <div class="delivery-text">
+              <span class="delivery-text-primary">7 Days Easy Return</span>
+              <span class="delivery-text-secondary"
+                >Change of mind not applicable</span
+              >
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="product-detail my-4">
-        <div class="detail-row">
-          <span class="detail-label">Material &amp; Care</span>
-          <span class="detail-value">100% Cotton, Machine Wash</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Fit</span>
-          <span class="detail-value">Regular</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Pattern</span>
-          <span class="detail-value">Solid</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Country</span>
-          <span class="detail-value">India</span>
+      <div class="divider"></div>
+
+      <!-- Product specifications -->
+      <div class="product-specs">
+        <h3 class="specs-title">PRODUCT DETAILS</h3>
+        <div class="specs-grid">
+          <div class="spec-item">
+            <span class="spec-label">Material & Care</span>
+            <span class="spec-value">100% Cotton, Machine Wash</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Fit</span>
+            <span class="spec-value">Regular</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Pattern</span>
+            <span class="spec-value">Solid</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Country</span>
+            <span class="spec-value">India</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Category</span>
+            <span class="spec-value">{{ product.sub_category }}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">SKU</span>
+            <span class="spec-value">PID-{{ product.id }}</span>
+          </div>
         </div>
       </div>
-
-      <button
-        *ngIf="!isInCart"
-        class="add-to-cart-button"
-        (click)="addToCart()"
-      >
-        Add to Cart
-      </button>
-      <button
-        *ngIf="isInCart"
-        class="btn btn-warning cart-btn"
-        (click)="goToCart()"
-      >
-        Go to Cart
-      </button>
-      <button class="add-to-cart-button mx-5" (click)="buyNow()">
-        Buy Now
-      </button>
     </div>
   </div>
 </div>

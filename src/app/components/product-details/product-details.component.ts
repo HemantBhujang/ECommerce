@@ -16,32 +16,30 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   product!: Product;
   quantity: number = 1;
   isInCart1: boolean = false;
+  selectedImage: string | null = null;
   private routeSub!: Subscription;
   private cartSub!: Subscription;
-  isLoading= true;
+  isLoading = true;
   dbCartProductIds: number[] = [];
-  id='';
+  id = '';
 
   constructor(
     private productService: ProductService, 
     private cartService: CartService,
     private route: ActivatedRoute,
     private router: Router,
-    private dbCartService : DatabaseCartService,
-    private loginService : LoginService
+    private dbCartService: DatabaseCartService,
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {
     // Subscribe to route parameter changes
-
     this.id = this.route.snapshot.paramMap.get('id') || '';
-   // console.log('User ID:', this.id);
 
     this.routeSub = this.route.params.subscribe(params => {
       const productId = +params['id']; // Convert to number
       this.loadProductDetails(productId);
       this.checkIfInCart(productId);
-
       this.loadCartItems();
     });
 
@@ -56,8 +54,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   loadProductDetails(id: number) {
     this.productService.getProductById(id).subscribe((res: Product) => {
       this.product = res;
+      this.selectedImage = res.image;
       this.checkIfInCart(id);
     });
+  }
+
+  selectImage(imageUrl: string) {
+    this.selectedImage = imageUrl;
   }
 
   checkIfInCart(productId: number) {
@@ -84,7 +87,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   decreaseQuantity() {
     if (this.quantity > 1) {
       this.quantity--;
-      if (this.isInCart1&& this.product.id) {
+      if (this.isInCart1 && this.product.id) {
         this.cartService.updateQuantity(this.product.id, this.quantity);
       }
     }
@@ -107,7 +110,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     if (!this.isInCart1) {
       this.addToCart();
     }
-    this.router.navigate(['/checkout',this.id]);
+    this.router.navigate(['/checkout', this.id]);
   }
 
   ngOnDestroy() {
@@ -124,28 +127,26 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     return this.dbCartProductIds.includes(productId);
   }
 
-    loadCartItems(): void {
-            if (this.loginService.isLoggedIn()) {
-              const token = this.loginService.getToken();
-              if (token) {
-                this.isLoading = true;
-                this.dbCartService.getCartItems(token)
-                  .pipe(finalize(() => this.isLoading = false))
-                  .subscribe({
-                    next: (items: any[]) => {
-                      // Extract product IDs from cart items
-                      this.dbCartProductIds = items.map(item => item.product?.id || item.product_id);
-                      console.log('Cart items loaded:', this.dbCartProductIds);
-                    },
-                    error: (err) => {
-                      console.error('Error loading cart items:', err);
-                    }
-                  });
-              }
-            } else {
-              // For non-logged in users, use the local cart service
-              this.dbCartProductIds = this.cartService.getCartItems().map(item => item.id!);
+  loadCartItems(): void {
+    if (this.loginService.isLoggedIn()) {
+      const token = this.loginService.getToken();
+      if (token) {
+        this.isLoading = true;
+        this.dbCartService.getCartItems(token)
+          .pipe(finalize(() => this.isLoading = false))
+          .subscribe({
+            next: (items: any[]) => {
+              // Extract product IDs from cart items
+              this.dbCartProductIds = items.map(item => item.product?.id || item.product_id);
+            },
+            error: (err) => {
+              console.error('Error loading cart items:', err);
             }
-          }
-  
+          });
+      }
+    } else {
+      // For non-logged in users, use the local cart service
+      this.dbCartProductIds = this.cartService.getCartItems().map(item => item.id!);
+    }
+  }
 }

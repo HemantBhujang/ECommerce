@@ -10,6 +10,10 @@ export interface Product {
     sub_category: string;
     stock: number;
     image: string;
+    image2?: string;
+    image3?: string;
+    image4?: string;
+    image5?: string;
     size: string;
     color: string;
     quantity: number;
