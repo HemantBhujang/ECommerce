@@ -14,8 +14,8 @@ export interface Product {
     image3?: string;
     image4?: string;
     image5?: string;
-    size: string;
-    color: string;
+    size: string[]; 
+    color: string[]; 
     quantity: number;
     created_at: string;
   }

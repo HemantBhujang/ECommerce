@@ -143,14 +143,15 @@ export class ViewMoreComponent implements OnInit {
     // Filter by selected colors
     if (this.selectedColors.length > 0) {
       result = result.filter(product => 
-        this.selectedColors.some(color => 
-          product.color && product.color.toLowerCase().includes(color.toLowerCase())
+        product.color && product.color.some(item => 
+          this.selectedColors.some(color => item.toLowerCase().includes(color.toLowerCase()))
         )
       );
     }
     
     this.filteredProducts = result;
   }
+  
 
   // Category filter
   filterByCategory(category: string): void {

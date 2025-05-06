@@ -200,10 +200,11 @@
   margin-bottom: 0.5rem;
 }
 
-/* Size selector */
+/* Size selector - MODIFIED */
 .size-options {
   display: flex;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .size-option {
@@ -216,6 +217,7 @@
   border: 1px solid #e5e7eb;
   color: #4b5563;
   font-weight: 500;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -231,10 +233,11 @@
   border-color: #ec4899;
 }
 
-/* Color selector */
+/* Color selector - MODIFIED */
 .color-options {
   display: flex;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .color-option {
@@ -244,6 +247,7 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   position: relative;
+  border: 1px solid #e5e7eb;
 }
 
 .color-option:hover {

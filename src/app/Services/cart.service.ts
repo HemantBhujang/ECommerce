@@ -16,8 +16,8 @@ export interface CartProduct extends Product {
   sub_category: string;
   stock: number;
   image: string;
-  size: string;
-  color: string;
+  size: string[];
+  color: string[];
   quantity: number;
   created_at: string;
   rating?: number;

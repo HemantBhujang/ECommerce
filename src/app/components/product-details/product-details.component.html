@@ -1,17 +1,4 @@
 <div class="product-container" *ngIf="product">
-  <!-- Breadcrumb navigation -->
-  <!-- <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span>/</span>
-    <a href="/category/{{ product.parent_category }}">{{
-      product.parent_category
-    }}</a>
-    <span>/</span>
-    <a href="/category/{{ product.category }}">{{ product.category }}</a>
-    <span>/</span>
-    <span>{{ product.name }}</span>
-  </div> -->
-
   <!-- Product grid layout -->
   <div class="product-grid">
     <!-- Product gallery section - fixed on desktop -->
@@ -112,7 +99,14 @@
         <div class="attribute-group">
           <h3 class="attribute-title">Size</h3>
           <div class="size-options">
-            <div class="size-option selected">{{ product.size }}</div>
+            <div
+              *ngFor="let size of availableSizes"
+              class="size-option"
+              [ngClass]="{ selected: selectedSize === size }"
+              (click)="selectSize(size)"
+            >
+              {{ size }}
+            </div>
           </div>
         </div>
 
@@ -121,9 +115,12 @@
           <h3 class="attribute-title">Color</h3>
           <div class="color-options">
             <div
-              class="color-option selected"
-              [style.backgroundColor]="product.color"
-              [title]="product.color"
+              *ngFor="let color of availableColors"
+              class="color-option"
+              [style.backgroundColor]="color"
+              [title]="color"
+              [ngClass]="{ selected: selectedColor === color }"
+              (click)="selectColor(color)"
             ></div>
           </div>
         </div>

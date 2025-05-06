@@ -17,6 +17,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   quantity: number = 1;
   isInCart1: boolean = false;
   selectedImage: string | null = null;
+  
+  // New properties for multi-color and multi-size
+  availableColors: string[] = [];
+  availableSizes: string[] = [];
+  selectedColor: string = '';
+  selectedSize: string = '';
+  
   private routeSub!: Subscription;
   private cartSub!: Subscription;
   isLoading = true;
@@ -56,11 +63,36 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       this.product = res;
       this.selectedImage = res.image;
       this.checkIfInCart(id);
+      
+      // Parse colors and sizes
+      this.parseColorAndSizeOptions();
     });
+  }
+
+  parseColorAndSizeOptions() {
+    // Parse colors - assuming product.color could be a comma-separated string
+    if (this.product.color) {
+      this.availableColors = this.product.color.map(color => color.trim());
+      this.selectedColor = this.availableColors[0];
+    }
+    
+    // Parse sizes - assuming product.size could be a comma-separated string
+    if (this.product.size) {
+      this.availableSizes = this.product.size.map(size => size.trim().toUpperCase());
+      this.selectedSize = this.availableSizes[0];
+    }
   }
 
   selectImage(imageUrl: string) {
     this.selectedImage = imageUrl;
+  }
+  
+  selectColor(color: string) {
+    this.selectedColor = color;
+  }
+  
+  selectSize(size: string) {
+    this.selectedSize = size;
   }
 
   checkIfInCart(productId: number) {
@@ -95,8 +127,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   addToCart() {
     if (this.product) {
-      // Create a copy of the product with quantity
-      const productToAdd = { ...this.product, quantity: this.quantity };
+      // Create a copy of the product with quantity, selected color and size
+      const productToAdd = { 
+        ...this.product, 
+        quantity: this.quantity,
+        selectedColor: this.selectedColor,
+        selectedSize: this.selectedSize 
+      };
       this.cartService.addToCart(productToAdd);
       this.isInCart1 = true;
     }
