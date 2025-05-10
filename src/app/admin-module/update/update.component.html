@@ -1,0 +1,164 @@
+<div class="container my-5">
+  <div class="text">Update Product</div>
+  <form [formGroup]="editProductForm" (ngSubmit)="editProduct()">
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="name" required />
+        <div class="underline"></div>
+        <label for="">Name</label>
+      </div>
+    </div>
+
+    <!-- Main Image and Additional Images -->
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="image" required />
+        <div class="underline"></div>
+        <label for="">Main Image URL</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="image2" />
+        <div class="underline"></div>
+        <label for="">Additional Image URL 2</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="image3" />
+        <div class="underline"></div>
+        <label for="">Additional Image URL 3</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="image4" />
+        <div class="underline"></div>
+        <label for="">Additional Image URL 4</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="image5" />
+        <div class="underline"></div>
+        <label for="">Additional Image URL 5</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="number" formControlName="old_price" required />
+        <div class="underline"></div>
+        <label for="">Old price</label>
+      </div>
+      <div class="input-data">
+        <input type="number" formControlName="discount_price" required />
+        <div class="underline"></div>
+        <label for="">Discount Price</label>
+      </div>
+      <div class="input-data">
+        <input type="number" formControlName="discount" required />
+        <div class="underline"></div>
+        <label for="">Discount (%)</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="category" required />
+        <div class="underline"></div>
+        <label for="">Category</label>
+      </div>
+      <div class="input-data">
+        <input type="text" formControlName="parent_category" required />
+        <div class="underline"></div>
+        <label for="">Parent Category</label>
+      </div>
+      <div class="input-data">
+        <input type="text" formControlName="sub_category" required />
+        <div class="underline"></div>
+        <label for="">Sub Catgeory</label>
+      </div>
+    </div>
+
+    <!-- Sizes Section -->
+    <div class="attributes-section">
+      <h3>Sizes</h3>
+      <div class="attributes-container" formArrayName="size">
+        <div
+          *ngFor="let sizeControl of sizesArray.controls; let i = index"
+          class="attribute-chip"
+        >
+          <input type="text" [formControlName]="i" />
+          <button type="button" class="remove-btn" (click)="removeSize(i)">
+            ×
+          </button>
+        </div>
+      </div>
+      <button type="button" class="add-btn" (click)="addSize()">
+        Add Size
+      </button>
+    </div>
+
+    <!-- Colors Section -->
+    <div class="attributes-section">
+      <h3>Colors</h3>
+      <div class="attributes-container" formArrayName="color">
+        <div
+          *ngFor="let colorControl of colorsArray.controls; let i = index"
+          class="attribute-chip"
+        >
+          <input type="text" [formControlName]="i" />
+          <button type="button" class="remove-btn" (click)="removeColor(i)">
+            ×
+          </button>
+        </div>
+      </div>
+      <button type="button" class="add-btn" (click)="addColor()">
+        Add Color
+      </button>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="number" formControlName="quantity" required />
+        <div class="underline"></div>
+        <label for="">Quantity</label>
+      </div>
+      <div class="input-data">
+        <input type="number" formControlName="stock" required />
+        <div class="underline"></div>
+        <label for="">Stock</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data textarea">
+        <textarea
+          rows="8"
+          cols="80"
+          required
+          formControlName="description"
+        ></textarea>
+        <div class="underline"></div>
+        <label for="">Description</label>
+      </div>
+    </div>
+
+    <div class="form-row submit-btn">
+      <div class="input-data">
+        <div class="inner"></div>
+        <input
+          type="submit"
+          value="UPDATE PRODUCT"
+          [disabled]="editProductForm.invalid"
+        />
+      </div>
+    </div>
+  </form>
+</div>

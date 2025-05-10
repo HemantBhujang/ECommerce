@@ -14,13 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ViewprofileComponent } from './components/viewprofile/viewprofile.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { AdminLoginComponent } from './components/Admin/admin-login/admin-login.component';
-import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admin-dashboard.component';
-import { AdminProductsComponent } from './components/Admin/admin-products/admin-products.component';
-import { DashboardContentComponent } from './components/Admin/dashboard-content/dashboard-content.component';
-import { AdminAddProductsComponent } from './components/Admin/admin-add-products/admin-add-products.component';
-import { AdminViewProductComponent } from './components/Admin/admin-view-product/admin-view-product.component';
-import { AdminEditProductComponent } from './components/Admin/admin-edit-product/admin-edit-product.component';
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CategoryProductsComponent } from './components/category-products/category-products.component';
 import { ParentCategoryProductsComponent } from './components/parent-category-products/parent-category-products.component';
@@ -30,12 +24,13 @@ import { CartComponent } from './components/cart/cart.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { OrderConfirmedComponent } from './components/order-confirmed/order-confirmed.component';
 import { OnlinePaymentComponent } from './components/online-payment/online-payment.component';
-import { AdminUsersComponent } from './components/Admin/admin-users/admin-users.component';
 import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { AdminOrderComponent } from './components/Admin/admin-order/admin-order.component';
 import { ViewMoreComponent } from './components/view-more/view-more.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { PriceFormatPipe } from './pipe/price-format.pipe';
+import { TitleCasePipe } from './pipe/title-case.pipe';
+import { TypewriterDirective } from './directives/typewriter.directive';
 // import { AllProductsComponent } from './components/all-products/all-products.component';
 
 
@@ -49,14 +44,8 @@ import { ChatComponent } from './components/chat/chat.component';
     ViewprofileComponent,
     OrdersComponent,
     FooterComponent,
-    AdminLoginComponent,
-    AdminDashboardComponent,    
-    AdminProductsComponent,
-    DashboardContentComponent,
-    AdminAddProductsComponent,
-    AdminViewProductComponent,
-    AdminEditProductComponent,
-    ProductDetailsComponent,
+    AdminLoginComponent,  
+     ProductDetailsComponent,
     CategoryProductsComponent,
     ParentCategoryProductsComponent,
     MainCategoryProductsComponent,
@@ -65,12 +54,13 @@ import { ChatComponent } from './components/chat/chat.component';
     WishlistComponent,
     OrderConfirmedComponent,
     OnlinePaymentComponent,
-    AdminUsersComponent,
     OrderComponent,
     CheckoutComponent,
-    AdminOrderComponent,
     ViewMoreComponent,
     ChatComponent,
+    TitleCasePipe,
+    TypewriterDirective,
+
     // AllProductsComponent,
    
   ],
@@ -79,7 +69,8 @@ import { ChatComponent } from './components/chat/chat.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PriceFormatPipe
   ],
   providers: [],
   bootstrap: [AppComponent]

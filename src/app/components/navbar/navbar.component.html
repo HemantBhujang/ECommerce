@@ -32,6 +32,7 @@
             placeholder="Search for product, brand, and more"
             aria-label="Search"
             (keyup)="searchProduct($event)"
+            [value]="searchTerm | titleCase"
           />
           <span class="input-group-text bg-transparent border-0">
             <img

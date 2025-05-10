@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   searchResult: any = [];
   cartItemCount: number = 0;
   wishlistItemCount: number = 0;
-  
+  searchTerm: any;  
   private cartSubscription!: Subscription;
   private wishlistSubscription!: Subscription;
   private authStateSubscription!: Subscription;
@@ -180,8 +180,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   searchProduct(query: Event) {
     if (query) {
-      const element = (query.target as HTMLInputElement).value;
+      let element = (query.target as HTMLInputElement).value;
       console.log(element);
+   this.searchTerm=element
 
       if (!element) {
         this.searchResult = []; // Clear search results if input is empty

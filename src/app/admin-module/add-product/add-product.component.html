@@ -1,0 +1,316 @@
+<div class="container my-5">
+  <div class="text">Add New Product</div>
+
+  <!-- Success/Error Popup Message -->
+  <div *ngIf="showPopup" class="popup-message" [ngClass]="popupClass">
+    {{ popupMessage }}
+  </div>
+
+  <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="name" />
+        <div class="underline"></div>
+        <label for="">Name</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('name')?.invalid &&
+            addProductForm.get('name')?.touched
+          "
+        >
+          Name is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Multiple Image URLs -->
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="image" />
+        <div class="underline"></div>
+        <label for="">Primary Image URL (Required)</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('image')?.invalid &&
+            addProductForm.get('image')?.touched
+          "
+        >
+          Primary image URL is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="image2" />
+        <div class="underline"></div>
+        <label for="">Image URL 2 (Optional)</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="image3" />
+        <div class="underline"></div>
+        <label for="">Image URL 3 (Optional)</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="image4" />
+        <div class="underline"></div>
+        <label for="">Image URL 4 (Optional)</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="image5" />
+        <div class="underline"></div>
+        <label for="">Image URL 5 (Optional)</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="number" formControlName="old_price" />
+        <div class="underline"></div>
+        <label for="">Old price</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('old_price')?.invalid &&
+            addProductForm.get('old_price')?.touched
+          "
+        >
+          Valid price is required
+        </div>
+      </div>
+      <div class="input-data">
+        <input type="number" formControlName="discount_price" />
+        <div class="underline"></div>
+        <label for="">Discount Price</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('discount_price')?.invalid &&
+            addProductForm.get('discount_price')?.touched
+          "
+        >
+          Valid discount price is required
+        </div>
+      </div>
+      <div class="input-data">
+        <input type="number" formControlName="discount" />
+        <div class="underline"></div>
+        <label for="">Discount (%)</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('discount')?.invalid &&
+            addProductForm.get('discount')?.touched
+          "
+        >
+          Discount must be between 0-100%
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="text" formControlName="category" />
+        <div class="underline"></div>
+        <label for="">Category</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('category')?.invalid &&
+            addProductForm.get('category')?.touched
+          "
+        >
+          Category is required
+        </div>
+      </div>
+      <div class="input-data">
+        <input type="text" formControlName="parent_category" />
+        <div class="underline"></div>
+        <label for="">Parent Category</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('parent_category')?.invalid &&
+            addProductForm.get('parent_category')?.touched
+          "
+        >
+          Parent category is required
+        </div>
+      </div>
+      <div class="input-data">
+        <input type="text" formControlName="sub_category" />
+        <div class="underline"></div>
+        <label for="">Sub Category</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('sub_category')?.invalid &&
+            addProductForm.get('sub_category')?.touched
+          "
+        >
+          Sub category is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Multiple Colors Selection -->
+    <div class="form-section">
+      <h4>Colors</h4>
+      <div class="color-section">
+        <div class="color-options">
+          <div
+            *ngFor="let color of availableColors"
+            class="color-option"
+            [ngClass]="{ selected: selectedColors.includes(color) }"
+            (click)="addSelectedColor(color)"
+          >
+            {{ color }}
+          </div>
+        </div>
+
+        <div class="custom-color-input">
+          <input
+            type="text"
+            [(ngModel)]="customColor"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Add custom color"
+          />
+          <button type="button" class="btn-add" (click)="addCustomColor()">
+            Add
+          </button>
+        </div>
+
+        <div class="selected-items" *ngIf="selectedColors.length > 0">
+          <p>Selected Colors:</p>
+          <div class="selected-tags">
+            <span *ngFor="let color of selectedColors" class="selected-tag">
+              {{ color }}
+              <button
+                type="button"
+                class="btn-remove"
+                (click)="removeColor(color)"
+              >
+                ×
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Multiple Sizes Selection -->
+    <div class="form-section">
+      <h4>Sizes</h4>
+      <div class="size-section">
+        <div class="size-options">
+          <div
+            *ngFor="let size of availableSizes"
+            class="size-option"
+            [ngClass]="{ selected: selectedSizes.includes(size) }"
+            (click)="addSelectedSize(size)"
+          >
+            {{ size }}
+          </div>
+        </div>
+
+        <div class="custom-size-input">
+          <input
+            type="text"
+            [(ngModel)]="customSize"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Add custom size"
+          />
+          <button type="button" class="btn-add" (click)="addCustomSize()">
+            Add
+          </button>
+        </div>
+
+        <div class="selected-items" *ngIf="selectedSizes.length > 0">
+          <p>Selected Sizes:</p>
+          <div class="selected-tags">
+            <span *ngFor="let size of selectedSizes" class="selected-tag">
+              {{ size }}
+              <button
+                type="button"
+                class="btn-remove"
+                (click)="removeSize(size)"
+              >
+                ×
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data">
+        <input type="number" formControlName="quantity" />
+        <div class="underline"></div>
+        <label for="">Quantity</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('quantity')?.invalid &&
+            addProductForm.get('quantity')?.touched
+          "
+        >
+          Valid quantity is required
+        </div>
+      </div>
+      <div class="input-data">
+        <input type="number" formControlName="stock" />
+        <div class="underline"></div>
+        <label for="">Stock</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('stock')?.invalid &&
+            addProductForm.get('stock')?.touched
+          "
+        >
+          Valid stock is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-data textarea">
+        <textarea rows="8" cols="80" formControlName="description"></textarea>
+        <div class="underline"></div>
+        <label for="">Description</label>
+        <div
+          class="error-msg"
+          *ngIf="
+            addProductForm.get('description')?.invalid &&
+            addProductForm.get('description')?.touched
+          "
+        >
+          Description is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row submit-btn">
+      <div class="input-data">
+        <div class="inner"></div>
+        <input
+          type="submit"
+          value="Add Product"
+          [disabled]="addProductForm.invalid"
+        />
+      </div>
+    </div>
+  </form>
+</div>

@@ -6,15 +6,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './auth.guard';
 import { ViewprofileComponent } from './components/viewprofile/viewprofile.component';
 import { OrdersComponent } from './components/orders/orders.component';
-import { AdminLoginComponent } from './components/Admin/admin-login/admin-login.component';
-import { AdminDashboardComponent } from './components/Admin/admin-dashboard/admin-dashboard.component';
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 
-import { DashboardContentComponent } from './components/Admin/dashboard-content/dashboard-content.component';
-import { AdminProductsComponent } from './components/Admin/admin-products/admin-products.component';
 import { adminAuthGuard } from '../admin-auth.guard';
-import { AdminAddProductsComponent } from './components/Admin/admin-add-products/admin-add-products.component';
-import { AdminViewProductComponent } from './components/Admin/admin-view-product/admin-view-product.component';
-import { AdminEditProductComponent } from './components/Admin/admin-edit-product/admin-edit-product.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CategoryProductsComponent } from './components/category-products/category-products.component';
 import { ParentCategoryProductsComponent } from './components/parent-category-products/parent-category-products.component';
@@ -25,10 +19,8 @@ import { CartComponent } from './components/cart/cart.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { OrderConfirmedComponent } from './components/order-confirmed/order-confirmed.component';
 import { OnlinePaymentComponent } from './components/online-payment/online-payment.component';
-import { AdminUsersComponent } from './components/Admin/admin-users/admin-users.component';
 import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { AdminOrderComponent } from './components/Admin/admin-order/admin-order.component';
 import { ViewMoreComponent } from './components/view-more/view-more.component';
 import { ChatComponent } from './components/chat/chat.component';
 // import { AllProductsComponent } from './components/all-products/all-products.component';
@@ -51,21 +43,11 @@ const routes: Routes = [
 {path:"orders",component: OrdersComponent,canActivate:[AuthGuard]},
 {path : "adminLogin" , component:AdminLoginComponent
 },
-{
-  path:"adminDashboard" , component: AdminDashboardComponent,
-    canActivate: [adminAuthGuard],
-    children:[
-      {path:'',redirectTo:'dashboard',pathMatch:'full'},
-      {path:'dashboard',component:DashboardContentComponent},
-      {path:'products', component:AdminProductsComponent},
-      {path :'addproducts' , component:AdminAddProductsComponent},
-      {path:'viewproducts/:id' , component:AdminViewProductComponent},
-      {path :'editproducts/:id',component:AdminEditProductComponent},
-       {path :'admin-users', component: AdminUsersComponent},
-       {path: 'admin-order', component:AdminOrderComponent},
-    ]
-  
-},
+
+
+
+
+{path:'admin',loadChildren:()=>import('./admin-module/admin-module.module').then(m=>m.AdminModuleModule),canActivate:[adminAuthGuard]},
 // {path:"payment",component:PaymentComponent,canActivate: [AuthGuard]},
 {path:"checkout/:id",component:CheckoutComponent,canActivate:[AuthGuard]},
 {path:"checkout",component:CheckoutComponent,canActivate:[AuthGuard]},

@@ -2,6 +2,8 @@
 <!-- https://cdn.shopify.com/videos/c/o/v/490dc6527090487f97c5fb00903c0c75.mp4 -->
 
 <!-- Categories Section with Enhanced UI -->
+<!-- <h1 appTypewriter="Welcome to STYLESPOT" [speed]="120"></h1> -->
+
 <div class="categories-section bg-light mt-2">
   <div class="container">
     <div class="row g-2 justify-content-center">
@@ -168,9 +170,11 @@
   <div class="container">
     <div class="text-center mb-5">
       <div class="title-container">
-        <h2 class="section-title position-relative d-inline-block">
-          NEW ARRIVALS
-        </h2>
+        <h2
+          class="section-title position-relative d-inline-block"
+          appTypewriter="NEW ARRIVALS"
+          [speed]="120"
+        ></h2>
       </div>
     </div>
 
@@ -216,12 +220,12 @@
             </h6>
             <div class="d-flex justify-content-between align-items-center">
               <div class="product-price">
-                <span class="new-price fw-bold"
-                  >₹{{ product.discount_price }}</span
-                >
+                <span class="new-price fw-bold">{{
+                  product.discount_price | priceFormat
+                }}</span>
                 <span
                   class="old-price text-decoration-line-through text-muted small ms-2"
-                  >₹{{ product.old_price }}</span
+                  >{{ product.old_price | priceFormat }}</span
                 >
               </div>
               <button
@@ -306,9 +310,11 @@
   <div class="container">
     <div class="text-center mb-5">
       <div class="title-container">
-        <h2 class="section-title position-relative d-inline-block">
-          Trending Products
-        </h2>
+        <h2
+          class="section-title position-relative d-inline-block"
+          appTypewriter="Trending Products"
+          [speed]="120"
+        ></h2>
       </div>
     </div>
 
@@ -355,12 +361,12 @@
             </h6>
             <div class="d-flex justify-content-between align-items-center">
               <div class="product-price">
-                <span class="new-price fw-bold"
-                  >₹{{ product.discount_price }}</span
-                >
+                <span class="new-price fw-bold">{{
+                  product.discount_price | priceFormat
+                }}</span>
                 <span
                   class="old-price text-decoration-line-through text-muted small ms-2"
-                  >₹{{ product.old_price }}</span
+                  >{{ product.old_price | priceFormat }}</span
                 >
               </div>
               <button
@@ -387,9 +393,11 @@
   <div class="container">
     <div class="text-center mb-5">
       <div class="title-container">
-        <h2 class="section-title position-relative d-inline-block">
-          Shop More Save More
-        </h2>
+        <h2
+          class="section-title position-relative d-inline-block"
+          appTypewriter="Shop More Save More"
+          [speed]="120"
+        ></h2>
       </div>
     </div>
 
@@ -435,12 +443,12 @@
             </h6>
             <div class="d-flex justify-content-between align-items-center">
               <div class="product-price">
-                <span class="new-price fw-bold"
-                  >₹{{ product.discount_price }}</span
-                >
+                <span class="new-price fw-bold">{{
+                  product.discount_price | priceFormat
+                }}</span>
                 <span
                   class="old-price text-decoration-line-through text-muted small ms-2"
-                  >₹{{ product.old_price }}</span
+                  >{{ product.old_price | priceFormat }}</span
                 >
               </div>
               <button
