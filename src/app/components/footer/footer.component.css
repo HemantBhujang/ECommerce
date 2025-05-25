@@ -1,0 +1,85 @@
+footer {
+	position: relative;
+	overflow: hidden;
+  }
+
+  /* Decorative elements */
+  footer::before,
+  footer::after {
+	content: '';
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	opacity: 0.1;
+	z-index: 0;
+	background-repeat: no-repeat;
+	background-size: contain;
+  }
+
+  footer::before {
+	left: 0;
+	bottom: 0;
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="white" d="M10,50 C10,30 30,10 50,10 C70,10 90,30 90,50 C90,70 70,90 50,90 C30,90 10,70 10,50 Z"></path></svg>');
+  }
+
+  footer::after {
+	right: 0;
+	top: 0;
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="white" d="M10,50 C10,30 30,10 50,10 C70,10 90,30 90,50 C90,70 70,90 50,90 C30,90 10,70 10,50 Z"></path></svg>');
+  }
+
+  .footer-link {
+	color: #e0e0e0;
+	text-decoration: none;
+	transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+	color: #ff7eb3;
+	text-decoration: none;
+  }
+
+  .social-icons {
+	display: flex;
+  }
+
+  .social-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	background-color: #333;
+	color: white;
+	border-radius: 50%;
+	transition: all 0.3s ease;
+  }
+
+  .social-icon:hover {
+	background-color: #ff7eb3;
+	color: white;
+	transform: translateY(-3px);
+  }
+
+  /* Make sure content stays above decorative elements */
+  .container {
+	position: relative;
+	z-index: 1;
+  }
+
+  address {
+	font-style: normal;
+	font-size: 0.9rem;
+	line-height: 1.5;
+  }
+
+  @media (max-width: 767.98px) {
+	.social-icons {
+	  justify-content: center;
+	  margin-bottom: 20px;
+	}
+	
+	h5 {
+	  margin-top: 20px;
+	}
+  }

@@ -1,0 +1,49 @@
+<!-- Improved Product Management Component -->
+<div class="content-wrapper">
+  <div class="header-section">
+    <div class="content-header">
+      <h2>Manage Products</h2>
+      <p class="text-muted">View, edit, and manage your product catalog</p>
+    </div>
+    <button class="btn add-product-btn" (click)="addNewProduct()">
+      <i class="bi bi-plus-circle"></i> Add New Product
+    </button>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="products-grid">
+    <div
+      class="product-card"
+      *ngFor="let product of products"
+      routerLink="/admin/view/{{ product.id }}"
+    >
+      <div class="product-image-container">
+        <img class="product-image" [src]="product.image" [alt]="product.name" />
+      </div>
+      <div class="product-details">
+        <h3 class="product-title">{{ product.name || "Yail wrist watch" }}</h3>
+        <div class="product-price">
+          {{ product.discount_price | priceFormat }}
+        </div>
+        <div class="product-actions">
+          <button class="btn-edit" [routerLink]="['/admin/update', product.id]">
+            Edit
+          </button>
+          <button class="btn-delete" (click)="deleteProduct(product.id!)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty state message when no products -->
+  <div class="empty-state" *ngIf="products && products.length === 0">
+    <i class="bi bi-box-seam"></i>
+    <h4>No Products Found</h4>
+    <p>Get started by adding your first product</p>
+    <button class="btn add-product-btn" (click)="addNewProduct()">
+      <i class="bi bi-plus-circle"></i> Add Product
+    </button>
+  </div>
+</div>

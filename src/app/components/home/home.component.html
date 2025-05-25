@@ -1,0 +1,500 @@
+<!-- video url -->
+<!-- https://cdn.shopify.com/videos/c/o/v/490dc6527090487f97c5fb00903c0c75.mp4 -->
+
+<!-- Categories Section with Enhanced UI -->
+<!-- <h1 appTypewriter="Welcome to STYLESPOT" [speed]="120"></h1> -->
+
+<div class="categories-section bg-light mt-2">
+  <div class="container">
+    <div class="row g-2 justify-content-center">
+      <div class="col-4 col-sm-3 col-md-2" *ngFor="let category of categories">
+        <!-- Category Card with click for mobile and hover for desktop -->
+        <div
+          class="category-card"
+          (click)="handleCategoryClick($event, category)"
+          [attr.data-category]="category.name"
+          [class.active]="activeCategory === category.name"
+        >
+          <h6 class="category-name text-center">
+            {{ category.name }}
+            <img
+              src="../../../assets/expand_more_24dp_000000.svg"
+              class="dropdown-icon"
+              alt="expand"
+            />
+          </h6>
+
+          <!-- Flyout menu -->
+          <div class="category-flyout shadow">
+            <div class="row g-0">
+              <div
+                class="col-12 col-md-4"
+                *ngFor="let sub of category.subcategories"
+              >
+                <h6
+                  class="fw-bold mb-2"
+                  (click)="navigateToSubcategory($event, sub.path)"
+                >
+                  {{ sub.name }}
+                </h6>
+                <ul class="list-unstyled">
+                  <li *ngFor="let child of sub.children">
+                    <a (click)="navigateToSubcategory($event, child.path)">
+                      {{ child.name }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4">
+  <div id="fashionCarousel" class="carousel slide" data-bs-ride="carousel">
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#fashionCarousel"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#fashionCarousel"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#fashionCarousel"
+        data-bs-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
+    </div>
+
+    <!-- Carousel Items -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          src="../../../assets/slider1.png"
+          alt="White Fashion Collection"
+          class="d-block w-100"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="../../../assets/slider2.png"
+          alt="Purple Saree Collection"
+          class="d-block w-100"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="../../../assets/slider3.png"
+          alt="Menswear Collection"
+          class="d-block w-100"
+        />
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#fashionCarousel"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#fashionCarousel"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<!-- sale slider -->
+<div class="sale-announcement-wrapper mt-2">
+  <div class="sale-slider">
+    <!-- Create multiple copies of the same message for seamless looping -->
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+    <div class="sale-item">
+      <span class="diamond">♦</span>
+      <span class="sale-text">The Grand Buy Buddy Sale - FLAT 30% OFF</span>
+    </div>
+  </div>
+</div>
+
+<!-- New Arrivals Section -->
+<div class="product-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="title-container">
+        <h2
+          class="section-title position-relative d-inline-block"
+          appTypewriter="NEW ARRIVALS"
+          [speed]="120"
+        ></h2>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-6 col-md-3 mb-4" *ngFor="let product of newArrivals">
+        <div class="product-card h-100 shadow-sm rounded overflow-hidden">
+          <div class="product-image-container position-relative">
+            <img
+              [src]="product.image"
+              class="card-img-top product-image"
+              alt="{{ product.name }}"
+              (click)="productDetailsPage(product.id!)"
+            />
+            <div class="product-actions">
+              <button
+                class="btn action-btn wishlist-btn"
+                (click)="toggleWishlist(product); $event.stopPropagation()"
+              >
+                <i
+                  [class]="
+                    isInWishlist(product.id!)
+                      ? 'bi bi-heart-fill text-danger'
+                      : 'bi bi-heart'
+                  "
+                ></i>
+              </button>
+              <button
+                class="btn action-btn cart-btn"
+                (click)="
+                  productDetailsPage(product.id!); $event.stopPropagation()
+                "
+              >
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+            <span class="badge position-absolute top-0 start-0 m-2 bg-danger"
+              >NEW</span
+            >
+          </div>
+          <div class="product-info p-3">
+            <h6 class="product-title" (click)="productDetailsPage(product.id!)">
+              {{ product.name }}
+            </h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="product-price">
+                <span class="new-price fw-bold">{{
+                  product.discount_price | priceFormat
+                }}</span>
+                <span
+                  class="old-price text-decoration-line-through text-muted small ms-2"
+                  >{{ product.old_price | priceFormat }}</span
+                >
+              </div>
+              <button
+                class="btn btn-sm cart-action-btn"
+                [ngClass]="isInCart(product.id!) ? 'btn-success' : 'btn-cart'"
+                (click)="
+                  isInCart(product.id!) ? goToCart() : addToCart(product);
+                  $event.stopPropagation()
+                "
+              >
+                {{ isInCart(product.id!) ? "Go to Cart" : "Add to Cart" }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Deal of the Day -->
+<div class="deal-section py-4">
+  <div class="container-fluid">
+    <!-- <div class="deal-wrapper p-4 rounded"> -->
+    <div class="bg-dark bg-opacity-25 text-white py-5 p-5 rounded">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h2 class="section-title mb-2">Deal of the Day</h2>
+          <p class="mb-3">Special offer ends in:</p>
+          <div class="countdown d-flex mb-3">
+            <div class="countdown-item">
+              <span class="countdown-number">{{ countdownHours }}</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number">{{ countdownMinutes }}</span>
+              <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number">{{ countdownSeconds }}</span>
+              <span class="countdown-label">Seconds</span>
+            </div>
+          </div>
+          <button
+            class="btn btn-dark"
+            (click)="productDetailsPage(dealOfTheDay?.id!)"
+          >
+            Shop Now
+          </button>
+        </div>
+        <div class="col-md-6" *ngIf="dealOfTheDay">
+          <div class="deal-product">
+            <img
+              [src]="dealOfTheDay.image"
+              class="img-fluid rounded"
+              alt="{{ dealOfTheDay.name }}"
+              style="max-height: 350px; object-fit: cover"
+            />
+
+            <div class="deal-details mt-3">
+              <h4>{{ dealOfTheDay.name }}</h4>
+              <div class="price-wrapper">
+                <span class="old-price text-decoration-line-through text-muted"
+                  >₹{{ dealOfTheDay.old_price }}</span
+                >
+                <span class="new-price text-danger fw-bold ms-2"
+                  >₹{{ dealOfTheDay.discount_price }}</span
+                >
+              </div>
+              <span class="discount-badge badge bg-danger"
+                >{{ dealOfTheDay.discount }}% OFF</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Trending Products Section -->
+<div class="product-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="title-container">
+        <h2
+          class="section-title position-relative d-inline-block"
+          appTypewriter="Trending Products"
+          [speed]="120"
+        ></h2>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-6 col-md-3 mb-4" *ngFor="let product of trendingProducts">
+        <div class="product-card h-100 shadow-sm rounded overflow-hidden">
+          <div class="product-image-container position-relative">
+            <img
+              [src]="product.image"
+              class="card-img-top product-image"
+              alt="{{ product.name }}"
+              (click)="productDetailsPage(product.id!)"
+            />
+            <div class="product-actions">
+              <button
+                class="btn action-btn wishlist-btn"
+                (click)="toggleWishlist(product); $event.stopPropagation()"
+              >
+                <i
+                  [class]="
+                    isInWishlist(product.id!)
+                      ? 'bi bi-heart-fill text-danger'
+                      : 'bi bi-heart'
+                  "
+                ></i>
+              </button>
+              <button
+                class="btn action-btn cart-btn"
+                (click)="
+                  productDetailsPage(product.id!); $event.stopPropagation()
+                "
+              >
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+            <span
+              class="badge position-absolute top-0 start-0 m-2 bg-warning text-dark"
+              >TRENDING</span
+            >
+          </div>
+          <div class="product-info p-3">
+            <h6 class="product-title" (click)="productDetailsPage(product.id!)">
+              {{ product.name }}
+            </h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="product-price">
+                <span class="new-price fw-bold">{{
+                  product.discount_price | priceFormat
+                }}</span>
+                <span
+                  class="old-price text-decoration-line-through text-muted small ms-2"
+                  >{{ product.old_price | priceFormat }}</span
+                >
+              </div>
+              <button
+                class="btn btn-sm cart-action-btn"
+                [ngClass]="isInCart(product.id!) ? 'btn-success' : 'btn-cart'"
+                (click)="
+                  isInCart(product.id!) ? goToCart() : addToCart(product);
+                  $event.stopPropagation()
+                "
+              >
+                {{ isInCart(product.id!) ? "Go to Cart" : "Add to Cart" }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Explore more products -->
+
+<div class="product-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="title-container">
+        <h2
+          class="section-title position-relative d-inline-block"
+          appTypewriter="Shop More Save More"
+          [speed]="120"
+        ></h2>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div
+        class="col-6 col-md-3 mb-4"
+        *ngFor="let product of firstEightProducts"
+      >
+        <div class="product-card h-100 shadow-sm rounded overflow-hidden">
+          <div class="product-image-container position-relative">
+            <img
+              [src]="product.image"
+              class="card-img-top product-image"
+              alt="{{ product.name }}"
+              (click)="productDetailsPage(product.id!)"
+            />
+            <div class="product-actions">
+              <button
+                class="btn action-btn wishlist-btn"
+                (click)="toggleWishlist(product); $event.stopPropagation()"
+              >
+                <i
+                  [class]="
+                    isInWishlist(product.id!)
+                      ? 'bi bi-heart-fill text-danger'
+                      : 'bi bi-heart'
+                  "
+                ></i>
+              </button>
+              <button
+                class="btn action-btn cart-btn"
+                (click)="
+                  productDetailsPage(product.id!); $event.stopPropagation()
+                "
+              >
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="product-info p-3">
+            <h6 class="product-title" (click)="productDetailsPage(product.id!)">
+              {{ product.name }}
+            </h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="product-price">
+                <span class="new-price fw-bold">{{
+                  product.discount_price | priceFormat
+                }}</span>
+                <span
+                  class="old-price text-decoration-line-through text-muted small ms-2"
+                  >{{ product.old_price | priceFormat }}</span
+                >
+              </div>
+              <button
+                class="btn btn-sm cart-action-btn"
+                [ngClass]="isInCart(product.id!) ? 'btn-success' : 'btn-cart'"
+                (click)="
+                  isInCart(product.id!) ? goToCart() : addToCart(product);
+                  $event.stopPropagation()
+                "
+              >
+                {{ isInCart(product.id!) ? "Go to Cart" : "Add to Cart" }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center my-5">
+      <button class="btn custom-outline" (click)="exploreMoreProducts()">
+        View More
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- news -->
+<div class="newsletter-section py-5 my-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+        <h3 class="mb-3">Join Our Newsletter</h3>
+        <p class="text-muted mb-4">
+          Subscribe to receive updates on new arrivals and special offers
+        </p>
+        <div class="input-group mb-3">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Your email address"
+          />
+          <button class="btn btn-dark" type="button">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

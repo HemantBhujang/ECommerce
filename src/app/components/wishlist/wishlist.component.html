@@ -1,0 +1,189 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-4">My Wishlist</h2>
+
+      <!-- Loading spinner -->
+      <div *ngIf="isLoading" class="text-center py-5">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Empty wishlist message -->
+      <div
+        *ngIf="!isLoading && wishlistItems.length === 0"
+        class="text-center py-5"
+      >
+        <div class="mb-4">
+          <i class="bi bi-heart" style="font-size: 3rem"></i>
+        </div>
+        <h4>Your wishlist is empty</h4>
+        <p class="text-muted">
+          Save items you love to your wishlist. Review them anytime and easily
+          move them to the cart.
+        </p>
+        <button class="btn amazon-btn mt-3" (click)="goToShop()">
+          Continue Shopping
+        </button>
+      </div>
+
+      <!-- Login Suggestion (showing this is optional, you can remove this if you want guests to use wishlist) -->
+      <div
+        *ngIf="!isLoggedIn && !isLoading && wishlistItems.length > 0"
+        class="alert alert-info mb-4"
+      >
+        <div class="d-flex align-items-center">
+          <i class="bi bi-info-circle me-3" style="font-size: 1.5rem"></i>
+          <div>
+            <p class="mb-1">
+              Sign in to sync your Wishlist across all your devices.
+            </p>
+            <button
+              class="btn btn-sm amazon-btn"
+              (click)="router.navigate(['/login'])"
+            >
+              Sign In
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wishlist items -->
+      <div *ngIf="!isLoading && wishlistItems.length > 0" class="row">
+        <div class="col-md-12">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body p-0">
+              <!-- Wishlist items table -->
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead class="bg-light">
+                    <tr>
+                      <th scope="col" class="border-0 px-4 py-3">Product</th>
+                      <th scope="col" class="border-0 px-4 py-3">Price</th>
+                      <th scope="col" class="border-0 px-4 py-3">Actions</th>
+                      <th scope="col" class="border-0 px-4 py-3"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of paginatedItems">
+                      <td class="px-4 py-3">
+                        <div class="d-flex align-items-center">
+                          <img
+                            [src]="item.image"
+                            alt="{{ item.name }}"
+                            class="img-fluid rounded"
+                            style="width: 80px; height: 80px; object-fit: cover"
+                          />
+                          <div class="ms-3">
+                            <h6
+                              class="mb-0"
+                              style="cursor: pointer"
+                              (click)="goToProductDetails(item.id)"
+                            >
+                              {{ item.name }}
+                            </h6>
+                            <small class="text-muted"
+                              >{{ item.category }} >
+                              {{ item.sub_category }}</small
+                            >
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3">
+                        <div>
+                          <span class="text-danger fw-bold"
+                            >₹{{ item.discount_price }}</span
+                          >
+                          <br />
+                          <small class="text-decoration-line-through text-muted"
+                            >₹{{ item.old_price }}</small
+                          >
+                          <span class="badge bg-success ms-2"
+                            >{{ item.discount }}% OFF</span
+                          >
+                        </div>
+                      </td>
+                      <td class="px-4">
+                        <button
+                          class="btn btn-sm amazon-btn"
+                          (click)="addToCart(item)"
+                        >
+                          <i class="bi bi-cart-plus me-2"></i>
+                        </button>
+                      </td>
+                      <td class="px-4">
+                        <button
+                          class="btn btn-outline-danger btn-sm my-3 py-2 px-3"
+                          (click)="removeFromWishlist(item)"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Pagination -->
+              <div
+                *ngIf="totalPages > 1"
+                class="d-flex justify-content-center p-3 border-top"
+              >
+                <nav aria-label="Wishlist pagination">
+                  <ul class="pagination mb-0">
+                    <!-- Previous page button -->
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                      <button
+                        class="page-link"
+                        (click)="previousPage()"
+                        aria-label="Previous"
+                      >
+                        <span aria-hidden="true">&laquo;</span>
+                      </button>
+                    </li>
+
+                    <!-- Page numbers -->
+                    <ng-container *ngFor="let page of getPageNumbers()">
+                      <!-- Ellipsis -->
+                      <li *ngIf="page < 0" class="page-item disabled">
+                        <span class="page-link">...</span>
+                      </li>
+
+                      <!-- Regular page number -->
+                      <li
+                        *ngIf="page > 0"
+                        class="page-item"
+                        [class.active]="currentPage === page"
+                      >
+                        <button class="page-link" (click)="goToPage(page)">
+                          {{ page }}
+                        </button>
+                      </li>
+                    </ng-container>
+
+                    <!-- Next page button -->
+                    <li
+                      class="page-item"
+                      [class.disabled]="currentPage === totalPages"
+                    >
+                      <button
+                        class="page-link"
+                        (click)="nextPage()"
+                        aria-label="Next"
+                      >
+                        <span aria-hidden="true">&raquo;</span>
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+              <!-- Items per page selector (optional) -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

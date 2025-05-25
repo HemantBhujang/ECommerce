@@ -1,0 +1,217 @@
+<!-- cart.component.html -->
+<div class="container my-5">
+  <h2 class="mb-4">Shopping Cart</h2>
+
+  <div *ngIf="cartItems.length === 0" class="text-center py-5">
+    <i class="bi bi-cart4" style="font-size: 5rem; color: #ccc"></i>
+    <h3 class="mt-3">Your cart is empty</h3>
+    <p class="text-muted">Add items to your cart to continue shopping</p>
+    <button class="btn amazon-btn mt-3" (click)="continueShopping()">
+      Continue Shopping
+    </button>
+  </div>
+
+  <div *ngIf="cartItems.length > 0">
+    <div class="cart-table-container">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of paginatedItems">
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                  [src]="item.image"
+                  alt="{{ item.name }}"
+                  class="img-thumbnail me-3"
+                  style="width: 80px; height: 80px; object-fit: cover"
+                />
+                <div>
+                  <h6>{{ item.name }}</h6>
+                  <small class="text-muted"
+                    >{{ item.description | slice : 0 : 50
+                    }}{{ item.description.length > 50 ? "..." : "" }}</small
+                  >
+                </div>
+              </div>
+            </td>
+            <td>₹{{ item.discount_price }}</td>
+            <td>
+              <div class="quantity-controls d-flex align-items-center">
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  (click)="decreaseQuantity(item)"
+                >
+                  -
+                </button>
+                <span class="mx-2">{{ item.quantity || 1 }}</span>
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  (click)="increaseQuantity(item)"
+                >
+                  +
+                </button>
+              </div>
+            </td>
+            <td>₹{{ getItemTotal(item.discount_price, item.quantity) }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-primary me-2"
+                (click)="viewProduct(item.id!)"
+              >
+                <i class="bi bi-eye"></i>
+              </button>
+              <button
+                class="btn btn-sm btn-danger"
+                (click)="removeFromCart(item.cart_item_id, item.id!)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile view for small screens -->
+    <div class="mobile-cart-items d-md-none">
+      <div class="card mb-3" *ngFor="let item of paginatedItems">
+        <div class="card-body">
+          <div class="d-flex mb-3">
+            <img
+              [src]="item.image"
+              alt="{{ item.name }}"
+              class="img-thumbnail me-3"
+              style="width: 80px; height: 80px; object-fit: cover"
+            />
+            <div>
+              <h6 class="mb-1">{{ item.name }}</h6>
+              <p class="text-muted small mb-1">₹{{ item.discount_price }}</p>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="quantity-controls d-flex align-items-center">
+              <button
+                class="btn btn-sm btn-outline-secondary"
+                (click)="decreaseQuantity(item)"
+              >
+                -
+              </button>
+              <span class="mx-2">{{ item.quantity || 1 }}</span>
+              <button
+                class="btn btn-sm btn-outline-secondary"
+                (click)="increaseQuantity(item)"
+              >
+                +
+              </button>
+            </div>
+
+            <div>
+              <span class="me-3"
+                >₹{{ getItemTotal(item.discount_price, item.quantity) }}</span
+              >
+              <button
+                class="btn btn-sm btn-primary me-1"
+                (click)="viewProduct(item.id!)"
+              >
+                <i class="bi bi-eye"></i>
+              </button>
+              <button
+                class="btn btn-sm btn-danger"
+                (click)="removeFromCart(item.cart_item_id, item.id!)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4 mb-4">
+      <nav aria-label="Cart pagination">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a
+              class="page-link"
+              href="javascript:void(0)"
+              (click)="setPage(currentPage - 1)"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li
+            class="page-item"
+            *ngFor="let page of getPagesArray()"
+            [class.active]="page === currentPage"
+          >
+            <a
+              class="page-link"
+              href="javascript:void(0)"
+              (click)="setPage(page)"
+              >{{ page }}</a
+            >
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a
+              class="page-link"
+              href="javascript:void(0)"
+              (click)="setPage(currentPage + 1)"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <button
+          class="btn btn-outline-secondary mb-3 mb-md-0"
+          (click)="continueShopping()"
+        >
+          <i class="bi bi-arrow-left"></i> Continue Shopping
+        </button>
+        <button class="btn btn-outline-danger ms-2" (click)="clearCart()">
+          <i class="bi bi-trash"></i> Clear Cart
+        </button>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Order Summary</h5>
+            <hr />
+            <div class="d-flex justify-content-between mb-2">
+              <span>Items ({{ cartItems.length }})</span>
+              <span>₹{{ cartTotal }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Shipping</span>
+              <span>Free</span>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between fw-bold">
+              <span>Total</span>
+              <span>₹{{ cartTotal }}</span>
+            </div>
+            <button class="btn amazon-btn w-100 mt-3" (click)="checkout()">
+              Proceed to Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

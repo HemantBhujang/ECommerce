@@ -1,0 +1,200 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <img
+        src="../../../assets/logo (1).svg"
+        alt="Logo"
+        width="60"
+        height="54"
+        class="d-inline-block"
+      />
+      <span class="app-name">BUY BUDDY</span>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="d-flex mx-lg-auto my-2 my-lg-0 w-75" role="search">
+        <div class="input-group w-100">
+          <input
+            #searchInput
+            type="search"
+            class="form-control border-0"
+            placeholder="Search for product, brand, and more"
+            aria-label="Search"
+            (keyup)="searchProduct($event)"
+            [value]="searchTerm | titleCase"
+          />
+          <span class="input-group-text bg-transparent border-0">
+            <img
+              src="../../../assets/search_24dp_000000.svg"
+              alt="Search Icon"
+              width="20"
+              height="20"
+              class="ml-5"
+            />
+          </span>
+          <div
+            class="search-results position-absolute bg-white shadow p-2 w-100"
+            *ngIf="searchResult.length > 0"
+            style="z-index: 1000; top: 100%"
+          >
+            <div
+              *ngFor="let product of searchResult"
+              class="search-item d-flex align-items-center mb-2 p-2 rounded hover-bg"
+              (click)="goToProduct(product.id)"
+            >
+              <img
+                [src]="product.image"
+                alt="{{ product.name }}"
+                width="40"
+                height="40"
+                class="me-2 border rounded"
+              />
+              <div class="d-flex flex-column">
+                <strong>{{ product.name }}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Common nav items -->
+        <li class="nav-item">
+          <a
+            class="nav-link active my-2 position-relative"
+            (click)="goToWishlist()"
+            style="cursor: pointer"
+          >
+            <div class="position-relative d-inline-block">
+              <img
+                src="../../../assets/favorite_border_24dp_000000.svg"
+                alt="Wishlist"
+              />
+              <span
+                *ngIf="wishlistItemCount > 0"
+                class="position-absolute badge rounded-pill bg-danger"
+                style="font-size: 0.65rem; top: -5px; right: -8px"
+              >
+                {{ wishlistItemCount }}
+              </span>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link active my-2 position-relative"
+            (click)="goToCart()"
+            style="cursor: pointer"
+          >
+            <div class="position-relative d-inline-block">
+              <img
+                src="../../../assets/shopping_cart_24dp_000000.svg"
+                alt="Cart"
+              />
+              <span
+                *ngIf="cartItemCount > 0"
+                class="position-absolute badge rounded-pill bg-danger"
+                style="font-size: 0.65rem; top: -5px; right: -8px"
+              >
+                {{ cartItemCount }}
+              </span>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link active my-2 position-relative"
+            (click)="goToChat()"
+            style="cursor: pointer"
+          >
+            <div class="position-relative d-inline-block">
+              <img
+                src="../../../assets/question_answer_24dp_000000.svg"
+                alt="Cart"
+              />
+            </div>
+          </a>
+        </li>
+
+        <!-- If user is logged in, show dropdown -->
+        <li
+          class="nav-item dropdown"
+          *ngIf="loginService.isLoggedIn(); else guestNav"
+        >
+          <a
+            class="nav-link dropdown-toggle d-flex align-items-center my-2"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="../../../assets/account_circle_24dp_000000.svg"
+              alt="Profile"
+              width="24"
+              height="24"
+              class="me-2"
+            />
+            {{ user?.name || "User" }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a
+                class="dropdown-item d-flex align-items-center profile"
+                (click)="goToProfile()"
+              >
+                <img
+                  src="../../../assets/account_circle_24dp_000000.svg"
+                  alt="My Profile"
+                  width="20"
+                  height="20"
+                  class="me-2"
+                />
+                My Profile
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item d-flex align-items-center text-danger profile"
+                (click)="logout()"
+              >
+                <img
+                  src="../../../assets/logout.svg"
+                  alt="Logout"
+                  width="20"
+                  height="20"
+                  class="me-2"
+                />
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Else block: show Sign In -->
+        <ng-template #guestNav>
+          <li class="nav-item">
+            <a
+              class="nav-link amazon-btn"
+              (click)="goToLogin()"
+              style="cursor: pointer"
+            >
+              Sign In
+            </a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>

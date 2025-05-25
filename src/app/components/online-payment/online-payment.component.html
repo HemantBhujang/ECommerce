@@ -1,0 +1,61 @@
+<div class="checkout-container">
+  <h1 class="checkout-header">Confirm Order</h1>
+
+  <div class="details-card" *ngFor="let product of products">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-4">
+          <img [src]="product.image" height="100" />
+        </div>
+        <div class="col-8">
+          <div class="title">
+            {{ product.name }}
+          </div>
+          <div class="phone-details">Price: ₹{{ product.price }}</div>
+          <div class="phone-details">Quantity: {{ product.quantity }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="details-card">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h6>Item total</h6>
+          <h6>Delivery Charge</h6>
+          <h6 class="mt-4 fw-bold">Total</h6>
+        </div>
+
+        <div class="col text-end">
+          <h6>{{ getItemTotal }}</h6>
+          <h6>₹{{ getDeliveryTotal }}</h6>
+          <h6 class="mt-4 fw-bold">₹{{ orderTotal }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="details-card">
+    <h2>Order Details</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col my-3">
+          <h6 class="my-2">Payment Method :</h6>
+          <h6 class="my-2">Estimated Arrival :</h6>
+        </div>
+        <div class="col text-end my-3">
+          <h6 class="my-2">Online Payment</h6>
+          <h6 class="my-2">{{ arrivalDate }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="details-card">
+    <h2>Delivery Address</h2>
+    <span>{{ address }}</span>
+  </div>
+
+  <button class="continue-btn" (click)="payNow()">Pay Now</button>
+</div>

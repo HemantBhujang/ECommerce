@@ -1,0 +1,107 @@
+:root {
+  --primary-color: #212529;
+  --accent-color: #ff4d4d;
+  --bg-light: #f8f9fa;
+  --text-color: #212529;
+  --border-radius: 8px;
+  --transition-speed: 0.3s;
+  --navbar-height: 70px; /* Define navbar height for spacing */
+}
+/* Hero Banner */
+.hero-banner {
+  height: 160px;
+  background-image: url('https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  margin-top: 70px; /* Add space below navbar */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.banner-text {
+  width: 90%;
+  z-index: 2;
+}
+
+/* Category Pills */
+.category-pills .btn {
+  font-weight: 500;
+  transition: all var(--transition-speed);
+}
+
+.category-pills .btn:hover, 
+.category-pills .btn.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Filter Sidebar */
+.filters-sidebar {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.filter-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.price-range-container {
+  padding: 10px 0;
+}
+
+.price-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Color swatches */
+.color-options {
+  margin-top: 10px;
+}
+
+.color-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid #dee2e6;
+}
+
+.color-swatch.selected {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--primary-color);
+}
+/* Optional: Update accent color to match the new pink theme */
+:root {
+  --accent-color: #ff7eb3;
+}
+
+/* Update new-price color to match the theme */
+.new-price {
+  color: #ff7eb3;
+}
+
+/* Update the btn-cart hover effect */
+.btn-cart:hover {
+  background-color: #ff7eb3;
+}
+
+/* Update the section title underline */
+.title-container::after {
+  background-color: #ff7eb3;
+}

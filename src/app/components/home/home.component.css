@@ -1,0 +1,326 @@
+/* Base Styles */
+.categories-section {
+  max-height: initial;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 5px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.category-card {
+  min-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-name {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.dropdown-icon {
+  width: 12px;
+  height: 12px;
+  opacity: 0.7;
+  margin-left: 3px;
+  transition: transform 0.3s ease;
+}
+
+.category-flyout {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 300px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 20;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.category-flyout ul li a {
+  color: #212529;
+  text-decoration: none;
+  font-size: 0.85rem;
+  display: block;
+  padding: 3px 0;
+  transition: all 0.2s ease;
+}
+
+.category-flyout ul li a:hover {
+  color: #0d6efd;
+  transform: translateX(3px);
+}
+
+/* Desktop Behavior */
+@media (min-width: 768px) {
+  .category-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  /* Active state for desktop */
+  .category-card.active {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .category-card.active .dropdown-icon {
+    transform: rotate(180deg);
+  }
+  
+  .category-card.active .category-flyout {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+  }
+  
+  /* Fix for wider dropdown on desktop */
+  .category-card .category-flyout {
+    width: 600px; /* Wider for desktop to fit all subcategories */
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: none; /* Remove max-height restriction on desktop */
+  }
+  
+  /* Ensure we don't overflow viewport */
+  .category-card:nth-child(1) .category-flyout,
+  .category-card:nth-child(2) .category-flyout {
+    left: 0;
+    transform: none;
+  }
+  
+  .category-card:nth-last-child(1) .category-flyout,
+  .category-card:nth-last-child(2) .category-flyout {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+  
+  /* Ensure flyout is visible and properly laid out on desktop */
+  .category-flyout .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .category-flyout .col-12.col-md-4 {
+    width: 33.3333%;
+    padding: 0 10px;
+  }
+}
+
+/* Mobile Touch Behavior */
+@media (max-width: 767px) {
+  .categories-section .container {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  
+  .categories-section .row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    padding-bottom: 10px; /* Add padding for the scrolling area */
+    margin-right: 0;
+    margin-left: 0;
+  }
+  
+  /* Hide scrollbar for Chrome/Safari */
+  .categories-section .row::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .categories-section .col-4 {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+    padding: 0 5px;
+  }
+  
+  .category-name {
+    font-size: 0.8rem;
+  }
+  
+  /* For active states on mobile */
+  .category-card.active {
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .category-card.active .dropdown-icon {
+    transform: rotate(180deg);
+  }
+  
+  .category-card.active .category-flyout {
+    opacity: 1;
+    visibility: visible;
+    position: fixed;
+    top: auto; /* Will be set dynamically by JavaScript */
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: 70vh; /* Limit height on mobile */
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  
+  /* Show all subcategories in a single column on mobile */
+  .category-flyout .row {
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  
+  .category-flyout .row .col-12,
+  .category-flyout .row .col-md-4 {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+    padding: 0;
+  }
+}
+
+/* Deal of the Day */
+.deal-wrapper {
+  background: linear-gradient(to right, #f988b7, #ff758c);
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown {
+  gap: 10px;
+}
+
+.countdown-item {
+  background-color: #212529;
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px 12px;
+  text-align: center;
+  min-width: 60px;
+}
+
+.countdown-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: block;
+}
+
+.countdown-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+/* Utility classes */
+.section-title {
+  position: relative;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .hero-banner {
+    height: 300px;
+  }
+  
+  .product-image {
+    height: 150px;
+  }
+  
+  .collection-card {
+    height: 200px;
+  }
+}
+
+.carousel-item {
+  height: 400px;
+}
+
+.carousel-item img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.carousel-control-prev, .carousel-control-next {
+  width: 5%;
+}
+
+.carousel-indicators {
+  bottom: 0;
+}
+.sale-announcement-wrapper {
+  background-color: #f8f1f7;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  height: 40px;
+}
+
+.sale-slider {
+  white-space: nowrap;
+  display: inline-block;
+  animation: slide 20s linear infinite;
+}
+.sale-slider:nth-child(2) {
+  left: 100%;
+  animation: slide2 20s linear infinite;
+}
+.sale-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.sale-item .diamond {
+  font-size: 18px;
+  color: #d670a0;
+  margin: 0 10px;
+}
+
+.sale-text {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  letter-spacing: 0.5px;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Optional hover pause */
+.sale-announcement-wrapper:hover .sale-slider {
+  animation-play-state: paused;
+}
