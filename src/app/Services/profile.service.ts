@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ProfileService {
-  private baseUrl = 'http://localhost:5000/api/user';
+  private baseUrl = 'https://shop-backend-eyqo.onrender.com/api/user';
 
   constructor(private http: HttpClient) {}
 

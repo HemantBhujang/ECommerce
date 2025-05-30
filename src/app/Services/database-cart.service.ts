@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DatabaseCartService {
-  private apiUrl = 'http://localhost:5000/api/cart';
+  private apiUrl = 'https://shop-backend-eyqo.onrender.com/api/cart';
   
   // Subject to notify components when cart is updated
   private cartUpdatedSubject = new Subject<void>();

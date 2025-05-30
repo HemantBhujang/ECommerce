@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminServiceService {
 
-  private apiUrl = 'http://localhost:5000/api/admin'; // Backend endpoint
+  private apiUrl = 'https://shop-backend-eyqo.onrender.com/api/admin'; // Backend endpoint
 
   constructor(private http: HttpClient, private router: Router) {}
 

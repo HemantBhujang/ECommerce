@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class OrderService {
-  private apiUrl = 'http://localhost:5000/api/orders';  // For normal orders
+  private apiUrl = 'https://shop-backend-eyqo.onrender.com/api/orders';  // For normal orders
   //private orderCreate = 'http://localhost:5000/api/orders/create';  // For normal orders
-  private orderUrl = 'http://localhost:5000/api/onlinepay/create-order'; // For Razorpay
-  private codUrl=' http://localhost:5000/api/pay/cod';
+  private orderUrl = 'https://shop-backend-eyqo.onrender.com/api/onlinepay/create-order'; // For Razorpay
+  private codUrl=' https://shop-backend-eyqo.onrender.com/api/pay/cod';
  // private userOrderUrl ='http://localhost:5000/api/orders/myorders'
 
   constructor(private http: HttpClient) {}

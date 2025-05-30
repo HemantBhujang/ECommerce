@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class CheckoutService {
 
-  private baseUrl = 'http://localhost:5000/api/checkout';
+  private baseUrl = 'https://shop-backend-eyqo.onrender.com/api/checkout';
   
     constructor(private http: HttpClient) {}
   

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AdminOrderService {
-  private url = 'http://localhost:5000/api/orders/admin/orders';
+  private url = 'https://shop-backend-eyqo.onrender.com/api/orders/admin/orders';
   
   constructor(private http: HttpClient) {}
   

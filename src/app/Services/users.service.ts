@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UsersService {
-  private url = 'http://localhost:5000/api/users/admin/users';
+  private url = 'https://shop-backend-eyqo.onrender.com/api/users/admin/users';
 
  constructor(private http: HttpClient) {}
 

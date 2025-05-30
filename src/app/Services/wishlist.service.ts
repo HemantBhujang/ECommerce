@@ -9,7 +9,7 @@ import { LoginService } from './login.service';
   providedIn: 'root'
 })
 export class WishlistService {
-  private apiUrl = 'http://localhost:5000/api/wishlist';
+  private apiUrl = 'https://shop-backend-eyqo.onrender.com/api/wishlist';
   private wishlistItemsSubject = new BehaviorSubject<any[]>([]);
   wishlistItems$ = this.wishlistItemsSubject.asObservable();
 

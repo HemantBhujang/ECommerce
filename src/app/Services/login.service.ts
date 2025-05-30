@@ -7,9 +7,9 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LoginService {
-  private url = "http://localhost:5000/api/auth/register";
-  private loginurl = "http://localhost:5000/api/auth/login";
-  private logoutUrl = "http://localhost:5000/api/auth/logout";
+  private url = "https://shop-backend-eyqo.onrender.com/api/auth/register";
+  private loginurl = "https://shop-backend-eyqo.onrender.com/api/auth/login";
+  private logoutUrl = "https://shop-backend-eyqo.onrender.com/api/auth/logout";
   
   // New Subject for auth state changes
   public authStateChanged = new Subject<boolean>();
