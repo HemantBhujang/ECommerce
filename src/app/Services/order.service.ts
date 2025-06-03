@@ -55,7 +55,7 @@ export class OrderService {
     };
   
    
-    return this.http.post<any>('http://localhost:5000/api/onlinepay/verify-payment', payload, { headers });
+    return this.http.post<any>('https://shop-backend-eyqo.onrender.com/api/onlinepay/verify-payment', payload, { headers });
   }
   
 
@@ -84,7 +84,7 @@ export class OrderService {
   
 
   getRazorpayKey(): Observable<{ key: string }> {
-    return this.http.get<{ key: string }>('http://localhost:5000/api/onlinepay/razorpay-key');
+    return this.http.get<{ key: string }>('https://shop-backend-eyqo.onrender.com/api/onlinepay/razorpay-key');
   }
   
 }
